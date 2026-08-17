@@ -2463,7 +2463,9 @@ document.addEventListener("DOMContentLoaded", function () {
    der Bildrahmen, die Schrittnummer und das Wischen mit dem Finger. */
 .section_leistung-slider .leistung-slider_track{cursor:grab;touch-action:pan-y}
 .section_leistung-slider .leistung-slider_track.ist-gefasst{cursor:grabbing;transition:none}
-.leistung-slider_image-wrapper{border-radius:22px;overflow:hidden;background:#EDF0F4;aspect-ratio:4/3}
+/* display:block statt des geerbten Flex-Mittigsetzens — sonst schrumpft das
+   Foto auf seine Eigengroesse und laesst graue Raender im Rahmen stehen. */
+.leistung-slider_image-wrapper{display:block;padding:0;border-radius:22px;overflow:hidden;background:#EDF0F4;aspect-ratio:4/3}
 .leistung-slider_img{object-fit:cover;object-position:50% 34%;width:100%;height:100%}
 .schritt-nr{display:inline-flex;align-items:center;justify-content:center;
   width:26px;height:26px;border-radius:999px;background:#0068C9;color:#fff;
