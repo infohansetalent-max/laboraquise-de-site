@@ -59,8 +59,9 @@
   .punkte b { color: #050505; font-weight: 600; }
   .buchung { margin: 34px 0 14px; border: 1px solid #ececec; border-radius: 18px;
              overflow: hidden; box-shadow: 0 1px 3px rgba(5,5,5,.05); background: #fff; }
-  .calendly-inline-widget { min-width: 280px; width: 100%; height: 1180px; }
-  @media (min-width: 760px) { .calendly-inline-widget { height: 720px; } }
+  .buchung { max-width: 780px; margin-left: auto; margin-right: auto; }
+  .calendly-inline-widget { min-width: 280px; width: 100%; height: 1400px; }
+  @media (min-width: 760px) { .calendly-inline-widget { height: 820px; } }
   .ersatz { font-size: .9rem; color: #8a8a8a; }
 </style>
 </head>
@@ -104,6 +105,43 @@
   <a href="../datenschutz/index.html">Datenschutz</a>
   <a href="../agb/index.html">AGB</a>
 </div>
+<script>
+(function () {
+  var el = document.querySelector(".calendly-inline-widget");
+  if (!el || !window.URL || !window.URLSearchParams) return;
+  var erlaubt = ["name", "email", "a1", "a2", "a3",
+                 "utm_source", "utm_medium", "utm_campaign",
+                 "utm_content", "utm_term"];
+  var rein = new URLSearchParams(window.location.search);
+  var basis = el.getAttribute("data-url");
+  var teile = [];
+  erlaubt.forEach(function (schluessel) {
+    var wert = rein.get(schluessel);
+    if (wert) teile.push(encodeURIComponent(schluessel) + "=" + encodeURIComponent(wert));
+  });
+  // Von Hand zusammengesetzt statt ueber URLSearchParams: Dessen
+  // toString() macht aus einem Leerzeichen ein Pluszeichen, und Calendly
+  // schreibt dann "Thomas+Mueller" ins Namensfeld. Gemessen am
+  // 25.08.2026. encodeURIComponent liefert %20, das kommt richtig an.
+  if (teile.length) {
+    el.setAttribute("data-url", basis + (basis.indexOf("?") === -1 ? "?" : "&") + teile.join("&"));
+  }
+})();
+</script>
+<script>
+window.addEventListener("message", function (e) {
+  if (!e.origin || e.origin.indexOf("calendly.com") === -1) return;
+  var d = e.data;
+  if (!d || d.event !== "calendly.page_height" || !d.payload) return;
+  // Calendly meldet direkt nach dem Laden einmal "2px". Ungeprueft
+  // uebernommen klappt der Kalender damit auf zwei Pixel zusammen --
+  // gemessen am 25.08.2026. Alles unter 500px ist deshalb Rauschen.
+  var gemeldet = parseInt(d.payload.height, 10);
+  if (!gemeldet || gemeldet < 500) return;
+  var el = document.querySelector(".calendly-inline-widget");
+  if (el) el.style.height = gemeldet + "px";
+});
+</script>
 <script src="https://assets.calendly.com/assets/external/widget.js" async></script>
 </body>
 </html>
