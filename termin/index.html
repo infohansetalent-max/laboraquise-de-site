@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Datenschutzerkl&auml;rung | Laboraquise.de</title>
+<title>Termin aussuchen | Laboraquise.de</title>
 <link rel="icon" type="image/png" href="../assets/69ce12160e49568ac435ef6a/laboraquise-icon-48-v2.png" sizes="48x48"/>
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -49,150 +49,61 @@
 .kopf .marke__zeichen{width:1.34em;height:1.34em;flex:none}
 .kopf .marke__wort{font-family:"General Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;font-weight:500;letter-spacing:-.022em;color:#061421}
 .kopf .marke__akzent,.kopf .marke__tld{color:#0068C9}
+
+  main.termin { max-width: 860px; }
+  .lead { font-size: 1.06rem; color: #050505; margin-bottom: 26px; }
+  .punkte { list-style: none; margin: 0 0 26px; padding: 0; }
+  .punkte li { margin-bottom: 13px; color: #3d3d3d; padding-left: 22px; position: relative; }
+  .punkte li::before { content: ""; position: absolute; left: 0; top: .62em;
+                       width: 8px; height: 8px; border-radius: 50%; background: #0068C9; }
+  .punkte b { color: #050505; font-weight: 600; }
+  .buchung { margin: 34px 0 14px; border: 1px solid #ececec; border-radius: 18px;
+             overflow: hidden; box-shadow: 0 1px 3px rgba(5,5,5,.05); background: #fff; }
+  .calendly-inline-widget { min-width: 280px; width: 100%; height: 1180px; }
+  @media (min-width: 760px) { .calendly-inline-widget { height: 720px; } }
+  .ersatz { font-size: .9rem; color: #8a8a8a; }
 </style>
 </head>
 <body>
 <div class="kopf"><a href="../index.html"><span class="marke"><svg class="marke__zeichen" viewBox="0 0 100 100" aria-hidden="true"><path fill-rule="evenodd" fill="#0068C9" d="M27.14 30.10 L27.65 30.10 L27.74 30.25 L28.00 30.27 L29.80 32.15 L30.07 32.18 L30.60 32.79 L30.87 32.82 L31.08 33.11 L31.34 33.14 L32.04 33.75 L32.29 33.77 L32.36 33.91 L32.61 33.92 L32.68 34.07 L32.92 34.08 L33.00 34.23 L33.24 34.24 L33.32 34.39 L33.56 34.40 L33.64 34.55 L33.88 34.56 L33.95 34.71 L34.20 34.72 L35.55 35.50 L35.95 35.52 L36.66 35.98 L37.54 36.15 L37.94 36.46 L38.34 36.47 L38.41 36.62 L39.13 36.79 L39.53 37.09 L40.89 37.43 L41.28 37.73 L41.68 37.75 L42.08 38.05 L42.46 38.06 L42.87 38.37 L43.59 38.54 L43.67 38.69 L44.07 38.70 L44.78 39.16 L45.19 39.18 L45.90 39.64 L46.30 39.66 L46.37 39.80 L46.62 39.82 L46.69 39.96 L46.94 39.98 L47.01 40.12 L47.26 40.13 L47.33 40.28 L47.57 40.29 L47.65 40.44 L47.89 40.45 L47.97 40.60 L48.21 40.61 L48.29 40.76 L48.53 40.77 L48.60 40.92 L50.76 41.89 L50.99 42.19 L51.57 42.37 L51.78 42.66 L52.03 42.68 L52.73 43.30 L53.00 43.33 L53.21 43.62 L53.48 43.65 L53.69 43.93 L53.96 43.96 L54.96 44.89 L55.23 44.92 L57.47 47.16 L57.50 47.43 L57.95 47.80 L57.98 48.06 L58.59 48.76 L58.61 49.01 L58.75 49.08 L58.77 49.33 L58.91 49.40 L58.92 49.64 L59.07 49.72 L59.08 49.96 L59.87 51.31 L60.03 52.34 L60.18 52.43 L60.19 52.81 L60.35 52.92 L60.35 53.61 L60.51 53.73 L60.51 54.88 L60.67 55.01 L60.67 57.26 L60.51 57.39 L60.51 58.69 L60.35 58.81 L60.34 59.36 L60.19 59.45 L60.18 59.99 L60.03 60.08 L60.03 60.62 L59.88 60.71 L59.71 61.59 L59.40 61.98 L59.39 62.38 L59.24 62.46 L58.58 63.99 L58.30 64.20 L58.27 64.45 L57.66 65.15 L57.63 65.42 L57.34 65.63 L57.31 65.90 L55.64 67.68 L55.57 63.92 L55.41 63.78 L55.41 62.63 L55.26 62.53 L55.09 61.36 L54.94 61.27 L54.93 60.88 L54.78 60.79 L54.45 59.43 L54.15 59.04 L54.13 58.64 L53.99 58.56 L53.34 57.04 L53.04 56.82 L52.85 56.24 L52.40 55.87 L52.37 55.60 L52.08 55.39 L52.06 55.12 L51.45 54.59 L51.42 54.32 L49.98 52.88 L49.71 52.85 L49.02 52.08 L48.75 52.06 L48.38 51.61 L48.11 51.58 L47.75 51.13 L47.48 51.10 L46.79 50.49 L46.22 50.31 L45.99 50.01 L44.78 49.51 L44.71 49.37 L44.46 49.36 L43.91 48.89 L43.51 48.88 L42.16 48.10 L41.28 47.92 L40.89 47.62 L40.50 47.61 L40.41 47.46 L40.02 47.45 L39.93 47.30 L39.54 47.29 L39.45 47.14 L39.06 47.13 L38.98 46.98 L38.59 46.97 L38.48 46.82 L37.15 46.65 L37.05 46.50 L36.20 46.49 L36.08 46.34 L34.46 46.34 L34.34 46.49 L33.80 46.50 L33.72 46.65 L33.15 46.83 L32.50 47.48 L32.47 47.75 L32.17 47.97 L32.00 48.85 L31.85 48.94 L31.85 50.09 L31.70 50.20 L31.69 50.41 L31.84 50.53 L31.85 52.00 L32.00 52.12 L32.01 52.67 L32.16 52.76 L32.17 53.29 L32.32 53.38 L32.49 54.26 L32.95 54.97 L32.97 55.38 L33.11 55.45 L33.92 57.29 L34.23 57.52 L34.57 58.41 L34.86 58.62 L34.88 58.88 L35.18 59.10 L35.21 59.37 L35.65 59.74 L35.68 59.99 L35.97 60.22 L36.00 60.48 L37.41 61.97 L37.44 62.24 L38.68 63.40 L38.71 63.67 L42.86 67.82 L43.13 67.85 L47.12 72.00 L47.15 72.27 L48.07 73.27 L48.89 75.12 L49.04 75.20 L49.21 76.22 L49.36 76.33 L49.37 77.02 L49.52 77.14 L49.47 86.62 L47.75 84.89 L47.48 84.86 L45.04 82.34 L44.77 82.31 L43.29 80.75 L43.02 80.72 L41.85 79.47 L41.59 79.44 L40.42 78.20 L40.15 78.17 L38.67 76.61 L38.40 76.58 L37.24 75.33 L36.97 75.30 L35.80 74.06 L35.53 74.03 L33.89 72.31 L33.62 72.28 L27.40 66.06 L27.37 65.79 L25.49 63.83 L25.46 63.56 L24.86 63.03 L24.83 62.76 L24.22 62.24 L24.20 61.98 L23.90 61.76 L23.87 61.49 L22.94 60.48 L22.92 60.22 L22.63 60.01 L22.60 59.74 L21.98 59.04 L21.64 58.15 L21.35 57.92 L21.33 57.68 L21.19 57.61 L21.17 57.36 L20.39 56.01 L20.37 55.61 L19.91 54.90 L19.90 54.51 L19.75 54.42 L19.74 54.03 L19.59 53.94 L19.58 53.56 L19.43 53.47 L19.42 53.08 L19.27 52.97 L19.27 52.44 L19.11 52.34 L18.95 51.17 L18.79 51.06 L18.63 48.96 L18.47 48.82 L18.47 46.25 L18.63 46.11 L18.63 44.34 L18.79 44.22 L18.79 43.21 L18.95 43.10 L18.95 42.41 L19.11 42.30 L19.11 41.77 L19.27 41.67 L19.43 40.50 L19.58 40.41 L19.91 39.05 L20.22 38.66 L20.23 38.25 L20.37 38.18 L21.19 36.34 L21.80 35.64 L21.82 35.39 L22.28 34.85 L22.31 34.58 L22.76 34.21 L22.79 33.94 L23.55 33.26 L23.58 32.99 L25.02 31.54 L25.29 31.51 L25.98 30.75 L26.56 30.57 L27.12 30.10 ZM33.35 12.42 L35.44 12.42 L35.56 12.58 L36.89 12.74 L36.98 12.89 L37.70 13.06 L37.78 13.21 L38.18 13.22 L38.40 13.52 L38.66 13.54 L38.73 13.69 L39.31 13.87 L39.53 14.16 L39.78 14.19 L41.70 16.11 L41.73 16.38 L42.02 16.59 L42.68 18.12 L42.83 18.19 L42.84 18.58 L42.99 18.67 L43.00 19.06 L43.15 19.16 L43.16 19.69 L43.31 19.80 L43.31 23.04 L43.16 23.14 L43.15 23.67 L43.00 23.78 L42.83 24.80 L42.68 24.88 L42.18 26.09 L41.89 26.31 L41.86 26.57 L40.10 28.49 L39.83 28.52 L38.99 29.28 L38.09 29.63 L38.02 29.77 L37.62 29.78 L37.22 30.09 L36.04 30.26 L35.94 30.41 L34.78 30.41 L34.64 30.57 L34.13 30.57 L34.01 30.41 L32.70 30.41 L32.59 30.26 L32.06 30.25 L31.97 30.10 L31.42 30.09 L31.01 29.78 L30.61 29.77 L30.54 29.63 L29.64 29.28 L29.42 28.99 L29.17 28.97 L28.80 28.52 L28.53 28.49 L27.40 27.36 L27.37 27.09 L26.77 26.57 L25.95 24.72 L25.80 24.64 L25.63 23.62 L25.48 23.51 L25.48 22.82 L25.32 22.72 L25.32 20.45 L25.48 20.33 L25.48 19.48 L25.63 19.39 L25.64 19.00 L25.79 18.90 L25.80 18.35 L25.95 18.27 L26.77 16.43 L27.22 16.05 L27.24 15.79 L28.53 14.51 L28.80 14.48 L29.66 13.70 L29.90 13.69 L31.25 12.91 L32.27 12.74 L32.38 12.58 L33.23 12.58 L33.33 12.42 Z"/><path fill-rule="evenodd" fill="#061421" d="M72.04 30.25 L72.88 30.26 L72.97 30.41 L73.38 30.43 L73.60 30.73 L73.86 30.75 L76.58 33.31 L76.61 33.57 L77.37 34.26 L77.40 34.53 L77.69 34.74 L77.72 35.01 L78.01 35.22 L78.04 35.48 L78.65 36.17 L79.47 38.02 L79.61 38.09 L79.63 38.50 L79.93 38.89 L79.94 39.28 L80.09 39.37 L80.10 39.76 L80.25 39.85 L80.26 40.23 L80.41 40.32 L80.42 40.71 L80.57 40.82 L80.58 41.35 L80.73 41.45 L80.73 42.15 L80.88 42.23 L80.89 42.94 L81.05 43.06 L81.05 43.90 L81.21 44.02 L81.21 45.49 L81.37 45.61 L81.37 49.29 L81.21 49.42 L81.21 50.43 L81.05 50.53 L80.89 51.86 L80.73 51.96 L80.73 52.50 L80.58 52.60 L80.57 53.13 L80.42 53.22 L80.25 54.10 L79.94 54.50 L79.93 54.90 L79.47 55.61 L79.45 56.01 L79.31 56.09 L78.65 57.61 L78.35 57.84 L78.34 58.08 L78.19 58.16 L78.01 58.73 L77.71 58.95 L77.53 59.53 L77.24 59.74 L77.22 59.99 L76.61 60.69 L76.58 60.96 L76.13 61.33 L76.10 61.60 L75.01 62.76 L74.99 63.03 L74.22 63.72 L74.19 63.99 L73.42 64.67 L73.39 64.94 L72.31 65.95 L72.28 66.22 L69.76 68.66 L69.73 68.92 L69.40 69.25 L69.13 69.28 L65.58 72.92 L65.31 72.94 L63.83 74.51 L63.56 74.54 L62.55 75.62 L62.29 75.65 L60.64 77.37 L60.38 77.40 L59.37 78.49 L59.10 78.52 L57.62 80.08 L57.35 80.11 L56.19 81.35 L55.92 81.38 L50.58 86.62 L50.48 86.55 L50.48 77.62 L50.63 77.50 L50.64 76.66 L50.79 76.54 L50.80 76.01 L50.95 75.92 L50.96 75.53 L51.11 75.44 L51.12 75.05 L51.27 74.96 L51.28 74.57 L51.58 74.17 L51.60 73.92 L51.90 73.70 L52.08 73.11 L52.53 72.75 L52.56 72.48 L53.65 71.47 L53.68 71.20 L61.77 63.19 L61.80 62.92 L62.72 62.08 L62.75 61.81 L63.52 61.12 L63.55 60.85 L64.48 59.85 L64.51 59.58 L64.79 59.37 L64.82 59.10 L65.44 58.40 L65.62 57.83 L65.92 57.61 L65.93 57.36 L66.08 57.29 L66.09 57.04 L66.23 56.97 L66.25 56.73 L66.39 56.65 L66.41 56.41 L67.19 55.06 L67.20 54.66 L67.51 54.26 L67.52 53.87 L67.67 53.78 L67.68 53.40 L67.83 53.29 L67.84 52.76 L67.99 52.64 L68.00 51.80 L68.15 51.68 L68.15 49.11 L68.00 48.99 L67.99 48.46 L67.68 48.05 L67.66 47.80 L67.36 47.57 L67.34 47.32 L66.85 46.83 L66.60 46.81 L66.19 46.50 L65.64 46.49 L65.55 46.34 L64.22 46.34 L64.12 46.49 L63.59 46.50 L63.48 46.65 L62.95 46.66 L62.86 46.81 L61.98 46.98 L61.59 47.29 L61.18 47.30 L61.11 47.44 L60.87 47.46 L60.07 47.92 L59.73 47.59 L59.70 47.32 L58.77 46.47 L58.74 46.20 L56.82 44.28 L56.55 44.25 L56.19 43.80 L55.92 43.77 L55.55 43.33 L55.28 43.30 L55.07 43.01 L54.80 42.98 L54.12 42.37 L53.86 42.35 L53.31 41.89 L52.41 41.55 L51.76 40.96 L52.03 40.92 L52.25 40.62 L53.78 39.96 L53.86 39.82 L54.10 39.80 L54.18 39.66 L54.58 39.64 L54.66 39.50 L55.85 39.01 L55.93 38.86 L56.33 38.85 L56.41 38.70 L56.65 38.69 L57.06 38.38 L57.45 38.37 L58.16 37.91 L58.56 37.89 L58.95 37.59 L59.36 37.57 L59.43 37.43 L60.15 37.25 L60.55 36.95 L61.43 36.78 L61.82 36.47 L62.21 36.46 L62.62 36.15 L63.34 35.98 L63.41 35.84 L63.82 35.82 L64.53 35.36 L64.93 35.34 L65.01 35.20 L65.25 35.18 L65.32 35.04 L65.57 35.02 L65.64 34.88 L67.80 33.91 L68.50 33.30 L68.76 33.27 L68.97 32.98 L69.24 32.95 L69.61 32.50 L69.88 32.47 L72.03 30.26 ZM65.20 12.42 L65.41 12.43 L65.52 12.58 L67.29 12.58 L67.41 12.74 L67.94 12.74 L68.03 12.89 L68.91 13.06 L69.30 13.37 L69.71 13.38 L70.41 14.00 L70.68 14.03 L70.88 14.32 L71.15 14.35 L72.76 15.95 L72.78 16.20 L73.07 16.43 L73.26 17.01 L73.56 17.23 L73.57 17.48 L73.88 17.89 L73.89 18.27 L74.04 18.36 L74.05 18.75 L74.20 18.84 L74.21 19.23 L74.36 19.32 L74.37 19.87 L74.52 19.97 L74.52 22.86 L74.37 22.98 L74.36 23.67 L74.21 23.76 L74.20 24.31 L73.89 24.72 L73.88 25.12 L73.73 25.20 L73.55 25.77 L73.26 25.99 L73.07 26.57 L70.99 28.81 L70.74 28.83 L70.04 29.44 L68.83 29.94 L68.75 30.09 L68.36 30.10 L68.27 30.25 L67.89 30.26 L67.78 30.41 L67.25 30.42 L67.15 30.57 L66.15 30.57 L66.01 30.73 L63.59 30.57 L63.50 30.42 L62.95 30.41 L62.54 30.10 L61.66 29.93 L61.12 29.47 L60.87 29.45 L60.33 29.00 L60.06 28.97 L57.97 26.71 L57.95 26.47 L57.81 26.40 L57.80 26.15 L57.01 24.80 L56.84 23.78 L56.69 23.67 L56.69 22.82 L56.53 22.70 L56.53 20.93 L56.69 20.81 L56.69 19.81 L56.84 19.69 L56.85 19.16 L57.00 19.07 L57.17 18.19 L57.32 18.12 L57.82 16.90 L58.43 16.20 L58.45 15.95 L60.06 14.35 L60.33 14.32 L61.02 13.70 L61.27 13.69 L61.98 13.22 L62.38 13.21 L62.79 12.90 L63.32 12.90 L63.41 12.75 L63.96 12.74 L64.08 12.58 L65.08 12.58 L65.18 12.42 Z"/></svg><span class="marke__wort">labor<span class="marke__akzent">aquise</span><span class="marke__tld">.de</span></span></span></a></div>
-<main><h1>Datenschutzerkl&auml;rung</h1>
-      <h2>1. Verantwortlicher</h2>
-      <p>Hansetalent, Inhaber Ben Carstens, Eppendorfer Weg 168, 20253 Hamburg,
-         Deutschland. E-Mail <a href="mailto:info@hansetalent.de">info@hansetalent.de</a>,
-         Telefon <a href="tel:+4915228575639">+49 152 28575639</a>.
-         Laboraquise.de ist eine Gesch&auml;ftsbezeichnung dieses Unternehmens.</p>
-      <p>Ein Datenschutzbeauftragter ist nicht bestellt; die gesetzlichen
-         Voraussetzungen des &sect; 38 BDSG liegen nicht vor.</p>
+<main class="termin">
+  <h1>Termin aussuchen</h1>
+  <p class="lead">30&nbsp;Minuten, in denen wir uns Ihr Labor ansehen: welche Praxen
+     in Ihrem Umkreis zu Ihnen passen, warum sie heute woanders abgeben &mdash; und
+     wie eine Anfrage bei Ihnen ankommt, ohne dass jemand kalt telefonieren muss.</p>
 
-      <h2>2. Aufruf dieser Website</h2>
-      <p>Diese Website wird bei der GitHub, Inc., 88 Colin P. Kelly Jr. Street,
-         San Francisco, CA 94107, USA (GitHub Pages, Konzern Microsoft)
-         gehostet. Beim Aufruf einer Seite verarbeitet GitHub technisch
-         notwendige Zugriffsdaten, insbesondere Ihre IP-Adresse, Datum und
-         Uhrzeit, die abgerufene Adresse, den Verweis-Link sowie Angaben zu
-         Browser und Betriebssystem.</p>
-      <p><strong>Zweck und Rechtsgrundlage:</strong> Auslieferung und
-         Betriebssicherheit der Website; berechtigtes Interesse nach
-         Art. 6 Abs. 1 lit. f DSGVO. <strong>Drittlandsbezug:</strong> Eine
-         &Uuml;bermittlung in die USA ist m&ouml;glich. GitHub ist &uuml;ber
-         Microsoft unter dem EU-US Data Privacy Framework zertifiziert;
-         erg&auml;nzend gelten Standardvertragsklauseln.</p>
+  <h2>Was Sie im Termin bekommen</h2>
+  <ul class="punkte">
+    <li><b>Woher Ihre Abgabepraxen heute kommen.</b> Und warum die Praxen, die Sie
+        eigentlich wollen, noch woanders abgeben.</li>
+    <li><b>Einen Weg zu planbaren Anfragen.</b> Statt Empfehlung und Zufall ein
+        System, das dauerhaft l&auml;uft &mdash; auch in den Monaten, in denen genug
+        zu tun ist.</li>
+    <li><b>Zahlen statt Versprechen.</b> Was es kostet, wie viele Anfragen
+        realistisch sind und ab wann es sich rechnet.</li>
+  </ul>
 
-      <h2>3. Cookies</h2>
-      <p>Diese Website bindet keine Analyse-, Tracking- oder Werbedienste ein.
-         Es werden keine Daten an Werbe- oder Analysepartner weitergegeben.
-         Alle Schriften, Skripte und Bilder liegen auf demselben Server wie die
-         Seite; beim Aufruf entstehen keine Verbindungen zu fremden Anbietern.</p>
-      <table>
-        <tr><th>Cookie</th><th>Zweck</th><th>Dauer</th></tr>
-        <tr><td>fs-cc</td><td>Speichert Ihre Entscheidung im Cookie-Hinweis</td><td>bis zu 6 Monate</td></tr>
-        <tr><td>wf_intro_played</td><td>Merkt sich, dass Ihnen das Einblendfenster
-            bereits gezeigt wurde (nur am Rechner ab 992&nbsp;Pixel Breite)</td><td>14 Tage</td></tr>
-      </table>
-      <p>Das erste Cookie ist zur Erf&uuml;llung Ihrer Auswahl erforderlich
-         (&sect; 25 Abs. 2 Nr. 2 TDDDG). Das zweite dient dem Bedienkomfort und
-         l&auml;sst sich im Cookie-Hinweis unter &bdquo;Pr&auml;ferenzen&ldquo;
-         abschalten; die Seite funktioniert dann unver&auml;ndert.</p>
+  <h2>Warum jetzt &mdash; und nicht erst, wenn ein Gro&szlig;kunde abspringt</h2>
+  <p>Wer unter Druck sucht, nimmt, was &uuml;brig ist. Wunschpraxen gewinnen Sie nur,
+     solange Sie sie nicht dringend brauchen. Deshalb l&auml;uft das System dauerhaft
+     und nicht in Sch&uuml;ben.</p>
 
-      <h2>4. Kontaktformular</h2>
-      <p>&Uuml;ber das Formular &bdquo;Erstgespr&auml;ch vereinbaren&ldquo; erheben
-         wir: <strong>Name, E-Mail-Adresse, Telefonnummer, Name Ihres
-         Unternehmens</strong> sowie Ihre Einwilligung mit Zeitpunkt. Zus&auml;tzlich
-         speichern wir zum Nachweis der Einwilligung einen gesalzenen
-         Pr&uuml;fwert Ihrer IP-Adresse &mdash; nicht die IP-Adresse selbst.</p>
-      <p><strong>Zweck:</strong> Bearbeitung Ihrer Anfrage und Kontaktaufnahme.
-         <strong>Rechtsgrundlage:</strong> Art. 6 Abs. 1 lit. b DSGVO
-         (vorvertragliche Ma&szlig;nahmen) sowie Art. 6 Abs. 1 lit. a DSGVO
-         (Einwilligung), deren Nachweis nach Art. 7 Abs. 1 DSGVO wir
-         dokumentieren. Sie k&ouml;nnen die Einwilligung jederzeit mit Wirkung f&uuml;r
-         die Zukunft widerrufen.</p>
-      <p><strong>Speicherdauer:</strong> Wir l&ouml;schen die Angaben, sobald die
-         Anfrage abschlie&szlig;end bearbeitet ist und keine gesetzlichen
-         Aufbewahrungsfristen entgegenstehen. Kommt ein Vertrag zustande,
-         gelten die handels- und steuerrechtlichen Fristen von sechs
-         beziehungsweise zehn Jahren.</p>
-
-      <h3>Empf&auml;nger und Auftragsverarbeiter</h3>
-      <table>
-        <tr><th>Dienst</th><th>Anbieter</th><th>Wof&uuml;r</th><th>Ort</th></tr>
-        <tr><td>Cloudflare Workers</td>
-            <td>Cloudflare, Inc., 101 Townsend St., San Francisco, CA 94107, USA</td>
-            <td>Nimmt das abgeschickte Formular entgegen</td><td>USA / weltweit</td></tr>
-        <tr><td>Supabase</td>
-            <td>Supabase, Inc., 970 Toa Payoh North, Singapur</td>
-            <td>Datenbank, in der Ihre Anfrage gespeichert wird</td>
-            <td>Rechenzentrum Frankfurt am Main (AWS eu-central-1)</td></tr>
-        <tr><td>Resend</td>
-            <td>Resend, Inc., 2261 Market Street, San Francisco, CA 94114, USA</td>
-            <td>Versand Ihrer Eingangsbest&auml;tigung und unserer internen
-                Benachrichtigung</td><td>USA</td></tr>
-      </table>
-      <p>Mit allen genannten Anbietern bestehen Vertr&auml;ge zur
-         Auftragsverarbeitung nach Art. 28 DSGVO. Soweit Daten in die USA
-         gelangen, st&uuml;tzt sich die &Uuml;bermittlung auf das EU-US Data
-         Privacy Framework beziehungsweise auf Standardvertragsklauseln nach
-         Art. 46 Abs. 2 lit. c DSGVO.</p>
-      <p>Die Anfrage wird in unserem eigenen Kundenportal verwaltet. Zugriff
-         haben ausschlie&szlig;lich der Verantwortliche und von ihm beauftragte
-         Personen.</p>
-
-      <h2>5. Terminplaner (Calendly)</h2>
-      <p>Auf der Seite <a href="../termin/index.html">Termin aussuchen</a> ist der
-         Terminplaner Calendly eingebunden (Calendly LLC, Atlanta, Georgia, USA).
-         Nur auf dieser einen Seite wird der Kalender direkt von den Servern von
-         Calendly geladen. Dabei erh&auml;lt Calendly Ihre IP-Adresse und technische
-         Angaben zu Ihrem Browser und setzt eigene Cookies; daf&uuml;r zeigt
-         Calendly einen eigenen Hinweis im Kalenderfenster.</p>
-      <p>Buchen Sie einen Termin, verarbeitet Calendly die Angaben, die Sie im
-         Formular machen &mdash; Name, E-Mail-Adresse, gegebenenfalls Telefonnummer
-         und Ihre Antworten &mdash; sowie den gew&auml;hlten Zeitpunkt. Calendly
-         f&uuml;hrt damit die Buchung durch, tr&auml;gt sie in unseren Kalender ein
-         und erinnert Sie an den Termin. Wir nutzen diese Daten, um das
-         Gespr&auml;ch vorzubereiten und zu f&uuml;hren.</p>
-      <p>Rechtsgrundlage ist Art. 6 Abs. 1 lit. b DSGVO (Durchf&uuml;hrung
-         vorvertraglicher Ma&szlig;nahmen auf Ihre Anfrage). F&uuml;r das Laden des
-         Kalenders st&uuml;tzen wir uns auf Art. 6 Abs. 1 lit. f DSGVO, unser
-         berechtigtes Interesse an einer einfachen Terminvereinbarung. Die
-         &Uuml;bermittlung in die USA erfolgt auf Grundlage der
-         Standardvertragsklauseln der EU-Kommission.</p>
-      <p>Die Datenschutzerkl&auml;rung von Calendly finden Sie unter
-         <a href="https://calendly.com/de/privacy" target="_blank" rel="noopener">calendly.com/de/privacy</a>.</p>
-
-      <h2>6. Missbrauchsschutz</h2>
-      <p>Der Formular-Endpunkt begrenzt die Zahl der Einsendungen je
-         IP-Adresse und Stunde. Dazu wird die IP-Adresse ausschlie&szlig;lich als
-         gesalzener Pr&uuml;fwert gespeichert und nach kurzer Zeit gel&ouml;scht.
-         Rechtsgrundlage ist das berechtigte Interesse an der Abwehr
-         automatisierter Einsendungen, Art. 6 Abs. 1 lit. f DSGVO.</p>
-
-      <h2>7. Ihre Rechte</h2>
-      <ul>
-        <li>Auskunft &uuml;ber die zu Ihnen gespeicherten Daten (Art. 15 DSGVO)</li>
-        <li>Berichtigung unrichtiger Daten (Art. 16 DSGVO)</li>
-        <li>L&ouml;schung (Art. 17 DSGVO)</li>
-        <li>Einschr&auml;nkung der Verarbeitung (Art. 18 DSGVO)</li>
-        <li>Daten&uuml;bertragbarkeit (Art. 20 DSGVO)</li>
-        <li>Widerspruch gegen Verarbeitungen auf Grundlage berechtigter
-            Interessen (Art. 21 DSGVO)</li>
-        <li>Widerruf erteilter Einwilligungen mit Wirkung f&uuml;r die Zukunft
-            (Art. 7 Abs. 3 DSGVO)</li>
-      </ul>
-      <p>Wenden Sie sich daf&uuml;r formlos an
-         <a href="mailto:info@hansetalent.de">info@hansetalent.de</a>.</p>
-      <p>Sie haben zudem das Recht, sich bei einer Aufsichtsbeh&ouml;rde zu
-         beschweren. Zust&auml;ndig f&uuml;r uns ist: Der Hamburgische Beauftragte
-         f&uuml;r Datenschutz und Informationsfreiheit, Ludwig-Erhard-Str. 22,
-         20459 Hamburg.</p>
-
-      <h2>8. Keine automatisierte Entscheidungsfindung</h2>
-      <p>Eine automatisierte Entscheidungsfindung einschlie&szlig;lich Profiling
-         nach Art. 22 DSGVO findet nicht statt.</p>
-
-      <p class="stand">Stand: 25. August 2026</p>
-    </main>
+  <div class="hinweis">
+    <b>Falls sich bei Ihnen bis zum Termin etwas dreht: bitte nicht absagen.</b><br>
+    Wir k&uuml;mmern uns um beides &mdash; neue Praxen und neue Mitarbeiter. Sagen Sie
+    im Gespr&auml;ch einfach, was gerade dr&uuml;ckt, dann sprechen wir dar&uuml;ber.
+    Geht es bei Ihnen um Personal, finden Sie uns unter
+    <a href="https://www.lokalejobsuche.de/termin/">lokalejobsuche.de</a>.
+  </div>
+<div class="buchung"><div class="calendly-inline-widget" data-url="https://calendly.com/hansetalent/laboraquise-erstgesprach?hide_event_type_details=1&primary_color=0068c9"></div></div>
+<p class="ersatz">Der Kalender lädt nicht? <a href="https://calendly.com/hansetalent/laboraquise-erstgesprach?hide_event_type_details=1&primary_color=0068c9" target="_blank" rel="noopener">Termin in einem neuen Fenster aussuchen</a> — oder rufen Sie direkt an: <a href="tel:+4915228575639">+49&nbsp;152&nbsp;2857&nbsp;5639</a>.</p>
+</main>
 <div class="fuss">
   <a href="../index.html">Zur&uuml;ck zur Startseite</a>
   <a href="../impressum/index.html">Impressum</a>
   <a href="../datenschutz/index.html">Datenschutz</a>
   <a href="../agb/index.html">AGB</a>
 </div>
+<script src="https://assets.calendly.com/assets/external/widget.js" async></script>
 </body>
 </html>
