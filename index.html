@@ -3414,78 +3414,99 @@ window.addEventListener("blur", () => {
 -->
 
 
-<!-- anfrage-absenden -->
+<!-- eigenvertrieb-absenden -->
 <script>
 (function(){
   var formular = document.getElementById('wf-form-Erstgespraech');
   if (!formular) return;
-  var huelle  = formular.closest('.w-form') || formular.parentElement;
-  var fertig  = huelle.querySelector('.w-form-done');
-  var kaputt  = huelle.querySelector('.w-form-fail');
-  var knopf   = formular.querySelector('input[type="submit"]');
+  var knopf = formular.querySelector('input[type="submit"]');
   var wartetext = knopf ? (knopf.getAttribute('data-wait') || 'Wird gesendet …') : '';
   var knopftext = knopf ? knopf.value : '';
+  var endpoint = 'https://portal.lokalejobsuche.de/api/eigenvertrieb/submit';
+  var idempotenzSchluessel;
+  var ueberschrift = formular.closest('.modal_1_content').querySelector('h2');
+  formular.setAttribute('action', endpoint);
+  if (ueberschrift) ueberschrift.innerHTML = '<span class="text-color-primary">15 Minuten</span> Passungscheck vereinbaren';
 
-  function zeige(el, an){ if (el) el.style.display = an ? 'block' : 'none'; }
   function meldung(text){
     var alt = formular.querySelector('.anfrage-fehler');
     if (alt) alt.remove();
     if (!text) return;
     var p = document.createElement('div');
     p.className = 'anfrage-fehler';
-    p.setAttribute('role','alert');
+    p.setAttribute('role', 'alert');
     p.textContent = text;
     formular.appendChild(p);
   }
+
+  function neueUuid(){
+    if (window.crypto && window.crypto.randomUUID) return window.crypto.randomUUID();
+    var a = new Uint8Array(16);
+    window.crypto.getRandomValues(a);
+    a[6] = (a[6] & 15) | 64;
+    a[8] = (a[8] & 63) | 128;
+    return Array.prototype.map.call(a, function(b, i){
+      var h = b.toString(16).padStart(2, '0');
+      return [4, 6, 8, 10].indexOf(i + 1) !== -1 ? '-' + h : h;
+    }).join('');
+  }
+
   function utm(){
-    var p = new URLSearchParams(location.search), o = {};
-    ['source','medium','campaign','content'].forEach(function(k){
-      var v = p.get('utm_' + k); if (v) o[k] = v.slice(0,160);
+    var parameter = new URLSearchParams(location.search), werte = {}, anzahl = 0;
+    parameter.forEach(function(wert, schluessel){
+      var name = schluessel.indexOf('utm_') === 0 ? schluessel.slice(4) : '';
+      if (!name || anzahl >= 12 || !/^[a-zA-Z0-9_-]{1,40}$/.test(name) || werte[name]) return;
+      wert = String(wert).trim().slice(0, 160);
+      if (!wert) return;
+      werte[name] = wert;
+      anzahl += 1;
     });
-    return Object.keys(o).length ? o : undefined;
+    return anzahl ? werte : undefined;
+  }
+
+  function kalenderUrl(url){
+    try {
+      var ziel = new URL(url);
+      return ziel.protocol === 'https:' && (ziel.hostname === 'calendly.com' || /\.calendly\.com$/.test(ziel.hostname)) ? ziel.href : '';
+    } catch (e) { return ''; }
   }
 
   formular.addEventListener('submit', function(e){
     e.preventDefault();
     meldung('');
     var d = new FormData(formular);
-    var pflicht = [['Name','Bitte geben Sie Ihren Namen an.'],
-                   ['E-Mail','Bitte geben Sie eine gültige E-Mail-Adresse an.'],
-                   ['Telefonnummer','Bitte geben Sie eine Telefonnummer an.'],
-                   ['Unternehmen','Bitte geben Sie den Namen Ihres Labors an.']];
-    for (var i=0;i<pflicht.length;i++){
+    var pflicht = [['Name', 'Bitte geben Sie Ihren Namen an.'], ['E-Mail', 'Bitte geben Sie eine gültige E-Mail-Adresse an.'], ['Telefonnummer', 'Bitte geben Sie Ihre Telefonnummer an.'], ['Unternehmen', 'Bitte geben Sie den Namen Ihres Labors an.']];
+    for (var i = 0; i < pflicht.length; i += 1) {
       if (!String(d.get(pflicht[i][0]) || '').trim()) { meldung(pflicht[i][1]); return; }
     }
-    if (!formular.querySelector('#Einwilligung').checked) {
-      meldung('Bitte bestätigen Sie die Einwilligung zur Datenverarbeitung.'); return;
-    }
-    var nutzlast = {
-      funnel_id: formular.getAttribute('data-funnel'),
-      full_name: String(d.get('Name')).trim(),
-      firma:     String(d.get('Unternehmen')).trim(),
-      email:     String(d.get('E-Mail')).trim(),
-      phone:     String(d.get('Telefonnummer')).trim(),
-      firma_website: String(d.get('firma_website') || ''),
-      consent: true
-    };
-    var u = utm(); if (u) nutzlast.utm = u;
+    if (!formular.querySelector('#Einwilligung').checked) { meldung('Bitte bestätigen Sie die Einwilligung zur Datenverarbeitung.'); return; }
+    if (!idempotenzSchluessel) idempotenzSchluessel = neueUuid();
 
-    if (knopf){ knopf.value = wartetext; knopf.disabled = true; }
-    fetch(formular.getAttribute('action'), {
-      method: 'POST',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify(nutzlast)
-    })
-    .then(function(r){ return r.json().catch(function(){ return {ok:false}; }); })
-    .then(function(a){
-      if (knopf){ knopf.value = knopftext; knopf.disabled = false; }
-      if (a && a.ok) { formular.style.display = 'none'; zeige(kaputt,false); zeige(fertig,true); formular.reset(); }
-      else { meldung((a && a.error) || 'Das hat nicht geklappt. Bitte versuchen Sie es erneut oder rufen Sie uns an.'); }
-    })
-    .catch(function(){
-      if (knopf){ knopf.value = knopftext; knopf.disabled = false; }
-      meldung('Keine Verbindung. Bitte versuchen Sie es erneut oder rufen Sie uns an.');
-    });
+    var nutzlast = {
+      angebot: 'laboraquise',
+      full_name: String(d.get('Name')).trim(),
+      firma: String(d.get('Unternehmen')).trim(),
+      email: String(d.get('E-Mail')).trim(),
+      phone: String(d.get('Telefonnummer')).trim(),
+      consent: true,
+      idempotenz_schluessel: idempotenzSchluessel
+    };
+    var kampagne = utm();
+    if (kampagne) nutzlast.utm = kampagne;
+    if (knopf) { knopf.value = wartetext; knopf.disabled = true; }
+
+    fetch(endpoint, { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(nutzlast) })
+      .then(function(r){ return r.json().catch(function(){ return {ok:false}; }); })
+      .then(function(antwort){
+        if (knopf) { knopf.value = knopftext; knopf.disabled = false; }
+        var ziel = antwort && antwort.ok === true ? kalenderUrl(antwort.calendly_url) : '';
+        if (ziel) { window.location.assign(ziel); return; }
+        meldung((antwort && antwort.error) || 'Ihre Anfrage konnte nicht gespeichert werden. Bitte versuchen Sie es erneut.');
+      })
+      .catch(function(){
+        if (knopf) { knopf.value = knopftext; knopf.disabled = false; }
+        meldung('Keine Verbindung. Ihre Angaben bleiben stehen. Bitte versuchen Sie es erneut.');
+      });
   });
 })();
 </script>
