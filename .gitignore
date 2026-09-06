@@ -1,0 +1,6 @@
+node_modules/
+.DS_Store
+scrollcraft/builds/praezision/initial/
+scrollcraft/builds/praezision/qa/
+scrollcraft/builds/praezision/harness-*/
+scrollcraft/builds/praezision/evidence-before-final/

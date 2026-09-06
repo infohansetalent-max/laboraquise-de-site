@@ -1,0 +1,367 @@
+Erstelle eine außergewöhnlich hochwertige, vollständig umgesetzte neue
+Website für laboraquise.de im bestehenden Projekt.
+
+Ich will keine gewöhnliche Agenturwebsite mit ein paar Animationen.
+Ich will eine eigenständige, visuell beeindruckende Markenwebsite:
+fotografische Präzision, herausragende Typografie, räumliche Tiefe,
+ein unverwechselbarer Scrollmoment und eine klare geschäftliche Aussage.
+
+Die Website soll Laborinhaber beeindrucken und ihnen gleichzeitig
+sofort erklären, was wir tun und warum ein Erstgespräch sinnvoll ist.
+
+Du übernimmst Gestaltung, Textkonzeption, technische Umsetzung und
+visuelle Qualitätsprüfung. Ich delegiere dir die kreative Entscheidung.
+Nutze die folgenden Vorgaben als Briefing. Stelle keine erneuten
+allgemeinen Designfragen und bleibe nicht bei einem Konzept stehen.
+Arbeite bis zu einer tatsächlich lauffähigen, geprüften Vorschau.
+
+1. BESTEHENDES PROJEKT UND SKILL VORBEREITEN
+
+Das bestehende Website Repository ist:
+https://github.com/infohansetalent-max/laboraquise-de-site
+
+Prüfe zuerst den aktuellen Arbeitsordner, vorhandene AGENTS.md Dateien,
+den Git Status, index.html, die Assets, die Terminseite sowie Routing
+und Deploymentkonfiguration. Bewahre fremde oder uncommittete Änderungen.
+Arbeite in einem separaten Branch.
+
+Verwende ausdrücklich den Skill aus:
+https://github.com/nateherkai/scroll-craft
+
+Falls er nicht vorhanden ist, lade das Repository in ein separates
+temporäres Verzeichnis und kopiere den vollständigen Ordner
+
+plugins/nateherk-design/skills/scroll-craft/
+
+nach
+
+.agents/skills/scroll-craft/
+
+Kopiere nicht nur SKILL.md. References, Scripts, Templates und Engine
+müssen mitkommen. Überschreibe keine vorhandene Installation ungeprüft.
+
+Lies SKILL.md und die für diesen Auftrag referenzierten Dokumente.
+Besonders wichtig sind approved-collection.md, hero-depth.md,
+uniqueness.md, feel.md, taste.md und verify.md.
+
+Führe die dokumentierte Umgebungsprüfung mit doctor.mjs und die
+Workspace Einrichtung mit workspace.mjs --ensure aus.
+Benenne fehlende Voraussetzungen ehrlich.
+
+Falls der Skill nicht automatisch erkannt wird, lies und befolge
+ihn direkt über seinen lokalen Dateipfad.
+
+Verwende den Skill für Konzeption, Inszenierung und Prüfung.
+Baue die tatsächliche Website im bestehenden Projekt.
+Erzeuge nicht bloß eine zweite Website in einem isolierten Demoordner.
+Planungsdokumente und Prüfarbelege können im Skill Workspace liegen.
+
+2. MARKE, ZIELGRUPPE UND ANGEBOT
+
+Der Markenname ist Laboraquise beziehungsweise laboraquise.de.
+Immer ohne zusätzliches k schreiben.
+
+Laboraquise hilft Dentallaboren, passende Zahnarztpraxen als Kunden
+zu gewinnen. Die Besucher dieser Website sind Laborinhaber und
+Geschäftsführer. Die Zahnarztpraxen sind deren potenzielle Kunden.
+
+Wichtig: Das ist keine Recruiting Website, keine Patientenwerbung
+und kein Kundenportal.
+
+Die geschäftliche Leitidee:
+Ein gutes Dentallabor braucht nicht wahllos mehr Kontakte.
+Es braucht passende Praxen und einen nachvollziehbaren Weg,
+mit diesen Praxen ins Gespräch zu kommen.
+
+Prüfe die vorhandenen Inhalte und unterscheide:
+a) belegbare Unternehmensangaben,
+b) bestehende, noch zu prüfende Werbeaussagen,
+c) deine eigenen gestalterischen und textlichen Vorschläge.
+
+Im bisherigen Quelltext steht die Aussage:
+„12 qualifizierte Praxisanfragen in 90 Tagen“.
+
+Behandle das als bestehende Websiteaussage, nicht automatisch als
+unabhängig bestätigten Leistungsnachweis. Prüfe vorhandene Definitionen
+und Bedingungen, bevor du sie in der Neufassung verwendest.
+
+Verwandle Praxisanfragen niemals in garantierte Termine,
+gewonnene Kunden, Abschlüsse oder Umsatz.
+
+Erfinde keine Preise, Ergebnisse, Bewertungen, Kundenlogos,
+Referenzen, Zertifikate, Mitarbeiter oder Garantien.
+Übertrage keine Recruiting Ergebnisse auf die Neukundengewinnung.
+
+Fehlende Nachweise gehören in die interne Liste offener Punkte.
+Fülle solche Lücken nicht mit glaubwürdig klingenden Erfindungen.
+
+Die primäre Aktion lautet:
+„Erstgespräch vereinbaren“
+
+Verwende diese Bezeichnung konsistent und verbinde sie mit dem
+vorhandenen, überprüften Terminweg.
+
+3. KREATIVE LEITIDEE
+
+Die gestalterische Leitidee lautet:
+
+„Präzision, die die richtigen Verbindungen schafft.“
+
+Übertrage die Qualität hochwertiger Zahntechnik in die Gestaltung:
+Material, Licht, Sorgfalt, klare Konturen und kontrollierte Bewegung.
+
+Die Anmutung soll die Präzision einer hochwertigen Produktinszenierung
+mit der Klarheit einer erstklassigen Unternehmenswebsite verbinden.
+Keine Kopie von Apple, Porsche oder einer bestehenden Skill Beispielseite.
+
+Fünf Eigenschaften:
+präzise, souverän, hochwertig, räumlich, überraschend.
+
+Bevorzugte Richtung:
+Helle, echte weiße Flächen, großzügiger Weißraum, starke dunkle
+Typografie und vorhandene Markenfarben als gezielte Akzente.
+Prüfe zuerst die tatsächliche Gestaltung und Assets der Marke.
+Übernimm nicht versehentlich die Markenwelt eines anderen Projekts.
+
+Ein dunkler Abschnitt ist als bewusst gesetzter Kontrast möglich.
+Die Gesamtwebsite soll aber nicht wie ein dunkles Technologieprodukt,
+eine Kryptoplattform oder eine KI Agentur wirken.
+
+Keine lila Verläufe, Neonlichter, leuchtenden Kugeln, Glasscheiben
+überall, generischen Kachelwände oder identischen Kartenreihen.
+Keine scheinbar luxuriöse Beige Gold Gestaltung.
+
+Entwickle zuerst ein zusammenhängendes visuelles Konzept für die
+gesamte Seite, nicht nur für den ersten Bildschirm.
+Lege Typografie, Farben, Abstände, Bildsprache und Bewegungsregeln fest.
+
+Nutze verfügbare Werkzeuge für visuelle Entwürfe, sofern vorhanden.
+Prüfe Entwürfe und Assets tatsächlich als Bilder.
+Behandle einen selbst gewählten Entwurf als Arbeitsgrundlage,
+nicht als angeblich von mir bereits freigegebenes Design.
+
+4. HERO MIT ECHTER BILDTIEFE
+
+Der erste Bildschirm muss zwei Aufgaben gleichzeitig erfüllen:
+beeindrucken und das Angebot verständlich machen.
+
+Eine mögliche Headline als Ausgangspunkt:
+„Neue Zahnarztpraxen.
+Die zu Ihrem Labor passen.“
+
+Du darfst eine bessere Formulierung entwickeln.
+Der Kern muss aber sofort verständlich bleiben.
+
+Plane eine eigenständige fotografische Komposition mit getrennten
+räumlichen Ebenen. Beispielsweise Hintergrund, fachlich passendes
+Hauptmotiv und ein gezielt eingesetztes Vordergrundelement.
+Bewegung und Überlagerung sollen echte Tiefe erzeugen.
+
+Verwende hochwertige vorhandene Aufnahmen aus Zahntechnik und Labor,
+sofern sie geeignet sind. Keine austauschbaren lachenden Stockmodels,
+keine künstlichen Teamfotos, keine fliegenden Cartoonzähne.
+
+Halte das zentrale Motiv groß und die Komposition ruhig.
+Nicht zehn kleine Elemente als Ersatz für ein starkes Bild.
+
+Die Headline und der Hauptbutton müssen sofort sichtbar sein.
+Kein Intro, kein Ladevorhang und keine Animation dürfen den Zugang
+zum Angebot oder zur Terminvereinbarung verzögern.
+
+Alle Überschriften, Texte, Buttons und Navigationselemente bleiben
+echtes HTML. Keine fertige Websitegrafik als Oberfläche einsetzen.
+
+Nutze vorrangig vorhandene Assets. Starte keine kostenpflichtige
+Bildgenerierung, Videogenerierung oder externe API Nutzung ohne
+Freigabe. Fehlt ein geeignetes Asset, dokumentiere die Lücke und
+baue mit den verfügbaren Mitteln eine bewusst gestaltete Version.
+Kaschiere fehlende Bilder nicht mit beliebigen Verläufen.
+
+5. EIN UNVERWECHSELBARER HÖHEPUNKT
+
+Entwickle einen maßgeschneiderten Scrollmoment mit diesem Gedanken:
+
+„Aus vielen möglichen Praxen wird eine passende Verbindung.“
+
+Der Besucher soll den Unterschied zwischen wahlloser Reichweite
+und gezielter Praxengewinnung visuell verstehen.
+
+Gestalte dafür eine hochwertige, ausdrücklich schematische
+Darstellung: Aus verschiedenen möglichen Praxisprofilen rücken
+durch Kriterien wie Region und fachlichen Schwerpunkt passende
+Verbindungen in den Fokus. Anschließend wird der Weg zur
+Kontaktaufnahme und zum Kennenlernen sichtbar.
+
+Stelle nur Schritte als unsere tatsächliche Leistung dar,
+die durch die vorhandenen Projektinhalte gedeckt sind.
+
+Keine vorgetäuschten Live Leads, real wirkenden erfundenen Praxen,
+Umsatzanzeigen oder angeblichen Kundendaten.
+Kennzeichne die Darstellung dezent als beispielhaften Ablauf.
+
+Dieser Moment muss sich gestalterisch aus unserer Marke ergeben.
+Kein austauschbares Netzwerk aus leuchtenden Punkten.
+Keine bloße Standardanimation mit geändertem Farbwert.
+
+Gib ihm eine klare Ausgangsszene, einen verständlichen Übergang
+und einen starken Endzustand.
+
+Auf dem Smartphone muss dieselbe Idee ohne Hover verständlich
+und bedienbar bleiben. Ohne Animation muss die Aussage weiterhin
+vollständig lesbar sein.
+
+Das ist der zentrale Höhepunkt.
+Der Rest der Seite führt darauf hin oder schafft danach Klarheit.
+Nicht jeder Abschnitt darf um die größte Aufmerksamkeit kämpfen.
+
+6. INHALTLICHE DRAMATURGIE
+
+Plane die Besucherreise, bevor du Abschnitte programmierst:
+
+Sofortige Klarheit:
+Was Laboraquise tut und für wen.
+
+Wiedererkennung:
+Gute zahntechnische Arbeit allein erklärt noch nicht, wie neue
+passende Praxen auf das Labor aufmerksam werden.
+Sprich Abhängigkeit von einzelnen Auftraggebern, Zufall und
+fehlende Zeit für systematische Ansprache konkret an.
+Unterstelle nicht jedem Labor dieselbe Situation.
+
+Verständnis:
+Zeige den tatsächlichen Weg von der Auswahl passender Praxen
+bis zum nächsten geschäftlichen Gespräch.
+Hier liegt der maßgeschneiderte visuelle Höhepunkt.
+
+Vertrauen:
+Nutze echte vorhandene Belege, konkrete Einblicke und nachvollziehbare
+Abläufe. Fehlende Referenzen ersetzt du durch transparente Erklärung,
+nicht durch erfundene Testimonials.
+
+Passung:
+Mache verständlich, für welche Labore die Zusammenarbeit sinnvoll ist.
+Vermeide den Eindruck, wir seien automatisch für jeden geeignet.
+
+Entscheidung:
+Beantworte die wichtigsten Einwände anhand verfügbarer Informationen.
+Schließe mit einem starken, ruhigen Bereich zur Terminvereinbarung.
+
+Diese Reise ist keine Vorgabe für sechs gleichförmige Blöcke.
+Wähle anhand des Skills eine passende Seitenstruktur.
+Variiere Bildanteil, Ausrichtung, Dichte und Tempo.
+Streiche jeden Abschnitt, der keinen eigenen Beitrag leistet.
+
+Schreibe auf Deutsch, konkret und geschäftlich.
+Nutze eine konsistente Anrede.
+Kurze Sätze, keine Gedankenstriche und möglichst keine
+zusammengesetzten Werbewörter mit Bindestrichen.
+Keine Floskeln wie innovativ, ganzheitlich, 360 Grad oder
+„Wir bringen Sie auf das nächste Level“.
+
+7. TECHNISCHE UMSETZUNG UND BEWEGUNG
+
+Erhalte die bestehende Architektur, soweit sie den Auftrag trägt.
+Führe nicht allein für Animationen Next.js, React, eine Datenbank
+oder einen neuen Hostinganbieter ein.
+
+Strukturiere HTML, CSS und JavaScript nachvollziehbar.
+Erhalte funktionierende Unterseiten und Kontaktwege.
+Ändere Rechtstexte nicht beiläufig beim Redesign.
+
+Nutze die Scrollcraft Engine entsprechend ihrer Dokumentation.
+Verändere ihren Kern nicht projektspezifisch.
+Implementiere individuelle Interaktionen separat.
+
+Vermeide konkurrierende Animationssysteme und Altcode, der mit
+der neuen Umsetzung um dieselben Elemente kämpft.
+
+Setze die Bewegungsvielfalt des Skills sinnvoll um:
+räumliche Ebenen, differenzierte Übergänge, gezielte Textbewegung
+und die individuelle Interaktion. Nicht überall derselbe Fade in.
+
+Kein erzwungenes Scrolltempo, keine blockierte Navigation,
+keine langen Strecken ohne sichtbaren Fortschritt.
+
+Gestalte die Smartphone Version eigenständig:
+passende Bildausschnitte, sinnvolle Reihenfolge, gute Schriftgrößen,
+erreichbare Buttons und angemessen kurze Scrollsequenzen.
+
+Unterstütze Tastaturbedienung, sichtbare Fokuszustände,
+semantische Überschriften und prefers-reduced-motion.
+
+Wichtige Inhalte dürfen nie dauerhaft unsichtbar bleiben,
+wenn JavaScript oder Medien ausfallen.
+
+Lade schwere Medien erst bei Bedarf.
+Zeige ein hochwertiges Standbild sofort.
+Verwende Video nur, wenn es einen echten Mehrwert liefert und
+mit verfügbaren Assets und freigegebenen Mitteln umsetzbar ist.
+
+8. FUNKTION UND QUALITÄT TATSÄCHLICH PRÜFEN
+
+Starte die Website lokal und prüfe sie im Browser.
+
+Teste mindestens:
+Desktop, schmalen Laptop, Tablet, Smartphone mit 390 Pixeln
+und einen schmalen Bildschirm mit 320 Pixeln Breite.
+
+Prüfe den ersten Bildschirm, alle wichtigen Übergänge und
+mehrere Zwischenzustände des zentralen Scrollmoments.
+Ein Screenshot am Seitenanfang reicht nicht.
+
+Führe die passenden Prüfwerkzeuge des Skills aus.
+Öffne anschließend die erzeugten Screenshots und Kontaktbögen
+und beurteile die tatsächliche Darstellung.
+
+Kontrolliere insbesondere:
+Lesbarkeit über wechselnden Bildinhalten, mobile Zeilenumbrüche,
+abgeschnittene Motive, leere Scrollstrecken, horizontales Überlaufen,
+Bildqualität, Fokusreihenfolge und erreichbare Kontaktaktionen.
+
+Teste außerdem reduzierte Bewegung und ausfallende Medien.
+
+Prüfe alle wesentlichen Links und den vorhandenen Terminweg.
+Erzeuge dabei keine echten Buchungen und sende keine Testanfragen
+an produktive Empfänger.
+
+Zeige niemals eine erfolgreiche Formularübermittlung an,
+wenn technisch nichts übermittelt wurde.
+
+Vergleiche die Browserdarstellung mit deinem visuellen Entwurf.
+Behebe konkrete Abweichungen und prüfe erneut.
+Ein erfolgreicher Build ersetzt keine visuelle Qualitätskontrolle.
+
+Unterscheide Browseremulation von einem echten Smartphone Test.
+Behaupte keine Geräteprüfung oder Leistungswerte, die du nicht
+tatsächlich durchgeführt beziehungsweise gemessen hast.
+
+9. ERGEBNIS UND GRENZEN
+
+Liefere die funktionierende Neufassung im tatsächlichen Projekt,
+eine erreichbare lokale Vorschau oder eine sicher verfügbare
+Preview und eine kurze Zusammenfassung.
+
+Berichte:
+Welche Gestaltungsidee umgesetzt wurde.
+Was der individuelle Höhepunkt ist.
+Welche Ansichten und Interaktionen tatsächlich geprüft wurden.
+Welche Angaben, Assets oder Integrationen noch Freigabe benötigen.
+
+Dokumentiere Briefing, Gestaltung und wesentliche Prüfergebnisse
+knapp im Projekt beziehungsweise im Skill Workspace.
+
+Keine automatische Veröffentlichung auf der produktiven Domain.
+Keine DNS Änderungen, kostenpflichtigen Buchungen oder externen
+Produktivänderungen ohne gesonderte Freigabe.
+
+Beginne jetzt mit der Prüfung des Projekts und des Skills.
+Entscheide anschließend die kreative Richtung und setze sie um.
+Beende die Aufgabe nicht nach Analyse, Moodboard oder Planung.
+
+Die abschließende Qualitätsfrage lautet:
+
+Ist das eine unverwechselbare Website für Laboraquise,
+die Laborinhabern ein konkretes Angebot verständlich macht,
+oder lediglich ein hübsches Template mit Dentalbildern?
+
+Falls es noch ein Template ist, überarbeite die gestalterische Idee.
