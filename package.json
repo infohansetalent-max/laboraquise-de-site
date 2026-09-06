@@ -1,0 +1,14 @@
+{
+  "devDependencies": {
+    "@axe-core/playwright": "^4.13.0",
+    "playwright-core": "^1.63.0",
+    "prettier": "^3.9.6"
+  },
+  "name": "laboraquise-de-site",
+  "private": true,
+  "scripts": {
+    "dev": "node .agents/skills/scroll-craft/scripts/serve.mjs --root . --port 4587",
+    "test": "node tests/browser.mjs",
+    "check": "node --check assets/praezision/site.js && node tests/static.mjs"
+  }
+}
