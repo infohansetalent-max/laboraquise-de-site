@@ -1,6 +1,18 @@
 # SEO-Grundlage und Seitenarchitektur
 
-Stand: 14.09.2026. Freigegebener Umfang: technische Korrekturen, bestehender Anfrageweg, Prüfungen, Planung für Phase 2. Keine Veröffentlichung.
+Stand: 14.09.2026. Phase 2 zur lokalen Umsetzung beauftragt. Keine Veröffentlichung.
+
+## Spezifikation Phase 2
+
+Die Startseite bleibt die einzige kommerzielle Akquise-Seite. Unbelegte Verknappung, Umsatzbehauptungen, pauschale Erfahrungsmengen und feste Ergebniszeitpunkte entfernen oder als eigene Annahmen kennzeichnen. Keine Ersatzgarantie erfinden: Ein freigegebenes Praxisakquise-Angebot wurde in der gezielten Quellenprüfung nicht gefunden. Die numerische Garantie wird deshalb bis zu dessen Abgleich nicht weiter als feststehendes Angebot beworben. Bestehende AGB bleiben unverändert und als Entwurf erkennbar. Referenzen werden ausdrücklich der Personalgewinnung zugeordnet.
+
+Kleine Aufgaben mit Abnahme:
+1. Sichtbare Startseiten-Aussagen, Rechner und Terminfenster korrigieren. Bestehende Gestaltung, Bilder und Anfrageweg erhalten. Aussagehaltiges Social-Bild durch vorhandenes Markenzeichen ersetzen, ohne Bildproduktion.
+2. Genau einen vollständigen Fachartikel als private Markdown-Datei außerhalb des Website-Roots erstellen. Keine öffentlichen Wissensrouten, Navigationslinks oder Sitemap-Einträge. Fachliche Freigabe und Nutzungsrechte sind getrennte, noch offene Voraussetzungen.
+3. Vorhandene SEO- und Browserprüfungen ausführen, Rechner, FAQ und Terminfenster auf Desktop und Mobil ergänzend bedienen. Rechtstexte mit Phase-1-Stand vergleichen. Review über fünf Achsen.
+4. Kanonischen Audit und Plan aktualisieren und die geprüfte Änderung mit privatem Artikelentwurf als lokale Übergabe ausgeben. Kein Push, Merge, Deploy oder echter Testlead.
+
+Beleggrenzen: Die gefundene Angebotsvorlage betrifft Recruiting. Das vollständig gelesene relevante Laborgespräch vom 13.05.2026 ist keine Befragung wechselnder Zahnärzte; die dortige Referenzzusage bezog sich auf eine andere Website. Weder private Zitate noch Kundenidentitäten werden in den Artikel übernommen. Die verwendete qualitative Primärstudie beschreibt Zusammenarbeit in Saudi-Arabien, keine repräsentativen Wechselgründe in Deutschland. Praktische Selbstfragen werden als redaktionelle Vorschläge gekennzeichnet.
 
 ## Spezifikation dieser Phase
 
@@ -21,7 +33,7 @@ Prüfbefehle nach Umsetzung: `python3 -m unittest discover -s tests -v`; `python
 
 ## Belege und Grenzen der Keyword-Zuordnung
 
-Beobachtung: Die vollständig gelesene Startseite bietet Kundenprofil, Einstiegsangebot, Anzeigen über soziale Medien/Google, automatische Vorqualifizierung und Übergabe passender Praxisanfragen. AGB Ziffer 3 bestätigt diesen Leistungsumfang. Die Gespräche und Abschlüsse führt das Labor. Recruiting-Zahlen und die allgemeine Bewerbergarantie werden nicht übernommen. Das bestehende Angebot nennt 12 Praxisanfragen in 90 Tagen; dessen Erfüllung wurde hier nicht geprüft.
+Beobachtung: Die vollständig gelesene Startseite bietet Kundenprofil, Einstiegsangebot, Anzeigen über soziale Medien/Google, automatische Vorqualifizierung und Übergabe passender Praxisanfragen. AGB Ziffer 3 bestätigt diesen Leistungsumfang. Die Gespräche und Abschlüsse führt das Labor. Recruiting-Zahlen und die allgemeine Bewerbergarantie werden nicht übernommen. Der Website-Ausgangsstand nannte 12 Praxisanfragen in 90 Tagen. Ein freigegebenes Praxisakquise-Angebot und dessen Erfüllung sind nicht belegt; die numerische Zusage wurde in Phase 2 aus der Startseite entfernt.
 
 Suchprüfung am 14.09.2026: Abfragen „Neukundengewinnung Dentallabor Zahnarztkunden Akquise“ und „Dentallabor Marketing Zahnarztpraxen Kunden gewinnen“ über die verfügbare Websuche. Keine kontrollierte Google-DE-SERP, keine Volumendaten und keine Rankingmessung. Die zurückgegebenen Treffer enthalten sowohl direkte Akquisedienstleister als auch breitere Marketingangebote mit Patientenbezug. Primäre Angebotsseiten als Beispiele: [Dental Akquise](https://dental-akquise.com/), [Marketingpraxis](https://www.dentallabor-marketing.de/marketingpraxis-neue-kunden-f%C3%BCr-ihr-dentallabor/), [dentalmedia](https://www.dentalmedia.de/praxismarketingblog/marketing-dentallabore.html). Diese Seiten belegen lediglich unterschiedliche Angebotsausrichtungen, keine Marktgröße und keine Leistungsfähigkeit unseres Angebots.
 
@@ -43,7 +55,7 @@ Alle URLs beziehen sich auf `https://www.laboraquise.de`. Slugs mit Status „sp
 | P1 | `/impressum/` | Anbieteridentität und Kontakt | Vertrauens-/Rechtsinformation | verbessern | Selbst-Canonical und Beschreibung ergänzt. Kein Akquise-Keywordziel. |
 | P1 | `/datenschutz/` | Datenverarbeitung verstehen | Vertrauens-/Rechtsinformation | verbessern | Metadaten und Links korrigiert. Aktualität der genannten Auftragsverarbeiter separat prüfen. |
 | P1 | `/agb/` | Vertragsbedingungen verstehen | Öffentlich lesbarer Vertragstext, bestehendes noindex bleibt | verbessern | Nicht als SEO-Zielseite behandeln; aus Sitemap entfernt. |
-| P2, Inhalt 1 | `/wissen/warum-zahnaerzte-das-dentallabor-wechseln/` | Wechselgründe verstehen | Informational, Entscheidungssituationen der Praxis statt Dienstleistung erklären | später | Anschluss an sichtbare Lieferzeit-/Erreichbarkeitsthemen; echte Interview-/Fallbelege fehlen. |
+| P2, Inhalt 1 | `/wissen/warum-zahnaerzte-das-dentallabor-wechseln/` | Wechselgründe verstehen | Informational, Entscheidungssituationen der Praxis statt Dienstleistung erklären | privat entworfen | Vollständiger Text außerhalb des Website-Roots; fachliche Gegenprüfung, freigegebene Praxisstimme und Veröffentlichung stehen aus. |
 | P2, Inhalt 2 | `/wissen/abhaengigkeit-von-zahnarztpraxen-reduzieren/` | Konzentrationsrisiko im Labor erkennen und bearbeiten | Betriebswirtschaftliche Selbstprüfung, keine pauschale Neukunden-Anleitung | später | Vorhandenes Problem auf Startseite; keine universellen Grenzwerte oder Umsatzzahlen erfinden. |
 | P2, Inhalt 3 | `/wissen/dentallabor-positionierung/` | Passung zu einer Praxis konkret ausdrücken | Leistungsprofil und nachweisbare Zusagen erarbeiten | später | Eigener praktischer Nutzen, Beispielprofile und fachliche Prüfung fehlen. |
 | P2, Inhalt 4 | `/wissen/aussendienst-oder-externe-akquise/` | Vertriebswege nach Aufwand und Eignung vergleichen | Neutrale Entscheidungshilfe mit realem eigenen Verfahren | später | Nicht suggerieren, dass Laboraquise Außendienst verkauft. Keine Rechtsratschläge. |
@@ -60,7 +72,7 @@ H1 bleibt: „Neue Zahnarztpraxen für Ihr Dentallabor gewinnen.“
 
 Abschnitte: Wer angesprochen wird; was als qualifizierte Anfrage zählt; Kundenprofil und Kampagnenverfahren; welche Aufgaben beim Labor bleiben; belastbare Anbietererfahrung; Garantie samt Bedingungen; Erstgespräch. Vorhandene Gliederung nutzen, kein Relaunch.
 
-Benötigte Belege: freigegebenes Musterangebot für Garantievoraussetzungen; echte Definition und deduplizierte Auswertung von Praxisanfragen; Freigaben für Aussagen zur Anbietererfahrung; Herkunft und Einordnung der vorhandenen Referenzen. Die derzeitige Termin-Verknappung ist nicht mit realer Verfügbarkeit verknüpft und darf nicht als Messwert behandelt werden.
+Benötigte Belege: freigegebenes Musterangebot für Garantievoraussetzungen; echte Definition und deduplizierte Auswertung von Praxisanfragen; Freigaben für Aussagen zur Anbietererfahrung; Herkunft und Einordnung der vorhandenen Referenzen. Die frühere Termin-Verknappung war nicht mit realer Verfügbarkeit verknüpft. In Phase 2 wurden Knappheitstext, Countdown und erzeugte Tagesauswahl entfernt.
 
 Interne Links: `/#leistungen`, `/#about`, `/#referenzen`, `/termin/`, `/agb/`, `/datenschutz/`. CTA: „Erstgespräch vereinbaren“. Bestehendes Formular mit anschließender Kalenderweiterleitung nutzen. Der aktuelle Kalender nennt 30 Minuten. Keine Potenzialanalyse, regionale Praxiszahlen oder sofortigen Ergebnisse ergänzen.
 
@@ -108,8 +120,14 @@ Daher jetzt keine neuen Analytics-Ereignisse und keine bloße Datensammlung ohne
 4. Falls ein bestehender consentfähiger Analysekanal freigegeben wird: Ereignis für primären CTA-Klick und erfolgreiche serverbestätigte Anfrage; Idempotenzschlüssel bzw. bestätigte Vorgangs-ID zur Vermeidung von Doppelzählung verwenden. Bestehende Ereignisnamen zuerst prüfen.
 5. Organische Einstiegsseite → bestätigte Anfragen → qualifizierte CRM-Vorgänge monatlich aggregiert vergleichen. Search-Console-Suchanfragen lassen sich nicht individuell einem Lead zuordnen. Ausbleibende oder abgelehnte Einwilligung und direkte Kalenderbuchungen als Messlücken ausweisen.
 
-## Einsatzfertiger Auftrag für Phase 2
+## Ursprünglicher Auftrag für Phase 2, jetzt lokal bearbeitet
 
 > Bearbeite zuerst die bestehende Startseite von Laboraquise.de anhand des freigegebenen Angebots und echter Belege zur Praxisakquise. Prüfe Garantiebedingungen, Anbietererfahrung und die unbelegte Termin-Verknappung. Erstelle danach genau einen nicht öffentlichen Entwurf für `/wissen/warum-zahnaerzte-das-dentallabor-wechseln/`. Nutze freigegebene Aussagen aus Praxisgesprächen und eine fachliche Gegenprüfung. Erhalte das Design und den bestehenden Anfrageweg. Ergänze den Wissensbereich, öffentliche Links und Sitemap erst mit einem vollständigen, freigegebenen Inhalt. Erstelle keine zweite kommerzielle Akquise-Seite. Führe die vorhandenen SEO- und Browserprüfungen erneut aus. Veröffentliche erst nach separater Freigabe.
 
 Ungeklärt bleiben die tatsächliche organische Nachfrage, der Google-Indexstatus, die serverseitige Leadzuordnung und die noch fehlenden fachlichen Veröffentlichungsbelege.
+
+## Nächster konkreter Auftrag nach Phase 2
+
+> Prüfe das freigegebene Praxisakquise-Angebot gegen die lokale Startseite, bevor dort eine numerische Garantie erscheint. Lasse den vollständigen privaten Wechselgründe-Artikel von einer benannten fachkundigen Person gegenprüfen und belege eine zweckbezogen freigegebene Praxisstimme. Setze erst nach Inhaltsfreigabe diesen einen Artikel und eine echte Wissensübersicht im vorhandenen Design um. Erhalte die Zuständigkeit der Startseite für alle kommerziellen Akquise-Begriffe. Prüfe alle Seiten und den gemockten Anfrageweg. Veröffentliche erst nach separater Freigabe.
+
+Ungeklärt bleiben Angebotsnachweis, fachliche Gegenprüfung, Praxisstimme und Veröffentlichung. Such- und CRM-Messdaten liegen weiterhin nicht vor.

@@ -1,6 +1,51 @@
-# SEO-Audit und Übergabe, Phase 1
+# SEO-Audit und Übergabe, Phase 1 und 2
 
-Stand: 14.09.2026. Technische Änderungen im isolierten Arbeitsbaum umgesetzt und lokal geprüft. Nicht gepusht, nicht gemergt, nicht deployt. Die lesende Live-Prüfung betrifft den unveränderten Ausgangsstand.
+Stand: 14.09.2026. Phase 2 im isolierten Arbeitsbaum umgesetzt und lokal geprüft. Nicht gepusht, nicht gemergt, nicht deployt. Die lesende Live-Prüfung betrifft ausschließlich den Ausgangsstand aus Phase 1. Die folgende Ergänzung hat bei Zustandsangaben Vorrang vor dem darunter dokumentierten Phase-1-Verlauf.
+
+## Phase 2: Ergebnis und Beleggrenze
+
+Die Startseite bleibt die einzige kommerzielle Akquise-Seite. Sie beschreibt das Verfahren und die Aufgaben des Labors. Ein vollständiger Fachartikel liegt als private Markdown-Datei außerhalb des Website-Roots vor. Er ist weder als Route noch als Navigations- oder Sitemap-Eintrag angelegt. Die fachliche Gegenprüfung, eine freigegebene echte Praxisstimme und die Veröffentlichungsfreigabe stehen aus. Phase 2 ist damit technisch und redaktionell vorbereitet, aber nicht fachlich zur Veröffentlichung abgenommen.
+
+### Umgesetzte Änderungen
+
+| Befund | Änderung | Nachweis und Grenze |
+|---|---|---|
+| Für die pauschale Zusage von zwölf Praxisanfragen in 90 Tagen liegt kein freigegebenes Praxisakquise-Angebot vor. Die gezielt gefundene Angebotsvorlage betrifft Recruiting. | Numerische Garantie aus allen Startseitenabschnitten entfernt. Bedingte Erklärung zu Anfragen, Angebot und Erstattungsumfang mit Links zu AGB-Ziffern 5, 6 und 16. Keine neue Garantie eingesetzt. | AGB vollständig gelesen, selbst als Entwurf gekennzeichnet. Rechtstext unverändert. Keine rechtliche Freigabe oder tatsächliche Garantieleistung behauptet. |
+| Countdown und erzeugte Tagesauswahl zeigten keine Kalenderverfügbarkeit. | Knappheitstext, Countdown, Tagesauswahl, Online-Punkt und dazugehörige Datumsskripte entfernt. Terminfenster nennt 30 Minuten und verweist auf die anschließende Kalenderauswahl. | Terminfenster auf drei Breiten geöffnet und bis zum Formular bedient. Echte Kalenderbuchung nicht ausgeführt. |
+| Pauschale Umsätze, Erfahrungsmengen, ein fixes Anrufverhältnis und Ergebnisse nach 30 Tagen waren nicht belegt. | Entsprechende Behauptungen entfernt oder als mögliche Situationen formuliert. Ablauf erklärt Aufgaben ohne zugesagten ersten Auftrag. | Vollständiger sichtbarer Startseitentext nach Änderung gelesen. Keine Übernahme allgemeiner Recruiting-Kennzahlen. |
+| Rechner stellte frei gesetzte Eingaben als entgangenen Umsatz dar. | Deutliches Rechenbeispiel, eigene Eingaben, null möglich. Monatsumsatz je Praxis × Anzahl × 12; Jahreswert ÷ 365 beziehungsweise ÷ 52. Kosten/Gewinn nicht berechnet. | Standard 12.000 × 2 × 12 = 288.000 Euro; Monat 24.000, Tag gerundet 789, Woche gerundet 5.538 Euro. Auch null und obere Reglerwerte geprüft. Das sind Annahmen, keine Marktwerte. |
+| Drei bestehende Zahlenanimationen schrieben auf denselben Rechnerwert. Der Browser zeigte 134.134 statt 288.000. | Zwei konkurrierende Animatoren entfernt; ein Animator bricht den vorherigen Frame bei neuer Eingabe ab. | Rechneranzeige gegen unabhängig berechnete Sollwerte geprüft. |
+| „Fünf Labore“ war mit der sichtbaren Referenzliste unvereinbar. | Stimmen ausdrücklich als Personalgewinnung bei Hansetalent eingeordnet, Hausarztpraxis und doppelte Laborzugehörigkeit benannt. Bestehende Zitate/Zuordnungen nicht verändert. | Fünf Personen, drei verschiedene Dentallabore und eine Hausarztpraxis. Bestehende Ergebniszitate und Nutzungsfreigaben nicht unabhängig bestätigt. Keine Akquise-Fallstudie daraus gemacht. |
+| Social-Bild enthält die nun zurückgestellte numerische Garantie. | OG/Twitter verwenden das vorhandene 512-Pixel-Markenzeichen. Bildtyp, Maße, Beschreibung und Kartenformat angepasst. | Bestehendes Bild visuell geprüft, keine Bildproduktion. Alte Bilddatei bleibt Bestandsasset; externe Caches nicht geändert. |
+| Prozessillustration enthält eine fiktive Ergebnisanzeige. | Sichtbarer Hinweis „Schematische Darstellung, keine echten Suchergebnisse.“ ergänzt; auf Mobil unter der Grafik angeordnet. | Hinweis auf drei Breiten innerhalb seiner Grafikbox gemessen. Bestehendes Bild nicht verändert. |
+| Datenschutzseite lief bei 320 Pixeln um 70 Pixel über, im Ausgangsstand reproduziert. | Wortumbruch im Haupttext ergänzt. | Nach Korrektur 0 Pixel Überlauf. Sichtbarer Rechtstext unverändert. |
+
+### Artikel und Quellen
+
+Geplant: `/wissen/warum-zahnaerzte-das-dentallabor-wechseln/`. Der vollständige private Entwurf enthält Metadaten, sechs fachliche Abschnitte, Selbstprüfung, Gesprächseinstieg und den vorhandenen Terminlink. Er enthält keine Platzhalter im Artikeltext, erfundenen Autoren, privaten Zitate oder vermeintlichen Kundenfälle. Ein konstruiertes Beispiel ist ausdrücklich so bezeichnet.
+
+Die externe Primärquelle wurde am Original überprüft: [Ismail und Al-Moghrabi, BMC Oral Health 2023](https://link.springer.com/article/10.1186/s12903-023-03395-z). Zehn zahnärztliche und zehn zahntechnische Fachpersonen in Saudi-Arabien; Gegenstand ist Zusammenarbeit. Keine repräsentative deutsche Wechselstatistik. Praktische Selbstfragen werden als redaktionelle Vorschläge bezeichnet. Ein vollständig gelesenes internes Laborgespräch ersetzt keine direkte Praxisbefragung. Die darin angesprochene Referenzzusage gilt nicht automatisch für diesen Artikel. Eine gesonderte interne Quellen- und Freigabenübersicht bleibt außerhalb des Website-Roots.
+
+### Prüfung Phase 2
+
+| Prüfung | Status | Beleg |
+|---|---|---|
+| SEO und HTTP | PASS | Sechs bestehende Python-Testgruppen: alle fünf Seiten, Canonicals, Sitemap, Links/Anker, Schema, Preview-Header, Pfadbegrenzung und lokale 404. |
+| Browser | PASS | 22 Fälle in Chrome: fünf Seiten bei 320, 390 und 1440 Pixel Breite; je Breite Rechner/FAQ/Terminfenster und gemockter Anfragepfad; zusätzlich JavaScript-freier CTA. |
+| Darstellung | PASS im geprüften Umfang | Vollständiger Scroll-Durchlauf, 0 Pixel horizontaler Überlauf, keine defekten geladenen Bilder. Sämtliche FAQ geöffnet und Antworten auf Abschneiden gemessen. Zusätzliche Abschnittsaufnahmen geprüft. Eine zunächst abgeschnittene neue Bildunterschrift mobil korrigiert. |
+| Anfrageweg | PASS, gemockt | Validierung, vier Fehlerarten, erhaltener Formularinhalt, stabiler Idempotenzschlüssel und bestätigte Testantwort bis Kalender-Testseite. Keine echte Anfrage versendet. |
+| JavaScript | PASS | 22 ausführbare Inline-Blöcke über alle Seiten mit Node auf Syntax geprüft. Zwei bereits in Phase 1 belegte GSAP-Warnungen bleiben; keine neuen ungefangenen Skriptfehler. |
+| Rechtstexte | PASS | Sichtbarer Inhalt von AGB, Impressum und Datenschutz gegen `cf6ff47` identisch. Nur Datenschutz-Umbruch neu. |
+| Entwurfsgrenze | PASS lokal | Weiterhin genau fünf öffentliche HTML-Dateien. Kein Wissensverzeichnis, kein Artikel in Sitemap oder Navigation. Privater Text und Quellenübersicht liegen außerhalb des Repository-Roots. |
+| Review | PASS für Technik und redaktionelle Abgrenzung | Unabhängiger Review über fünf Achsen. Veraltete Zustandsformulierungen im Plan korrigiert und wirkungslosen Datumstimer entfernt. Kein Ersatz für fachkundige Gegenprüfung. |
+| Build, Typecheck, Lint | NICHT VORHANDEN | Unverändert statischer Export ohne solche Projektbefehle. |
+| Echte Leads, Versand, Buchung | NICHT GEPRÜFT | Nur gemockte externe Antworten; keine echten Vorgänge. |
+| Deploy, neue Live-Fassung, Google-Index | NICHT ERFOLGT / NICHT GEPRÜFT | Kein Push, Merge oder Deploy. Keine Search-Console-Daten. |
+| Fachliche Inhaltsfreigabe | OFFEN | Benannte Fachperson, freigegebene Praxisstimme und Veröffentlichungsfreigabe fehlen. |
+
+Geänderte Dateien gegenüber Phase 1: `index.html`, `datenschutz/index.html`, `tests/browser-smoke.mjs`, `docs/seo/AUDIT.md`, `docs/seo/PLAN.md`. Keine neue öffentliche URL. Kein neuer Dienst, keine Bibliothek und keine Hostingänderung. Browser- und Syntaxbelege liegen außerhalb des Website-Roots unter `work/phase2/`. Private Übergabedateien sind nicht Teil des Website-Patches.
+
+## Dokumentierter Verlauf aus Phase 1
 
 ## 1. Verifizierte Anwendung und Arbeitsgrundlage
 
@@ -26,7 +71,7 @@ Die bestehende Startseite ist bereits die zentrale kommerzielle Leistungsseite. 
 
 Der vorhandene Anfrageweg: Startseite → Formularfenster → POST an `https://portal.lokalejobsuche.de/api/eigenvertrieb/submit` → vom Server bestätigte Calendly-URL. Der HTML-Ausgangstext nennt noch `/api/funnels/submit`, der vorhandene Skriptblock `eigenvertrieb-absenden` überschreibt ihn zur Laufzeit. Es gibt außerdem `/termin/` mit direkter Calendly-Einbettung und Ersatzlink. Kein zusätzliches Formular oder Buchungssystem eingerichtet.
 
-Die Website nennt eine Garantie für 12 qualifizierte Praxisanfragen in 90 Tagen, keinen garantierten Neukundenabschluss. Diese Aussage stammt ausschließlich aus diesem Angebot. Deren tatsächliche Erfüllung ist nicht geprüft. Die allgemeinen Recruiting-Regeln anderer Projekte wurden nicht übertragen.
+Der Website-Ausgangsstand nannte eine Garantie für 12 qualifizierte Praxisanfragen in 90 Tagen, keinen garantierten Neukundenabschluss. Diese Aussage war eine Websitebehauptung, kein geprüftes Musterangebot. In Phase 2 wurde sie aus der lokalen Startseite entfernt. Die allgemeinen Recruiting-Regeln anderer Projekte wurden nicht übertragen.
 
 ## 3. Vollständiges URL-Inventar des Ausgangsstands
 
@@ -138,8 +183,8 @@ Phase 2 beginnt mit fachlicher Absicherung der Startseite, danach mit genau eine
 - [Google: Richtlinien für strukturierte Daten](https://developers.google.com/search/docs/appearance/structured-data/sd-policies): Bezug zu sichtbaren, belegbaren Inhalten.
 - [GitHub Pages: Fehlerseiten](https://docs.github.com/en/pages/getting-started-with-github-pages/creating-a-custom-404-page-for-your-github-pages-site): statisches Hosting und 404-Verhalten.
 
-## Einsatzfertige Übergabe
+## Einsatzfertige Übergabe nach Phase 2
 
-> Übernimm den lokal geprüften SEO-Zweig erst nach ausdrücklicher Veröffentlichungsfreigabe. Prüfe anschließend die fünf betroffenen URLs, die Sitemap und eine unbekannte URL am echten Produktionshost. Halte die Startseite als einzige kommerzielle Akquise-Seite. Sichere ihre bestehenden Aussagen mit echten Belegen ab und erstelle danach den nicht öffentlichen Artikelentwurf zu Wechselgründen gemäß PLAN.md. Führe keine reale Anfrage oder Buchung als Test ohne gesondert autorisierten Testweg aus.
+> Gleiche die Startseite vor erneuter Bewerbung einer numerischen Garantie mit dem freigegebenen Praxisakquise-Angebot ab. Lasse den vorhandenen privaten Artikel vollständig fachlich prüfen und dokumentiere die Nutzungsfreigabe einer echten Praxisstimme. Halte die Startseite als einzige kommerzielle Akquise-Seite. Setze den Artikel erst nach Inhaltsfreigabe ins vorhandene Seitendesign um und erweitere dann Wissensübersicht und Sitemap. Übernimm den lokal geprüften Zweig erst nach ausdrücklicher Veröffentlichungsfreigabe. Prüfe anschließend die fünf bestehenden URLs, etwaige freigegebene neue URLs, die Sitemap und eine unbekannte URL am echten Produktionshost. Erzeuge keine reale Anfrage oder Buchung ohne autorisierten Testweg.
 
 Ungeklärt bleiben Indexierung, organische Nachfrage, serverseitige Anfragespeicherung und die noch fehlenden Veröffentlichungsbelege. **IM CODE UMGESETZT ≠ LOKAL GETESTET ≠ DEPLOYT ≠ LIVE VERIFIZIERT ≠ BEI GOOGLE INDEXIERT.**
