@@ -87,7 +87,7 @@ Umgebung: macOS, Python 3.9.6, Node 26.7.0, vorhandenes Playwright Core 1.63.0 u
 | Vorher-/Nachher-Test | PASS | Neue Tests schlagen gegen den Ausgangsstand bei den erwarteten SEO-Lücken fehl; nach Korrektur grün. Testdatei `seo-before.log` dokumentiert das ursprüngliche Rot. |
 | JavaScript-Syntax | PASS | 25 vorhandene Inline-Skriptblöcke mit `node --check` geprüft; Testskript separat geprüft |
 | Desktop und Mobile | PASS | 1440×900 und 390×900, alle fünf Seiten; vollständiger Scroll-Durchlauf, jeweils 0 Pixel horizontaler Überlauf, keine defekten geladenen Bilder, keine ungefangenen Skriptfehler oder Fehleroverlays |
-| Console bei Seitenaufruf | PASS | Keine console.error-Meldungen in den geprüften lokalen Seitendurchläufen. Absichtlich simulierte Netzwerk-/HTTP-Fehler im Formular sind getrennte Testfälle. |
+| Console bei Seitenaufruf | PASS | Keine console.error-Meldungen in den geprüften lokalen Seitendurchläufen. Zwei GSAP-Warnungen über fehlende Animationsziele je Startseitenaufruf sind im bytegleichen Ausgangs-HTML identisch reproduziert und keine neue Regression. Absichtlich simulierte Netzwerk-/HTTP-Fehler im Formular sind getrennte Testfälle. |
 | Formularpfad | PASS, gemockt | CTA → sichtbares Formular → Tastatur/Escape → Validierung → vier Fehlerantworten → bestätigte Antwort → Kalender-Testseite; auf beiden Breiten. Eingaben bleiben bei Fehlern erhalten, Idempotenzschlüssel bleibt stabil. |
 | Ohne JavaScript | PASS | Startseiten-H1 vorhanden, primärer Link führt zu `/termin/`, direkter Calendly-Ersatzlink vorhanden |
 | Live-Browser, Ausgangsstand | PASS, lesend | Startseite und `/termin/` bei 390×844, kein Überlauf/ungefangener Skriptfehler. Kalenderframe lädt, direkte Calendly-Seite zeigt Auswahl und 30 Minuten. Keine Buchung ausgewählt oder abgeschickt. Fremde schreibende HTTP-Methoden blockiert. |
@@ -108,7 +108,7 @@ Unabhängige Prüfung über Korrektheit, Verständlichkeit, Architektur, Sicherh
 Geändert:
 - `index.html`: Metadaten, JSON-LD, interne Links, CTA-Semantik, Labels, Formularvalidierung/HTTP-Status, Dauertexte.
 - `termin/index.html`: Metadaten, interne Links, 30-Minuten-Angabe.
-- `impressum/index.html`, `datenschutz/index.html`, `agb/index.html`: Metadaten und interne Links. Bestehende Rechtstexte erhalten.
+- `impressum/index.html`, `datenschutz/index.html`, `agb/index.html`: Metadaten und interne Links. Bestehende Rechtstexte erhalten; sichtbarer Text aller drei Rechtsseiten gegen den Ausgangsstand automatisch abgeglichen.
 - `sitemap.xml`: AGB und unbelegte lastmod-Angaben entfernt.
 - `_redirects`: unpassenden SPA-Fallback entfernt; GitHub-Pages-Verhalten unverändert.
 
