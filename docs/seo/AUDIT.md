@@ -201,3 +201,12 @@ PASS: sechs bestehende SEO-Testgruppen, 22 bestehende Browserfälle und elf neue
 Unabhängiger Review: fünf Achsen, nach Korrektur keine offenen Pflichtbefunde; vollständige Übernahme von 56 redaktionellen Textzeilen beziehungsweise Tabellenzellen bestätigt. Die zwei bekannten GSAP-Warnungen auf der unverändert animierten Startseite bestehen weiter. Keine neuen JavaScript-Fehler festgestellt.
 
 NICHT GEPRÜFT: Fachfreigabe durch Labor-/Praxisperson, freigegebenes Vertragsangebot, organischer Anfragezuwachs, Google-Indexierung und Liveverhalten dieser neuen Fassung. Kein Push, Merge oder Deploy. Der Build des Wissensbereichs ist abgeschlossen; die Veröffentlichung ist eine gesonderte spätere Handlung. Details und nächster Auftrag stehen im vorhandenen PLAN.md.
+
+
+## Gestaltungskorrektur der privaten Wissensseiten
+
+Die erste Vorschau passte aus Nutzersicht nicht zur vorhandenen Website. Der gesicherte Vorzustand liegt außerhalb des Repositorys. Die allgemeine Designvorlage wurde durch die tatsächlich vorhandenen Website-Stile ersetzt. Übernommen wurden die originale Navigation samt Mobilmenü, das SVG-Wortlogo, der Footer, responsive Schrift- und Containerregeln, die Knopfgestaltung, der Hintergrundverlauf und ein vorhandenes Foto. Neue Regeln beschränken sich auf die redaktionelle Anordnung. Das Portraitformat des Fotos wurde geprüft; seine Position im Querformat hält die Köpfe vollständig sichtbar.
+
+PASS nach Korrektur: neun Kombinationen aus drei Seiten und drei Breiten (320, 390, 1440). Gemeinsame Stilwerte direkt gegen die Startseite verglichen. Sichtvergleich für Seiteneinstieg und Footer in Mobil- und Desktopdarstellung, nicht nur Funktionsprüfung. Elf Funktionsfälle erneut bestanden. Mobile Reihenfolge und Menü, Kopieren einschließlich Fehlerfall, Prüfliste, Links und Bedienung ohne JavaScript geprüft. Der zunächst fehlende Seitenwrapper verursachte mobilen Überlauf und wurde wie im Original ergänzt. Die mobile Inhaltsreihenfolge wurde ebenfalls an die Startseite angeglichen. Alle 56 redaktionellen Textstücke vollständig erhalten.
+
+Die fünf vorhandenen Seiten einschließlich Startseite sowie die Sitemap sind bytegleich zum gesicherten Stand. Keine Dateien in deren Gestaltung verändert. Private Wissensseiten weiterhin außerhalb des Produktionsrepositorys, lokal noindex und nur über 127.0.0.1 erreichbar. Kein Push, Merge oder Deploy. Keine Live- oder Nutzerabnahme behauptet.
