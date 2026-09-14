@@ -26,7 +26,7 @@ async function context(width, options = {}) {
   return c;
 }
 try {
-  for (const width of [390, 1440]) {
+  for (const width of [320, 390, 1440]) {
     const c = await context(width);
     const p = await c.newPage();
     const errors = [];
@@ -61,6 +61,57 @@ try {
     }
     await p.goto(base + '/?utm_source=seo-test&email=private%40example.invalid&topic=implantat');
     await p.locator('[fs-cc="deny"]').first().click({ timeout: 4000 });
+    // Redaktionelle Änderung: Beispielrechnung mit null, Standard und Obergrenze.
+    const numberAt = async id => Number((await p.locator('#' + id).innerText()).replace(/[^0-9]/g, ''));
+    for (const [amount, practices] of [[12000, 2], [0, 0], [30000, 5]]) {
+      await p.locator('#salary').fill(String(amount));
+      await p.locator('#impact').fill(String(practices));
+      await p.waitForTimeout(800);
+      assert.equal(await numberAt('totalAmount'), amount * practices * 12);
+      assert.equal(await numberAt('perMonth'), amount * practices);
+      assert.equal(await numberAt('perDay'), Math.round(amount * practices * 12 / 365));
+      assert.equal(await numberAt('perWeek'), Math.round(amount * practices * 12 / 52));
+    }
+    await p.locator('#salary').fill('12000');
+    await p.locator('#impact').fill('2');
+    assert.match(await p.locator('.calc-explain').innerText(), /keine Prognose/);
+    const caption = p.locator('.vorteile_image-wrapper.has-caption p');
+    await caption.scrollIntoViewIfNeeded();
+    assert(await caption.evaluate(el => {
+      const a = el.getBoundingClientRect(), b = el.parentElement.getBoundingClientRect();
+      return a.left >= b.left - 1 && a.right <= b.right + 1 && a.top >= b.top - 1 && a.bottom <= b.bottom + 1;
+    }), 'Schemahinweis liegt vollständig in der Grafikbox');
+    const faqs = p.locator('[data-accordion-toggle]');
+    for (const faq of await faqs.all()) {
+      await faq.click();
+      const item = faq.locator('..');
+      assert.equal(await item.getAttribute('data-accordion-status'), 'active');
+      const answer = item.locator('.accordion-css__item-bottom-content');
+      await answer.waitFor({ state: 'visible' });
+      await p.waitForTimeout(400);
+      const clipped = await answer.evaluate(el => {
+        const rect = el.getBoundingClientRect();
+        const parent = el.parentElement.getBoundingClientRect();
+        return rect.bottom > parent.bottom + 2;
+      });
+      assert.equal(clipped, false, 'FAQ-Antwort vollständig sichtbar');
+      await faq.click();
+    }
+    const popup = p.locator('[data-popup="popup"]');
+    await p.locator('[data-popup="open"]').click();
+    await popup.waitFor({ state: 'visible' });
+    await p.waitForTimeout(500);
+    assert.equal(await popup.locator('[data-timer], [data-day-container]').count(), 0);
+    assert.match(await popup.innerText(), /30 Minuten/);
+    const popupBox = await popup.boundingBox();
+    assert(popupBox.x >= -1 && popupBox.x + popupBox.width <= width + 1);
+    await p.screenshot({ path: path.join(out, `popup-${width}.png`) });
+    await popup.locator('a[data-modal_1-trigger]').click();
+    await p.locator('#wf-form-Erstgespraech').waitFor({ state: 'visible' });
+    await p.keyboard.press('Escape');
+    if (await popup.isVisible()) await popup.locator('[data-popup="close"]').click();
+    results.push({ width, flow: 'Beispielrechner einschließlich null → alle FAQ → Terminfenster → Formular', status: 'PASS' });
+    await p.evaluate(() => scrollTo({ top: 0, behavior: 'instant' }));
     const cta = p.locator('a[data-modal_1-trigger]:visible').first();
     await cta.click();
     const form = p.locator('#wf-form-Erstgespraech');
