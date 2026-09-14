@@ -1,8 +1,22 @@
 # SEO-Grundlage und Seitenarchitektur
 
-Stand: 14.09.2026. Phase 2 zur lokalen Umsetzung beauftragt. Keine Veröffentlichung.
+Stand: 14.09.2026. Phase 2 technisch umgesetzt. Phase 3 als private lokale Vorschau gebaut und geprüft. Keine Veröffentlichung.
 
-## Spezifikation Phase 2
+## Phase 3: geprüfte lokale Vorschau
+
+Ziel: Laborinhaber sollen über hilfreiche Fachinhalte auf Laboraquise aufmerksam werden, das passende Angebot verstehen und ein Erstgespräch anfragen. Ein Ranking oder Anfragenzuwachs wurde damit noch nicht nachgewiesen.
+
+Gebaut: `/wissen/` mit genau einem Artikel und `/wissen/warum-zahnaerzte-das-dentallabor-wechseln/` mit vollständigem Inhalt, Inhaltsnavigation, praktischen Darstellungen, acht ankreuzbaren Fragen und einem kopierbaren Gesprächseinstieg. Vorhandene Schrift, Farben und Markenzeichen verwendet. Keine neue Abhängigkeit und kein CMS. Die Startseite bleibt das einzige kommerzielle Akquise-Ziel.
+
+Die zwei neuen Seiten liegen ausschließlich im privaten Vorschauverzeichnis außerhalb dieses Repositorys. Der lokale Server bindet nur an 127.0.0.1 und sendet immer noindex. Die Seiten tragen zusätzlich Meta-noindex und einen sichtbaren Vorschauhinweis. Der Produktionsbaum hat weiterhin fünf HTML-Seiten und unveränderte Sitemap. Wissenslinks sind nur in der lokalen Vorschau vorhanden.
+
+Jürgen Malkomeß wurde auf Wunsch des Nutzers mit „Danke für die unkomplizierte Zusammenarbeit.“ dezent bei den vorhandenen Referenzen ergänzt. Google-Original am 14.09.2026 geprüft: [Bewertung bei Hansetalent](https://maps.app.goo.gl/tAnUemvQU2mBAh94A). Keine Erfolgszahlen ergänzt, kein Video behauptet. Dieser Satz belegt seine Bewertung der Zusammenarbeit, keine Wechselentscheidung einer Zahnarztpraxis.
+
+Prüfung: 22 bestehende und 11 neue Browserfälle bestanden. Darunter alle sieben Vorschauseiten auf 320, 390 und 1440 Pixeln, Links, Textüberlauf, Prüfliste, Kopieren mit Fehlerfall, Bedienung ohne JavaScript und vorhandener Anfrageweg mit abgefangenen Schnittstellen. Sechs SEO-Testgruppen bestanden. Unabhängiger Review über fünf Achsen ohne offene Pflichtkorrektur nach Behebung eines sichtbaren Kopierknopfs bei ausgeschaltetem JavaScript. Alle 56 geprüften Textzeilen beziehungsweise Tabellenzellen des Artikeltexts übernommen.
+
+Noch offen vor Veröffentlichung: Praxisakquise-Angebot und Garantiebedingungen abgleichen, fachliche Gegenprüfung des Artikels, zweckbezogene Referenznutzung dokumentieren und gesonderte Livefreigabe. Eine zusätzliche Praxisstimme oder ein Video ist keine Voraussetzung für den jetzigen Artikel. Spätere Umsetzung im öffentlichen Baum umfasst die endgültigen Canonicals, passende strukturierte Daten, öffentliche Navigation und Sitemap. Diese gehören erst zur veröffentlichten Seitenhierarchie. Danach reale Liveprüfung und tatsächliche Index-/Anfragemessung.
+
+## Spezifikation Phase 2 (historischer Arbeitsumfang)
 
 Die Startseite bleibt die einzige kommerzielle Akquise-Seite. Unbelegte Verknappung, Umsatzbehauptungen, pauschale Erfahrungsmengen und feste Ergebniszeitpunkte entfernen oder als eigene Annahmen kennzeichnen. Keine Ersatzgarantie erfinden: Ein freigegebenes Praxisakquise-Angebot wurde in der gezielten Quellenprüfung nicht gefunden. Die numerische Garantie wird deshalb bis zu dessen Abgleich nicht weiter als feststehendes Angebot beworben. Bestehende AGB bleiben unverändert und als Entwurf erkennbar. Referenzen werden ausdrücklich der Personalgewinnung zugeordnet.
 
@@ -55,13 +69,13 @@ Alle URLs beziehen sich auf `https://www.laboraquise.de`. Slugs mit Status „sp
 | P1 | `/impressum/` | Anbieteridentität und Kontakt | Vertrauens-/Rechtsinformation | verbessern | Selbst-Canonical und Beschreibung ergänzt. Kein Akquise-Keywordziel. |
 | P1 | `/datenschutz/` | Datenverarbeitung verstehen | Vertrauens-/Rechtsinformation | verbessern | Metadaten und Links korrigiert. Aktualität der genannten Auftragsverarbeiter separat prüfen. |
 | P1 | `/agb/` | Vertragsbedingungen verstehen | Öffentlich lesbarer Vertragstext, bestehendes noindex bleibt | verbessern | Nicht als SEO-Zielseite behandeln; aus Sitemap entfernt. |
-| P2, Inhalt 1 | `/wissen/warum-zahnaerzte-das-dentallabor-wechseln/` | Wechselgründe verstehen | Informational, Entscheidungssituationen der Praxis statt Dienstleistung erklären | privat entworfen | Vollständiger Text außerhalb des Website-Roots; fachliche Gegenprüfung, freigegebene Praxisstimme und Veröffentlichung stehen aus. |
+| P2, Inhalt 1 | `/wissen/warum-zahnaerzte-das-dentallabor-wechseln/` | Wechselgründe verstehen | Informational, Entscheidungssituationen der Praxis statt Dienstleistung erklären | private Vorschau geprüft | Als vollständige private HTML-Vorschau gebaut. Fachliche Gegenprüfung und Veröffentlichung stehen aus. Keine Fallstudie erforderlich. |
 | P2, Inhalt 2 | `/wissen/abhaengigkeit-von-zahnarztpraxen-reduzieren/` | Konzentrationsrisiko im Labor erkennen und bearbeiten | Betriebswirtschaftliche Selbstprüfung, keine pauschale Neukunden-Anleitung | später | Vorhandenes Problem auf Startseite; keine universellen Grenzwerte oder Umsatzzahlen erfinden. |
 | P2, Inhalt 3 | `/wissen/dentallabor-positionierung/` | Passung zu einer Praxis konkret ausdrücken | Leistungsprofil und nachweisbare Zusagen erarbeiten | später | Eigener praktischer Nutzen, Beispielprofile und fachliche Prüfung fehlen. |
 | P2, Inhalt 4 | `/wissen/aussendienst-oder-externe-akquise/` | Vertriebswege nach Aufwand und Eignung vergleichen | Neutrale Entscheidungshilfe mit realem eigenen Verfahren | später | Nicht suggerieren, dass Laboraquise Außendienst verkauft. Keine Rechtsratschläge. |
 | P2, Inhalt 5 | `/wissen/social-media-zahnarztpraxen-erreichen/` | Eignung sozialer Medien für B2B-Anfragen einschätzen | Kanalgrenzen und Qualifizierung, keine Recruiting-/Patientenstrategie | später | Tatsächliche Kanal- und Qualitätsdaten fehlen. Erst nach Erkenntnissen aus Inhalt 1 veröffentlichen. |
 
-Keine Stadtseiten, Branchenkopien, überlappenden Methodenleitfäden oder automatischen Zusammenlegungen. Bestehende URLs werden erhalten. Ein Wissensverzeichnis wird erst zusammen mit dem ersten fertigen Inhalt angelegt und erhält eine echte Übersicht; vorher gibt es keine Navigation dorthin.
+Keine Stadtseiten, Branchenkopien, überlappenden Methodenleitfäden oder automatischen Zusammenlegungen. Bestehende URLs werden erhalten. Öffentlich wird das Wissensverzeichnis erst mit dem ersten freigegebenen Artikel aufgenommen. Die private lokale Vorschau enthält beide Seiten und deren Verlinkung bereits.
 
 ## Priorisierte Briefings
 
@@ -126,8 +140,8 @@ Daher jetzt keine neuen Analytics-Ereignisse und keine bloße Datensammlung ohne
 
 Ungeklärt bleiben die tatsächliche organische Nachfrage, der Google-Indexstatus, die serverseitige Leadzuordnung und die noch fehlenden fachlichen Veröffentlichungsbelege.
 
-## Nächster konkreter Auftrag nach Phase 2
+## Nächster konkreter Auftrag vor Veröffentlichung
 
-> Prüfe das freigegebene Praxisakquise-Angebot gegen die lokale Startseite, bevor dort eine numerische Garantie erscheint. Lasse den vollständigen privaten Wechselgründe-Artikel von einer benannten fachkundigen Person gegenprüfen und belege eine zweckbezogen freigegebene Praxisstimme. Setze erst nach Inhaltsfreigabe diesen einen Artikel und eine echte Wissensübersicht im vorhandenen Design um. Erhalte die Zuständigkeit der Startseite für alle kommerziellen Akquise-Begriffe. Prüfe alle Seiten und den gemockten Anfrageweg. Veröffentliche erst nach separater Freigabe.
+> Prüfe den vollständigen Artikel fachlich und gleiche das Praxisakquise-Angebot mit der lokalen Startseite ab. Halte Jürgens Google-Stimme dezent. Veröffentliche erst nach ausdrücklicher Freigabe. Übernimm dann die beiden geprüften Wissensseiten aus dem privaten Vorschaupaket in den öffentlichen Baum, ergänze konsistente Canonicals, passende strukturierte Daten, Navigation und Sitemap. Prüfe erneut die sieben Seiten und den gemockten Anfrageweg sowie anschließend den tatsächlichen Live-Stand.
 
-Ungeklärt bleiben Angebotsnachweis, fachliche Gegenprüfung, Praxisstimme und Veröffentlichung. Such- und CRM-Messdaten liegen weiterhin nicht vor.
+Ungeklärt bleiben Angebotsabgleich, fachliche Abnahme und Veröffentlichung. Such- und CRM-Messdaten liegen weiterhin nicht vor.
