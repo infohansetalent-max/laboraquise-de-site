@@ -33,7 +33,7 @@ try {
     const consoleMessages = [];
     p.on('console', m => { if (['error', 'warning'].includes(m.type())) consoleMessages.push({ type: m.type(), text: m.text() }); });
     p.on('pageerror', e => errors.push(e.message));
-    for (const route of ['/', '/termin/', '/impressum/', '/datenschutz/', '/agb/']) {
+    for (const route of ['/', '/termin/', '/impressum/', '/datenschutz/', '/agb/', '/wissen/', '/wissen/warum-zahnaerzte-das-dentallabor-wechseln/']) {
       consoleMessages.length = 0;
       const response = await p.goto(base + route);
       assert.equal(response.status(), 200);
@@ -117,6 +117,8 @@ try {
     const form = p.locator('#wf-form-Erstgespraech');
     await form.waitFor({ state: 'visible' });
     assert.match(await p.locator('.modal_1_content h2').innerText(), /30 Minuten/);
+    // Sofortiges Schließen vor dem ersten Animationsbild muss ebenfalls funktionieren.
+    await p.locator('.modal_1_dialog').evaluate(el => { el.tl?.pause(0); });
     await p.keyboard.press('Escape');
     await form.waitFor({ state: 'hidden' });
     await cta.focus();

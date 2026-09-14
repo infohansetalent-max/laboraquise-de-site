@@ -1,5 +1,15 @@
 # SEO-Audit und Übergabe, Phase 1 und 2
 
+## Zur Veröffentlichung freigegebene Fassung
+
+Ben hat die aktuelle Gestaltung und Inhalte ausdrücklich zur Veröffentlichung freigegeben. Die zuvor offenen nutzerseitigen Freigabepunkte sind damit für diese Fassung erledigt. Eine unabhängige fachliche Prüfung durch eine weitere Labor-/Praxisperson wird nicht behauptet. Die numerische Akquise-Garantie bleibt wie in der abgenommenen Vorschau entfernt; es wird kein neues Leistungsversprechen ergänzt.
+
+Die beiden Wissensseiten sind nun in diesem Website-Baum enthalten, mit eindeutigen Canonicals, index/follow, passenden Social-Metadaten, Article/CollectionPage und BreadcrumbList. Navigation und Footer verlinken Wissen, die Sitemap umfasst sechs indexierbare URLs. AGB bleibt noindex. Das Social-Bild ist wie auf der Startseite das Markenzeichen ohne alte Garantiezusage. Keine erfundenen Autoren, Veröffentlichungsdaten oder Bewertungen. Sieben öffentliche Seiten insgesamt.
+
+Veröffentlichungsprüfung: sieben SEO-Testgruppen, 28 Browserfälle über alle sieben Seiten bei 320, 390 und 1440 Pixeln sowie elf zusätzliche Wissensfälle bestanden. Formularantworten ausschließlich abgefangen, keine echte Anfrage oder Buchung. Das Anfragefenster schließt auch vor dem ersten Animationsbild mit Escape; dieser Randfall ist gezielt geprüft.
+
+Die folgende Dokumentation enthält die vorherigen Phasen als Historie. Die bisherige Beschränkung auf eine private lokale Vorschau ist durch den ausdrücklichen Liveauftrag aufgehoben. Der bisherige Produktionsstand wurde als vollständiges Git-Archiv gesichert. Der Livegang erfolgt über einen separaten Pull Request; die tatsächliche Auslieferung wird nach dessen Übernahme auf dem Produktionshost geprüft. Technische Vorbereitung allein ist kein Livebeleg.
+
 Stand: 14.09.2026. Phase 2 im isolierten Arbeitsbaum umgesetzt und lokal geprüft. Nicht gepusht, nicht gemergt, nicht deployt. Die lesende Live-Prüfung betrifft ausschließlich den Ausgangsstand aus Phase 1. Die folgende Ergänzung hat bei Zustandsangaben Vorrang vor dem darunter dokumentierten Phase-1-Verlauf.
 
 ## Phase 2: Ergebnis und Beleggrenze

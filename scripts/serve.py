@@ -5,7 +5,7 @@ from pathlib import Path
 from urllib.parse import unquote, urlsplit
 
 ROOT = Path(__file__).resolve().parents[1]
-PAGES = ('/', '/termin/', '/impressum/', '/datenschutz/', '/agb/')
+PAGES = ('/', '/termin/', '/impressum/', '/datenschutz/', '/agb/', '/wissen/', '/wissen/warum-zahnaerzte-das-dentallabor-wechseln/')
 
 class Handler(SimpleHTTPRequestHandler):
     production = False

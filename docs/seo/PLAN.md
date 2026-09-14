@@ -1,5 +1,13 @@
 # SEO-Grundlage und Seitenarchitektur
 
+## Zur Veröffentlichung freigegebene Fassung
+
+Ben hat die aktuelle Gestaltung und Inhalte ausdrücklich zur Veröffentlichung freigegeben. Die zuvor offenen nutzerseitigen Freigabepunkte sind damit für diese Fassung erledigt. Eine unabhängige fachliche Prüfung durch eine weitere Labor-/Praxisperson wird nicht behauptet. Die numerische Akquise-Garantie bleibt wie in der abgenommenen Vorschau entfernt; es wird kein neues Leistungsversprechen ergänzt.
+
+Die beiden Wissensseiten sind nun in diesem Website-Baum enthalten, mit eindeutigen Canonicals, index/follow, passenden Social-Metadaten, Article/CollectionPage und BreadcrumbList. Navigation und Footer verlinken Wissen, die Sitemap umfasst sechs indexierbare URLs. AGB bleibt noindex. Das Social-Bild ist wie auf der Startseite das Markenzeichen ohne alte Garantiezusage. Keine erfundenen Autoren, Veröffentlichungsdaten oder Bewertungen. Sieben öffentliche Seiten insgesamt.
+
+Die folgende Dokumentation enthält die vorherigen Phasen als Historie. Die bisherige Beschränkung auf eine private lokale Vorschau ist durch den ausdrücklichen Liveauftrag aufgehoben. Der bisherige Produktionsstand wurde als vollständiges Git-Archiv gesichert. Der Livegang erfolgt über einen separaten Pull Request; die tatsächliche Auslieferung wird nach dessen Übernahme auf dem Produktionshost geprüft. Technische Vorbereitung allein ist kein Livebeleg.
+
 Stand: 14.09.2026. Phase 2 technisch umgesetzt. Phase 3 als private lokale Vorschau gebaut und geprüft. Keine Veröffentlichung.
 
 ## Phase 3: geprüfte lokale Vorschau

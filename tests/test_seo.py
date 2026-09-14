@@ -20,6 +20,8 @@ TITLES = {
     '/termin/': 'Erstgespräch für Dentallabore vereinbaren | Laboraquise.de',
     '/impressum/': 'Impressum | Laboraquise.de',
     '/datenschutz/': 'Datenschutzerklärung | Laboraquise.de',
+    '/wissen/': 'Wissen für Dentallabore | Laboraquise.de',
+    '/wissen/warum-zahnaerzte-das-dentallabor-wechseln/': 'Warum Zahnärzte ihr Dentallabor wechseln | Laboraquise.de',
     '/agb/': 'Allgemeine Geschäftsbedingungen | Laboraquise.de',
 }
 
@@ -107,6 +109,31 @@ class SEO(unittest.TestCase):
         self.assertTrue(all(a.get('href') == '/termin/' and a.get('aria-label') == 'Erstgespräch vereinbaren' for a in links))
         for name in ['Name', 'E-Mail', 'Telefonnummer', 'Unternehmen']:
             self.assertEqual(len(p.attrs('label', **{'for': name})), 1)
+    def test_published_knowledge(self):
+        for path, kind in [('/wissen/', 'CollectionPage'), ('/wissen/warum-zahnaerzte-das-dentallabor-wechseln/', 'Article')]:
+            p = Page(read(path))
+            self.assertNotIn('Lokale Vorschau', p.html)
+            blocks = re.findall(r'<script type="application/ld\+json">(.*?)</script>', p.html, re.S)
+            self.assertEqual(len(blocks), 1)
+            graph = json.loads(blocks[0])['@graph']
+            self.assertEqual(graph[0]['@type'], kind)
+            self.assertEqual(graph[0]['url'], ORIGIN + path)
+            crumbs = graph[1]['itemListElement']
+            self.assertEqual(crumbs[-1]['item'], ORIGIN + path)
+            self.assertEqual([c['position'] for c in crumbs], list(range(1, len(crumbs) + 1)))
+            self.assertNotRegex(blocks[0], r'AggregateRating|datePublished|dateModified|"author"')
+            for crumb in crumbs:
+                self.assertTrue(p.attrs('a', href=urlsplit(crumb['item']).path) or crumb == crumbs[-1])
+            for key in ['og:title', 'og:description', 'og:url', 'og:image']:
+                self.assertEqual(len(p.attrs('meta', property=key)), 1)
+            self.assertEqual(p.attrs('meta', property='og:url')[0]['content'], ORIGIN + path)
+            brand_image = ORIGIN + '/assets/69ce12160e49568ac435ef6a/laboraquise-icon-512-v2.png'
+            self.assertEqual(p.attrs('meta', property='og:image')[0]['content'], brand_image)
+            self.assertEqual(p.attrs('meta', name='twitter:image')[0]['content'], brand_image)
+        article = read('/wissen/warum-zahnaerzte-das-dentallabor-wechseln/')
+        self.assertEqual(len(Page(article).attrs('input', type='checkbox')), 8)
+        self.assertIn('10.1186/s12903-023-03395-z', article)
+        self.assertTrue(Page(read('/')).attrs('a', href='/wissen/'))
     def test_http_preview_and_production_simulation(self):
         for production in [False, True]:
             handler = type('TestHandler', (Handler,), {'production': production})
