@@ -20,8 +20,14 @@ TITLES = {
     '/termin/': 'Erstgespräch für Dentallabore vereinbaren | Laboraquise.de',
     '/impressum/': 'Impressum | Laboraquise.de',
     '/datenschutz/': 'Datenschutzerklärung | Laboraquise.de',
-    '/wissen/': 'Wissen für Dentallabore | Laboraquise.de',
+    '/wissen/': 'Wissen für Dentallabore: Akquise, Kalkulation, Gründung | Laboraquise.de',
     '/wissen/warum-zahnaerzte-das-dentallabor-wechseln/': 'Warum Zahnärzte ihr Dentallabor wechseln | Laboraquise.de',
+    '/wissen/kundenakquise-im-dentallabor/': 'Kundenakquise im Dentallabor: neue Zahnarztpraxen gewinnen | Laboraquise.de',
+    '/wissen/preise-und-stundensatz-im-dentallabor/': 'Preise und Stundensatz im Dentallabor: BEL II, BEB, Kalkulation | Laboraquise.de',
+    '/wissen/dentallabor-gruenden/': 'Dentallabor gründen: Voraussetzungen, Kosten, erste Praxen | Laboraquise.de',
+    '/wissen/dentallabor-kaufen-oder-uebernehmen/': 'Dentallabor kaufen oder übernehmen: worauf es beim Preis ankommt | Laboraquise.de',
+    '/wissen/eigenlabor-und-praxislabor/': 'Eigenlabor und Praxislabor: was das für Ihr Dentallabor bedeutet | Laboraquise.de',
+    '/wissen/zahntechnik-in-zahlen/': 'Wie viele Dentallabore gibt es in Deutschland? Zahlen mit Quelle | Laboraquise.de',
     '/agb/': 'Allgemeine Geschäftsbedingungen | Laboraquise.de',
 }
 
@@ -90,9 +96,18 @@ class SEO(unittest.TestCase):
     def test_jsonld_and_social(self):
         p = Page(read('/'))
         blocks = re.findall(r'<script type="application/ld\+json">(.*?)</script>', p.html, re.S)
-        self.assertEqual(len(blocks), 1)
-        data = json.loads(blocks[0])
+        self.assertEqual(len(blocks), 2)
+        data, faq = json.loads(blocks[0]), json.loads(blocks[1])
         self.assertEqual(data['@type'], 'Organization')
+        # FAQ-Auszeichnung muss wortgleich zu den sichtbaren Antworten sein.
+        self.assertEqual(faq['@type'], 'FAQPage')
+        self.assertEqual(len(faq['mainEntity']), 8)
+        from html import unescape as _u
+        sichtbar = re.sub(r'<[^>]+>', '', p.html)
+        sichtbar = re.sub(r'\s+', ' ', _u(sichtbar))
+        for eintrag in faq['mainEntity']:
+            self.assertIn(eintrag['name'], sichtbar)
+            self.assertIn(eintrag['acceptedAnswer']['text'][:60], sichtbar)
         self.assertEqual(data['url'], ORIGIN + '/')
         self.assertEqual(data['name'], 'Laboraquise.de')
         self.assertIn('Ben Carstens', read('/impressum/'))
@@ -110,7 +125,10 @@ class SEO(unittest.TestCase):
         for name in ['Name', 'E-Mail', 'Telefonnummer', 'Unternehmen']:
             self.assertEqual(len(p.attrs('label', **{'for': name})), 1)
     def test_published_knowledge(self):
-        for path, kind in [('/wissen/', 'CollectionPage'), ('/wissen/warum-zahnaerzte-das-dentallabor-wechseln/', 'Article')]:
+        seiten = [('/wissen/', 'CollectionPage')]
+        seiten += [(p, 'Article') for p in PAGES if p.startswith('/wissen/') and p != '/wissen/']
+        self.assertEqual(len(seiten), 8, 'Alle Wissensseiten werden geprüft')
+        for path, kind in seiten:
             p = Page(read(path))
             self.assertNotIn('Lokale Vorschau', p.html)
             blocks = re.findall(r'<script type="application/ld\+json">(.*?)</script>', p.html, re.S)
@@ -130,6 +148,11 @@ class SEO(unittest.TestCase):
             brand_image = ORIGIN + '/assets/69ce12160e49568ac435ef6a/laboraquise-icon-512-v2.png'
             self.assertEqual(p.attrs('meta', property='og:image')[0]['content'], brand_image)
             self.assertEqual(p.attrs('meta', name='twitter:image')[0]['content'], brand_image)
+        # Jede Artikelseite braucht mindestens eine abhakbare Liste und einen Weg zum Erstgespräch.
+        for path, _ in seiten[1:]:
+            seite = Page(read(path))
+            self.assertGreaterEqual(len(seite.attrs('input', type='checkbox')), 4, path)
+            self.assertTrue(seite.attrs('a', href='/termin/'), path)
         article = read('/wissen/warum-zahnaerzte-das-dentallabor-wechseln/')
         self.assertEqual(len(Page(article).attrs('input', type='checkbox')), 8)
         self.assertIn('10.1186/s12903-023-03395-z', article)

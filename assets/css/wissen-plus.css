@@ -1,0 +1,86 @@
+/* Ergaenzungen fuer den Wissensbereich.
+   Baut auf dem abgenommenen Seiten-CSS auf: nur neue Bausteine,
+   keine Neudefinition bestehender Klassen. Farben, Radien und
+   Schatten kommen aus den vorhandenen Variablen. */
+
+/* --- Kennzahlenband ------------------------------------------------ */
+.kz-band{display:grid;gap:1px;grid-template-columns:1fr;background:var(--line);
+  border:1px solid var(--line);border-radius:var(--radius-xl);overflow:hidden;margin:0 0 2.5rem}
+@media(min-width:640px){.kz-band{grid-template-columns:repeat(3,1fr)}}
+.kz-feld{background:var(--bg);padding:1.5rem 1.4rem}
+.kz-zahl{display:block;font-size:clamp(1.9rem,5.4vw,2.5rem);font-weight:500;line-height:1.05;
+  letter-spacing:-.03em;color:var(--primary);font-variant-numeric:tabular-nums}
+.kz-text{display:block;margin-top:.5rem;font-size:.95rem;line-height:1.45;color:var(--ink)}
+.kz-quelle{display:block;margin-top:.45rem;font-size:.78rem;line-height:1.4;color:var(--ink-soft)}
+
+/* --- Figuren -------------------------------------------------------- */
+.fig{margin:2.5rem 0}
+.fig__rahmen{overflow-x:auto;-webkit-overflow-scrolling:touch;background:var(--bg-soft);
+  border-radius:var(--radius-xl);padding:1.5rem}
+.fig__rahmen svg{display:block;width:100%;min-width:var(--fig-min,340px);height:auto}
+.fig figcaption{font-size:.85rem;line-height:1.5;color:var(--ink-soft);margin-top:.8rem}
+.fig text{font-family:inherit}
+
+/* --- Hinweisblock --------------------------------------------------- */
+.merk{border:1px solid var(--line);border-left:3px solid var(--primary);
+  border-radius:var(--radius-xl);background:var(--bg);padding:1.4rem 1.5rem;margin:2rem 0}
+.merk b{display:block;font-weight:500;color:var(--ink);margin-bottom:.5rem}
+.merk p:last-child{margin-bottom:0}
+
+/* --- Rechner -------------------------------------------------------- */
+.rechner{background:var(--bg-soft);border-radius:var(--radius-xl);padding:1.6rem;margin:2.5rem 0}
+.rechner h3{margin:0 0 .4rem;font-size:1.15rem;font-weight:500;color:var(--ink)}
+.rechner__hinweis{font-size:.85rem;color:var(--ink-soft);margin:0 0 1.4rem}
+.rechner__feld{margin-bottom:1.3rem}
+.rechner__feld label{display:block;font-size:.95rem;color:var(--ink);margin-bottom:.5rem}
+.rechner__feld input[type=number]{width:100%;max-width:220px;font:inherit;font-size:1rem;
+  padding:.7rem .9rem;border:1px solid var(--line);border-radius:12px;background:var(--bg);color:var(--ink)}
+.rechner__feld input[type=range]{width:100%;max-width:340px;accent-color:var(--primary)}
+.rechner__feld small{display:block;margin-top:.45rem;font-size:.82rem;color:var(--ink-soft)}
+.rechner__ausgabe{display:grid;gap:1px;grid-template-columns:1fr;background:var(--line);
+  border:1px solid var(--line);border-radius:14px;overflow:hidden;margin-top:1.6rem}
+@media(min-width:560px){.rechner__ausgabe{grid-template-columns:1fr 1fr}}
+.rechner__zelle{background:var(--bg);padding:1.1rem 1.2rem}
+.rechner__zelle span{display:block;font-size:.85rem;color:var(--ink-soft)}
+.rechner__zelle output{display:block;margin-top:.35rem;font-size:1.5rem;font-weight:500;
+  letter-spacing:-.02em;color:var(--primary);font-variant-numeric:tabular-nums}
+
+/* --- Text zum Mitnehmen --------------------------------------------- */
+.mitnehmen{border:1px solid var(--line);border-radius:var(--radius-xl);background:var(--bg);margin:2rem 0}
+.mitnehmen summary{cursor:pointer;padding:1.15rem 1.4rem;font-weight:500;color:var(--ink);
+  list-style:none;display:flex;align-items:center;justify-content:space-between;gap:1rem}
+.mitnehmen summary::-webkit-details-marker{display:none}
+.mitnehmen summary::after{content:'+';color:var(--primary);font-size:1.3rem;line-height:1;flex:none}
+.mitnehmen[open] summary::after{content:'\2212'}
+.mitnehmen__inhalt{padding:0 1.4rem 1.4rem}
+.mitnehmen pre{white-space:pre-wrap;font:inherit;font-size:.98rem;line-height:1.6;color:var(--ink-soft);
+  background:var(--bg-soft);border-radius:12px;padding:1.1rem;margin:0 0 1rem;overflow-wrap:anywhere}
+.mitnehmen button{font:inherit;font-size:.92rem;padding:.65rem 1.1rem;border-radius:999px;
+  border:1px solid var(--primary);background:var(--bg);color:var(--primary);cursor:pointer}
+.mitnehmen button:hover{background:var(--primary);color:#fff}
+
+/* --- Weiterlesen ---------------------------------------------------- */
+.weiter{display:grid;gap:1rem;grid-template-columns:1fr;margin:3rem 0 0;padding:0;list-style:none}
+@media(min-width:700px){.weiter{grid-template-columns:1fr 1fr}}
+.weiter li{margin:0}
+.weiter a{display:block;height:100%;padding:1.3rem 1.4rem;border:1px solid var(--line);
+  border-radius:var(--radius-xl);background:var(--bg);text-decoration:none;
+  transition:box-shadow .3s ease,transform .3s ease}
+.weiter a:hover{box-shadow:var(--shadow-md);transform:translateY(-2px)}
+.weiter b{display:block;font-weight:500;color:var(--ink);margin-bottom:.35rem;line-height:1.3}
+.weiter span{display:block;font-size:.92rem;line-height:1.5;color:var(--ink-soft)}
+
+/* --- Wissensuebersicht: Kartenraster -------------------------------- */
+.wissen-karten{display:grid;gap:1.5rem;grid-template-columns:1fr;margin:3rem 0 0;padding:0;list-style:none}
+@media(min-width:720px){.wissen-karten{grid-template-columns:1fr 1fr}}
+.wissen-karten li{margin:0}
+.wissen-karte{display:flex;flex-direction:column;height:100%;padding:1.8rem;border:1px solid var(--line);
+  border-radius:var(--radius-xl);background:var(--bg);text-decoration:none;
+  transition:box-shadow .3s ease,transform .3s ease}
+.wissen-karte:hover{box-shadow:var(--shadow-md);transform:translateY(-3px)}
+.wissen-karte__marke{font-size:.78rem;letter-spacing:.06em;text-transform:uppercase;color:var(--primary);margin-bottom:.9rem}
+.wissen-karte h2{font-size:1.35rem;line-height:1.25;font-weight:500;color:var(--ink);margin:0 0 .7rem}
+.wissen-karte p{font-size:1rem;line-height:1.55;color:var(--ink-soft);margin:0 0 1.2rem}
+.wissen-karte span:last-child{margin-top:auto;color:var(--primary);font-size:.95rem}
+
+@media print{.wissen-toc,.mega-nav{display:none}}
