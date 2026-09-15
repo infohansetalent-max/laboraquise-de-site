@@ -3,7 +3,7 @@
 gruenden kosten, dentallabor voraussetzungen, dentallabor eroeffnen,
 dentallabor gewerbe, zahntechniker selbststaendig ohne meisterbrief."""
 from wissen_bauen import (kennzahlen, figur, merksatz, mitnehmen, weiterlesen,
-                          schritte, checkliste, tabelle)
+                          schritte, checkliste, tabelle, abschluss)
 
 FIG_WEG = '''<svg viewBox="0 0 640 230" role="img" aria-labelledby="t-weg">
 <title id="t-weg">Zwei Wege in die Selbstständigkeit: über die Meisterprüfung oder über eine Ausnahmebewilligung nach § 8 der Handwerksordnung.</title>
@@ -58,7 +58,7 @@ SEITE = {
          ("pflichten","Medizinprodukte und Steuern"),("kosten","Womit Sie rechnen müssen"),
          ("kunden","Die erste Praxis ist das eigentliche Problem"),
          ("plan","Ein Plan für die ersten sechs Monate"),("pruefung","Gründungs-Prüfliste"),
-         ("fragen","Häufige Fragen"),("weiterlesen","Weiterlesen")],
+         ("ansprechen","Die ersten Praxen ansprechen"),("fragen","Häufige Fragen"),("weiterlesen","Weiterlesen")],
  "inhalt": f'''
 <section id="recht">
 {kennzahlen([
@@ -158,6 +158,11 @@ SEITE = {
   ("Wie viele Praxen braucht ein neues Labor zum Start?",
    "Das hängt von Ihren Kosten und der Größe der Praxen ab. Rechnen Sie es mit Ihren eigenen Zahlen aus, statt mit einer Faustregel zu arbeiten. Der Bedarfsrechner auf unserer Seite zur Kundenakquise nimmt Ihre Werte auf."),
  ],
+ "abschluss": abschluss(
+   'Die ersten Praxen für Ihr neues Labor',
+   'Räume, Geräte und Genehmigungen haben einen bekannten Weg. Die ersten Auftraggeber nicht. Wir richten Kampagnen auf das Gebiet und die Arbeiten aus, die Sie tatsächlich übernehmen können, und prüfen jede Anfrage gegen dieses Profil, bevor sie zu Ihnen kommt. Im Erstgespräch klären wir, ob das für Ihren Standort und Ihren Starttermin trägt. Einen Auftrag können wir Ihnen nicht zusagen, nur den Weg zum Gespräch.',
+   [('01', 'Gebiet und Arbeiten festlegen'), ('02', 'Einstiegsangebot entwickeln'), ('03', 'Gespräche mit passenden Praxen')],
+   'Kundengewinnung gehört in den Gründungsplan, nicht in den Notfallplan.'),
  "nachspann": weiterlesen([
   ("/wissen/kundenakquise-im-dentallabor/","Kundenakquise im Dentallabor",
    "Sieben Wege zu neuen Praxen, mit Rechner und Gesprächsvorlage."),

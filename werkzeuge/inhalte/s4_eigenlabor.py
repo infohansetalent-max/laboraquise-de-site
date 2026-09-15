@@ -3,7 +3,7 @@
 zahnarzt, eigenlabor zahnarzt abrechnung, zahnarzt eigenlabor fremdlabor,
 praxislabor zahnarzt, praxislabor zahntechniker."""
 from wissen_bauen import (kennzahlen, figur, merksatz, mitnehmen, weiterlesen,
-                          schritte, checkliste, tabelle)
+                          schritte, checkliste, tabelle, abschluss)
 
 FIG_WAAGE = '''<svg viewBox="0 0 640 280" role="img" aria-labelledby="t-waage">
 <title id="t-waage">Gegenüberstellung: Was für ein Praxislabor spricht und was für das Fremdlabor.</title>
@@ -59,7 +59,7 @@ SEITE = {
  "toc": [("warum","Warum Praxen selbst fertigen"),("grenzen","Wo ein Praxislabor an Grenzen stößt"),
          ("gegenueber","Gegenüberstellung"),("ansprache","Wie Sie eine Praxis mit Eigenlabor ansprechen"),
          ("signale","Woran Sie den richtigen Zeitpunkt erkennen"),("pruefung","Prüfliste"),
-         ("fragen","Häufige Fragen"),("weiterlesen","Weiterlesen")],
+         ("ansprechen","Praxen mit Eigenlabor erreichen"),("fragen","Häufige Fragen"),("weiterlesen","Weiterlesen")],
  "inhalt": f'''
 <section id="warum">
 <h2>Warum Zahnarztpraxen eigene Labore aufbauen</h2>
@@ -133,6 +133,11 @@ SEITE = {
   ("Wie viele Praxen betreiben ein eigenes Labor?",
    "Eine belastbare aktuelle Zahl liegt uns nicht vor, deshalb nennen wir hier keine. Für Ihr Gebiet lässt sich das praktisch klären: Praxiswebsites und Stellenanzeigen geben darüber in der Regel Auskunft."),
  ],
+ "abschluss": abschluss(
+   'Auch Praxen mit Eigenlabor gezielt erreichen',
+   'Vertretung, Spitzenlast und Arbeiten außerhalb des eigenen Spektrums sind ein eigenes Angebot. Wer damit ansprechen will, braucht ein Kundenprofil, das genau diesen Bedarf beschreibt. Wir legen das mit Ihnen fest, richten die Kampagne darauf aus und prüfen jede Anfrage dagegen. Ob Bedarf und Zusammenarbeit wirklich passen, klärt sich in Ihrem Gespräch mit der Praxis.',
+   [('01', 'Angebot für Vertretung und Spitzen'), ('02', 'Passende Praxen ansprechen'), ('03', 'Am einzelnen Fall anfangen')],
+   'Der Einstieg über einen Fall ist wahrscheinlicher als der Wechsel der ganzen Praxis.'),
  "nachspann": weiterlesen([
   ("/wissen/kundenakquise-im-dentallabor/","Kundenakquise im Dentallabor",
    "Die sieben Wege zu neuen Praxen im Vergleich."),
