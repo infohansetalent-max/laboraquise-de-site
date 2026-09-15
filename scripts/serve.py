@@ -5,7 +5,14 @@ from pathlib import Path
 from urllib.parse import unquote, urlsplit
 
 ROOT = Path(__file__).resolve().parents[1]
-PAGES = ('/', '/termin/', '/impressum/', '/datenschutz/', '/agb/', '/wissen/', '/wissen/warum-zahnaerzte-das-dentallabor-wechseln/')
+PAGES = ('/', '/termin/', '/impressum/', '/datenschutz/', '/agb/', '/wissen/',
+         '/wissen/warum-zahnaerzte-das-dentallabor-wechseln/',
+         '/wissen/kundenakquise-im-dentallabor/',
+         '/wissen/preise-und-stundensatz-im-dentallabor/',
+         '/wissen/dentallabor-gruenden/',
+         '/wissen/dentallabor-kaufen-oder-uebernehmen/',
+         '/wissen/eigenlabor-und-praxislabor/',
+         '/wissen/zahntechnik-in-zahlen/')
 
 class Handler(SimpleHTTPRequestHandler):
     production = False
