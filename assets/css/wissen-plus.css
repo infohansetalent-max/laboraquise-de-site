@@ -84,3 +84,9 @@
 .wissen-karte span:last-child{margin-top:auto;color:var(--primary);font-size:.95rem}
 
 @media print{.wissen-toc,.mega-nav{display:none}}
+
+/* Weg vom Bedarfsrechner zur Anfrage */
+.rechner__anfrage{margin-top:1.2rem;padding-top:1.2rem;border-top:1px solid var(--line,#e4e7ec);display:flex;flex-direction:column;gap:.9rem;align-items:flex-start}
+.rechner__anfrage p{margin:0;font-size:1rem;line-height:1.5}
+.rechner__anfrage output{font-weight:600;color:var(--ink,#061421)}
+.rechner__anfrage .wissen-button{margin:0}

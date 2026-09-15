@@ -38,7 +38,13 @@
     var jahr = umsatz * 12;
     var wachstum = jahr > 0 ? Math.ceil(ziel / jahr) : 0;
     setze("b-wachstum", num.format(wachstum));
-    setze("b-gesamt", num.format(wachstum + Math.round(abgang)));
+    var gesamt = wachstum + Math.round(abgang);
+    setze("b-gesamt", num.format(gesamt));
+    /* Weg vom Ergebnis zur Anfrage: Zahl im Text, Zahl im Link */
+    setze("b-anfrage-zahl", gesamt <= 0 ? "neue Praxen" : (gesamt === 1 ? "1 neue Praxis" : num.format(gesamt) + " neue Praxen"));
+    setze("b-anfrage-label", gesamt <= 0 ? "Erstgespräch vereinbaren" : (gesamt === 1 ? "Erstgespräch zu 1 Praxis vereinbaren" : "Erstgespräch zu " + num.format(gesamt) + " Praxen vereinbaren"));
+    var link = document.getElementById("b-anfrage-link");
+    if (link) link.href = "/termin/?utm_source=laboraquise.de&utm_medium=rechner&utm_campaign=wissen-akquise&utm_content=" + Math.max(0, gesamt) + "-praxen";
   });
 
   /* Stundensatzrechner */

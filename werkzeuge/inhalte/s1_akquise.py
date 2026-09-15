@@ -145,6 +145,7 @@ SEITE = {
     <div class="rechner__zelle"><span>Neue Praxen für das Wachstumsziel</span><output id="b-wachstum">2</output></div>
     <div class="rechner__zelle"><span>Neue Praxen inklusive Ersatz für Abgänge</span><output id="b-gesamt">4</output></div>
   </div>
+  <div class="rechner__anfrage"><p>Können wir <output id="b-anfrage-zahl">4 neue Praxen</output> in Ihrem Gebiet erreichen? Das klären wir im Erstgespräch: kostenlos, 30 Minuten, ohne Verpflichtung.</p><a class="button wissen-button cta" id="b-anfrage-link" href="/termin/?utm_source=laboraquise.de&amp;utm_medium=rechner&amp;utm_campaign=wissen-akquise&amp;utm_content=4-praxen"><span id="b-anfrage-label">Erstgespräch zu 4 Praxen vereinbaren</span><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 12H20M20 12L14 6M20 12L14 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a></div>
 </div>
 <p>Die zweite Zahl ist die wichtigere. Wer nur das Wachstumsziel rechnet und den Abgang vergisst, tritt auf der Stelle und wundert sich.</p>
 </section>
