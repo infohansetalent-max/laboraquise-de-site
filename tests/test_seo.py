@@ -162,6 +162,18 @@ class SEO(unittest.TestCase):
         self.assertEqual(len(Page(article).attrs('input', type='checkbox')), 8)
         self.assertIn('10.1186/s12903-023-03395-z', article)
         self.assertTrue(Page(read('/')).attrs('a', href='/wissen/'))
+    def test_keine_cookies_kein_hinweis(self):
+        # Seit 15.09.2026: kein Cookie-Hinweis, keine Einwilligungsbibliothek, kein eigener
+        # Cookie. Die Datenschutzerklaerung sagt genau das, also muss es so bleiben.
+        for path in PAGES:
+            with self.subTest(path=path):
+                html = read(path)
+                self.assertNotIn('fs-cc=', html)
+                self.assertNotIn('fs-cc.js', html)
+                self.assertNotIn('cookie-consent', html)
+                self.assertNotIn('document.cookie', html)
+        self.assertIn('Diese Website setzt keine Cookies', read('/datenschutz/'))
+        self.assertFalse(list((ROOT / 'assets').rglob('fs-cc*')))
     def test_http_preview_and_production_simulation(self):
         for production in [False, True]:
             handler = type('TestHandler', (Handler,), {'production': production})
