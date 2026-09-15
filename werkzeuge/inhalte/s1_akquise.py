@@ -2,7 +2,7 @@
 """Kundenakquise im Dentallabor. Zielsuchen: kundenakquise dentallabor,
 akquise dentallabor, dental akquise (per Google-Vorschlag belegt)."""
 from wissen_bauen import (kennzahlen, figur, merksatz, mitnehmen, weiterlesen,
-                          schritte, checkliste, tabelle)
+                          schritte, checkliste, tabelle, abschluss)
 
 FIG_SCHWUND = '''<svg viewBox="0 0 640 260" role="img" aria-labelledby="t-schwund">
 <title id="t-schwund">Ein Kundenstamm verliert jedes Jahr Praxen. Ohne Nachschub sinkt die Zahl der Auftraggeber.</title>
@@ -76,7 +76,7 @@ SEITE = {
          ("wege","Die sieben Wege im Vergleich"),("bedarf","Wie viele Praxen brauchen Sie?"),
          ("profil","Das Kundenprofil zuerst"),("kontakt","Der erste Kontakt"),
          ("fehler","Woran Akquise scheitert"),("pruefung","Selbstprüfung"),
-         ("fragen","Häufige Fragen"),("weiterlesen","Weiterlesen")],
+         ("ansprechen","Passende Praxen ansprechen"),("fragen","Häufige Fragen"),("weiterlesen","Weiterlesen")],
  "inhalt": f'''
 <section id="lage">
 {kennzahlen([
@@ -204,6 +204,11 @@ SEITE = {
   ("Lohnt sich Akquise, wenn mein Labor gut ausgelastet ist?",
    "Zwei Gründe sprechen dafür. Erstens verlieren Sie regelmäßig Praxen, ohne es steuern zu können. Zweitens macht eine starke Abhängigkeit von wenigen großen Auftraggebern Preisgespräche schwer. Ob zusätzliche Arbeit wirtschaftlich möglich ist, prüfen Sie mit dem Rechner oben."),
  ],
+ "abschluss": abschluss(
+   'Wenn Sie den siebten Weg gehen wollen',
+   'Die ersten sechs Wege bleiben Ihre Arbeit. Beim siebten übernehmen wir Kampagne und Vorqualifizierung: Gebiet, passende Arbeiten und Ansprechpartner legen wir vorher gemeinsam fest, jede eingehende Anfrage wird gegen dieses Profil geprüft. Die Gespräche führen Sie selbst, die Entscheidung über eine Zusammenarbeit treffen Sie und die Praxis. Im Erstgespräch klären wir zuerst, ob wir die passenden Praxen in Ihrem Gebiet überhaupt erreichen.',
+   [('01', 'Kundenprofil festlegen'), ('02', 'Kampagne auf Ihr Gebiet ausrichten'), ('03', 'Vorqualifizierte Anfragen an Sie')],
+   'Von der freien Kapazität zum vorqualifizierten Gespräch.'),
  "nachspann": weiterlesen([
   ("/wissen/warum-zahnaerzte-das-dentallabor-wechseln/","Warum Zahnärzte ihr Dentallabor wechseln",
    "Die Anlässe für einen Wechsel und wie Sie sie im Gespräch erkennen."),

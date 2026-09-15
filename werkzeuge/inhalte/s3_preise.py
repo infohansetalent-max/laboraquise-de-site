@@ -3,7 +3,7 @@
 preise, dentallabor preisliste, dentallabor kosten, stundensatz
 zahntechnikermeister, zahntechnik stundenlohn, bel ii preisliste, beb."""
 from wissen_bauen import (kennzahlen, figur, merksatz, mitnehmen, weiterlesen,
-                          schritte, checkliste, tabelle)
+                          schritte, checkliste, tabelle, abschluss)
 
 FIG_STUNDE = '''<svg viewBox="0 0 640 250" role="img" aria-labelledby="t-stunde">
 <title id="t-stunde">Von der Anwesenheitszeit bleibt nach Abzug von Urlaub, Krankheit, Rüstzeit und Verwaltung nur ein Teil als verrechenbare Stunde übrig.</title>
@@ -53,7 +53,7 @@ SEITE = {
          ("rechner","Stundensatz-Rechner"),("verrechenbar","Die Stunde, die niemand zählt"),
          ("anpassung","Preise anpassen, ohne Kunden zu verlieren"),
          ("abhaengig","Wenn ein Kunde den Preis diktiert"),("pruefung","Prüfliste zur Kalkulation"),
-         ("fragen","Häufige Fragen"),("weiterlesen","Weiterlesen")],
+         ("ansprechen","Abhängigkeit verringern"),("fragen","Häufige Fragen"),("weiterlesen","Weiterlesen")],
  "inhalt": f'''
 <section id="grundlagen">
 <h2>BEL II und BEB: was der Unterschied praktisch bedeutet</h2>
@@ -159,6 +159,11 @@ SEITE = {
   ("Wie begründe ich eine Preiserhöhung gegenüber der Praxis?",
    "Konkret statt allgemein: Nennen Sie die betroffenen Positionen, den Zeitpunkt der letzten Anpassung und den tatsächlichen Kostentreiber. Sagen Sie im selben Schreiben, was unverändert bleibt, also Lieferzeiten, Ansprechpartner und Ihre Regelung bei Nacharbeit. Eine Vorlage dafür steht oben auf dieser Seite."),
  ],
+ "abschluss": abschluss(
+   'Preisgespräche führen, ohne den Kunden zu verlieren',
+   'Solange ein einzelner Auftraggeber ein Drittel Ihres Umsatzes trägt, ist Ihre Preisgestaltung fremdbestimmt. Zusätzliche passende Praxen senken diesen Anteil. Wir richten Kampagnen auf Ihr Gebiet und Ihre Arbeiten aus und prüfen jede Anfrage gegen Ihr Kundenprofil. Was Sie danach abrechnen und wie Sie kalkulieren, bleibt Ihre Entscheidung.',
+   [('01', 'Umsatzanteil des größten Kunden kennen'), ('02', 'Passende Praxen dazugewinnen'), ('03', 'Preisgespräche aus stärkerer Lage')],
+   'Verhandlungsspielraum entsteht vor dem Preisgespräch, nicht darin.'),
  "nachspann": weiterlesen([
   ("/wissen/kundenakquise-im-dentallabor/","Kundenakquise im Dentallabor",
    "Wie Sie die Abhängigkeit von einem großen Auftraggeber verringern."),

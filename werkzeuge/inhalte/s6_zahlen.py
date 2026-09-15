@@ -3,7 +3,7 @@
 dentallabore in deutschland, wie viele dentallabore gibt es in deutschland,
 umsatz dentallabore deutschland."""
 from wissen_bauen import (kennzahlen, figur, merksatz, weiterlesen,
-                          checkliste, tabelle)
+                          checkliste, tabelle, abschluss)
 
 FIG_VERLAUF = '''<svg viewBox="0 0 640 260" role="img" aria-labelledby="t-verlauf">
 <title id="t-verlauf">Entwicklung der Zahl zahntechnischer Betriebe in Deutschland von 2023 bis zur Jahresmitte 2025.</title>
@@ -48,7 +48,7 @@ SEITE = {
  "about": "Marktzahlen des Zahntechnikerhandwerks",
  "toc": [("bestand","Wie viele Labore es gibt"),("entwicklung","Die Entwicklung seit 2023"),
          ("saldo","Gründungen und Aufgaben"),("bedeutung","Was das für Ihr Labor bedeutet"),
-         ("unbelegt","Was wir nicht belegen können"),("fragen","Häufige Fragen"),("weiterlesen","Weiterlesen")],
+         ("unbelegt","Was wir nicht belegen können"),("ansprechen","Die suchenden Praxen erreichen"),("fragen","Häufige Fragen"),("weiterlesen","Weiterlesen")],
  "inhalt": f'''
 <section id="bestand">
 {kennzahlen([
@@ -120,6 +120,11 @@ SEITE = {
   ("Bedeutet weniger Labore automatisch mehr Arbeit für die übrigen?",
    "Nicht automatisch. Die Arbeit der aufgegebenen Labore verteilt sich auf die verbleibenden Labore, auf Praxislabore und auf Fertigung im Ausland. Welcher Anteil wohin geht, ist uns nicht belegt bekannt. Sicher ist nur, dass die Praxen dieser Labore neu entscheiden."),
  ],
+ "abschluss": abschluss(
+   'Die Praxen der aufgegebenen Labore erreichen',
+   '254 Betriebsaufgaben in einem Halbjahr bedeuten Praxen, die ein Labor brauchen. Sie entscheiden innerhalb weniger Wochen und fragen zuerst im Kollegenkreis und beim Depot. Wer dort nicht genannt wird, muss selbst sichtbar sein. Wir richten Kampagnen auf Ihr Gebiet und Ihre Arbeiten aus und prüfen jede Anfrage gegen Ihr Kundenprofil, bevor sie zu Ihnen kommt.',
+   [('01', 'Gebiet und Arbeiten festlegen'), ('02', 'Sichtbar sein, wenn gesucht wird'), ('03', 'Vorqualifizierte Anfragen an Sie')],
+   'Der Zeitpunkt lässt sich nicht abwarten, nur vorbereiten.'),
  "nachspann": weiterlesen([
   ("/wissen/kundenakquise-im-dentallabor/","Kundenakquise im Dentallabor",
    "Wie Sie die suchenden Praxen tatsächlich erreichen."),

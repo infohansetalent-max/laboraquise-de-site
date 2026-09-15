@@ -148,11 +148,16 @@ class SEO(unittest.TestCase):
             brand_image = ORIGIN + '/assets/69ce12160e49568ac435ef6a/laboraquise-icon-512-v2.png'
             self.assertEqual(p.attrs('meta', property='og:image')[0]['content'], brand_image)
             self.assertEqual(p.attrs('meta', name='twitter:image')[0]['content'], brand_image)
-        # Jede Artikelseite braucht mindestens eine abhakbare Liste und einen Weg zum Erstgespräch.
+        # Jede Artikelseite braucht eine abhakbare Liste und einen Weg zum Erstgespräch
+        # im Artikeltext selbst. Ein Link allein in der Navigation zählt nicht: Seiten
+        # ohne Handlungsaufruf im Text holen Besucher, ohne dass daraus etwas wird.
         for path, _ in seiten[1:]:
-            seite = Page(read(path))
+            html = read(path)
+            seite = Page(html)
             self.assertGreaterEqual(len(seite.attrs('input', type='checkbox')), 4, path)
-            self.assertTrue(seite.attrs('a', href='/termin/'), path)
+            artikel = html[html.index('<article'):html.index('</article>')]
+            self.assertIn('href="/termin/"', artikel, path + ': kein Weg zum Erstgespräch im Artikel')
+            self.assertIn('Erstgespräch vereinbaren', artikel, path)
         article = read('/wissen/warum-zahnaerzte-das-dentallabor-wechseln/')
         self.assertEqual(len(Page(article).attrs('input', type='checkbox')), 8)
         self.assertIn('10.1186/s12903-023-03395-z', article)

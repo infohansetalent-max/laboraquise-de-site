@@ -78,6 +78,20 @@ def checkliste(punkte, name: str) -> str:
     return f'<ul class="checklist" data-liste="{name}">{li}</ul>'
 
 
+
+def abschluss(titel: str, text: str, schritte_paare, unterschrift: str) -> str:
+    """Abschluss jeder Wissensseite: Bezug zum Angebot und ein Weg zum
+    Erstgespraech. Uebernimmt Aufbau und Klassen der abgenommenen Artikelseite."""
+    s = "".join(f'<div class="step"><b>{n}</b><span>{t}</span></div>' for n, t in schritte_paare)
+    return (f'<section id="ansprechen"><h2>{titel}</h2><p>{text}</p>'
+            f'<figure><div class="flow">{s}</div>'
+            f'<figcaption>{unterschrift}</figcaption></figure></section>'
+            '<a class="button wissen-button cta" href="/termin/">'
+            '<span>Erstgespräch vereinbaren</span>'
+            '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">'
+            '<path d="M4 12H20M20 12L14 6M20 12L14 18" stroke="currentColor" stroke-width="2" '
+            'stroke-linecap="round" stroke-linejoin="round"/></svg></a>')
+
 def tabelle(kopf, zeilen) -> str:
     th = "".join(f"<th>{k}</th>" for k in kopf)
     tr = "".join("<tr>" + "".join(f"<td>{c}</td>" for c in z) + "</tr>" for z in zeilen)
@@ -148,7 +162,7 @@ def render(seite: dict) -> str:
 
     kopfbereich = f'''<header class="section_header"><div class="padding-global"><div class="container-large"><div class="padding-section-nav"><div class="wissen-crumb"><a href="/">Startseite</a><span>/</span><a href="/wissen/">Wissen</a></div><div class="header3_component"><div class="w-layout-grid header3_content"><div class="header3_content-left"><div class="hero-pille"><span class="hero-pille__punkt" aria-hidden="true"></span><span class="hero-pille__text">{seite["pille"]}</span><span class="hero-pille__glanz" aria-hidden="true"></span></div><h1 class="header3_h1 wissen-title">{seite["h1"]}</h1><p class="text-color-secondary text-size-medium wissen-lead">{seite["lead"]}</p><a class="wissen-textlink" href="#{seite["toc"][0][0]}">Direkt zum Inhalt<svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 5v14M5 12l7 7 7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a></div></div></div></div></div></div></header>'''
 
-    artikel = f'''<div class="padding-global"><div class="container-large"><div class="wissen-layout"><nav class="wissen-toc" aria-label="Inhalt dieser Seite"><div class="text-size-small text-color-secondary">Auf dieser Seite</div><ol>{toc}</ol></nav><article class="wissen-article">{seite["inhalt"]}{faq_html}{seite.get("nachspann","")}</article></div></div></div>'''
+    artikel = f'''<div class="padding-global"><div class="container-large"><div class="wissen-layout"><nav class="wissen-toc" aria-label="Inhalt dieser Seite"><div class="text-size-small text-color-secondary">Auf dieser Seite</div><ol>{toc}</ol></nav><article class="wissen-article">{seite["inhalt"]}{faq_html}{seite.get("abschluss","")}{seite.get("nachspann","")}</article></div></div></div>'''
 
     return ("<!doctype html><html lang=\"de\"><head>" + kopf_meta + KOPF + ld_html + "</head>"
             + BODYSTART + NAV

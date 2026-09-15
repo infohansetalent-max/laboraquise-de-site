@@ -4,7 +4,7 @@ dentallabor kaufen (+ NRW, Bayern, Niedersachsen, Hessen, Berlin, Stuttgart,
 Hamburg, Muenchen), dentallabor verkaufen preis, dentallabor nachfolge,
 dentallabor uebernahme, zahntechnisches labor zu verkaufen."""
 from wissen_bauen import (kennzahlen, figur, merksatz, mitnehmen, weiterlesen,
-                          schritte, checkliste, tabelle)
+                          schritte, checkliste, tabelle, abschluss)
 
 FIG_UEBERGABE = '''<svg viewBox="0 0 640 240" role="img" aria-labelledby="t-uebergabe">
 <title id="t-uebergabe">Nach einer Übernahme entscheidet jede Praxis neu, ob sie bleibt. Ein Teil des Kundenstamms geht erfahrungsgemäß verloren.</title>
@@ -65,7 +65,7 @@ SEITE = {
  "toc": [("lage","Der Markt für Übernahmen"),("wert","Was Sie tatsächlich kaufen"),
          ("pruefen","Unterlagen, die Sie sehen müssen"),("risiko","Das Risiko heißt Kundenstamm"),
          ("uebergabe","Die ersten hundert Tage"),("pruefung","Prüfliste zur Übernahme"),
-         ("fragen","Häufige Fragen"),("weiterlesen","Weiterlesen")],
+         ("ansprechen","Abgänge ersetzen"),("fragen","Häufige Fragen"),("weiterlesen","Weiterlesen")],
  "inhalt": f'''
 <section id="lage">
 {kennzahlen([
@@ -158,6 +158,11 @@ SEITE = {
   ("Lohnt sich ein Kauf gegenüber einer Gründung?",
    "Ein Kauf bringt Umsatz ab dem ersten Tag und spart den Aufbau. Er bringt zugleich Altlasten mit: Verträge, Geräte, Abläufe und eine Kundenstruktur, die Sie nicht gewählt haben. Eine Gründung ist langsamer und frei von Altlasten. Die Entscheidung hängt an Ihrer Finanzierung und daran, wie schnell Sie Umsatz brauchen."),
  ],
+ "abschluss": abschluss(
+   'Den Ersatz aufbauen, bevor die Abgänge kommen',
+   'Nach einer Übergabe entscheidet jede Praxis neu. Wer erst reagiert, wenn die ersten gegangen sind, verhandelt aus der Schwäche. Wir richten ab der Übernahme Kampagnen auf Ihr Gebiet und Ihre Arbeiten aus und prüfen jede Anfrage gegen das gemeinsam festgelegte Profil. Im Erstgespräch klären wir, ob das zu Ihrer Übernahmesituation passt.',
+   [('01', 'Kundenprofil nach der Übernahme'), ('02', 'Ab Woche vier ansprechen'), ('03', 'Abgänge ersetzt, bevor sie wehtun')],
+   'Der Kaufpreis bemisst sich am gehaltenen Umsatz, nicht am Inventar.'),
  "nachspann": weiterlesen([
   ("/wissen/kundenakquise-im-dentallabor/","Kundenakquise im Dentallabor",
    "Der Ersatz für Abgänge, bevor die Abgänge da sind."),
