@@ -80,6 +80,13 @@ def main():
     ld_html = MARKE_LD + f'<script type="application/ld+json">{json.dumps(ld, ensure_ascii=False)}</script>'
     s = s.replace("</head>", ld_html + "</head>", 1)
 
+    # Bestaetigung der Google Search Console. Darf nicht entfernt werden,
+    # sonst verliert die Property ihren Nachweis.
+    gsc = ('<meta name="google-site-verification" '
+           'content="kFe-99axlwPy2d9ltDw9lAeiQEMwrpuGfuP1C0hd2HA">')
+    if 'google-site-verification' not in s:
+        s = s.replace('<link rel="canonical"', gsc + '<link rel="canonical"', 1)
+
     # CSS der Wissensseiten auch auf der Startseite verfuegbar machen
     css = '<link href="/assets/css/wissen-plus.css" rel="stylesheet">'
     if css not in s:
