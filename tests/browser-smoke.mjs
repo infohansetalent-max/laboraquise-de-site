@@ -60,7 +60,10 @@ try {
       results.push({ route, width, consoleMessages: [...consoleMessages], status: 'PASS', maxOverflow: Math.max(...overflow), brokenImages, initialAndDOMH1: true, domContentLoadedMs: Math.round(before) });
     }
     await p.goto(base + '/?utm_source=seo-test&email=private%40example.invalid&topic=implantat');
-    await p.locator('[fs-cc="deny"]').first().click({ timeout: 4000 });
+    // Kein Cookie-Hinweis mehr, und die Seite setzt selbst keine Cookies (Stand 15.09.2026).
+    assert.equal(await p.locator('[fs-cc="banner"], .cookie_component').count(), 0, 'Cookie-Hinweis ist entfernt');
+    await p.waitForTimeout(1500);
+    assert.equal(await p.evaluate(() => document.cookie), '', 'Startseite setzt keine Cookies');
     // Redaktionelle Änderung: Beispielrechnung mit null, Standard und Obergrenze.
     const numberAt = async id => Number((await p.locator('#' + id).innerText()).replace(/[^0-9]/g, ''));
     for (const [amount, practices] of [[12000, 2], [0, 0], [30000, 5]]) {
