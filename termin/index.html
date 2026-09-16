@@ -180,9 +180,14 @@
   /* Kalender */
   .kalender { position: relative; border-radius: var(--r-std); overflow: hidden;
               background: var(--bg-soft); min-height: 620px; }
-  .calendly-inline-widget { width: 100%; min-width: 0; height: 640px; }
-  .skelett { position: absolute; inset: 0; display: grid; place-items: center; gap: 12px;
-             align-content: center; background: var(--bg-soft); }
+  .calendly-inline-widget { width: 100%; min-width: 0; height: 640px;
+                            position: relative; z-index: 1; }
+  /* Die Platzhalterflaeche liegt ueber dem Rahmen, nicht darunter: Calendly
+     zeigt beim Laden seinen eigenen Ladepunkt, und der blitzte sonst durch
+     (gesehen 16.09.2026). Sie verschwindet, sobald Calendly die Hoehe seines
+     Inhalts meldet, spaetestens nach zwoelf Sekunden. */
+  .skelett { position: absolute; inset: 0; z-index: 2; display: grid; place-items: center;
+             gap: 12px; align-content: center; background: var(--bg-soft); }
   .skelett__dreher { width: 26px; height: 26px; border: 2.5px solid rgba(0,104,201,.2);
                      border-top-color: var(--primary); border-radius: 999px;
                      animation: dreh .8s linear infinite; }
@@ -451,7 +456,10 @@
     // Laedt der Kalender nach zwoelf Sekunden nicht, bekommt der Besucher
     // einen Weg statt eines drehenden Rades.
     window.setTimeout(function () {
-      if (!widget.querySelector("iframe")) kalenderGescheitert();
+      if (!widget.querySelector("iframe")) { kalenderGescheitert(); return; }
+      // Der Kalender steht, Calendly hat nur keine Hoehe gemeldet. Die
+      // Platzhalterflaeche muss trotzdem weg, sonst deckt sie ihn zu.
+      skelett.hidden = true;
     }, 12000);
 
     schrittTermin.scrollIntoView({ behavior: "smooth", block: "nearest" });
