@@ -4,10 +4,10 @@
    die Kennung, weil die Links fest auf /termin/ zeigen. Dieses Skript
    haengt sie an.
 
-   Auf der Terminseite gibt termin/index.html den Wert an Calendly
-   weiter. Damit steht bei jeder Buchung, welcher Anzeigenklick sie
-   ausgeloest hat, und die Buchung laesst sich als Conversion nach
-   Google Ads laden.
+   Auf der Terminseite gibt termin/index.html den Wert als utm_term an
+   das Portal weiter. Damit steht bei jeder Anfrage, welcher
+   Anzeigenklick sie ausgeloest hat, und sie laesst sich als Conversion
+   nach Google Ads laden.
 
    Wichtig: Die Kennung wandert nur durch die Adresszeile. Es wird
    nichts im Browser gespeichert, kein Cookie, kein Local Storage.

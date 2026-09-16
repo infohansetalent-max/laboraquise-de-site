@@ -180,12 +180,10 @@
   /* Kalender */
   .kalender { position: relative; border-radius: var(--r-std); overflow: hidden;
               background: var(--bg-soft); min-height: 620px; }
-  .calendly-inline-widget { width: 100%; min-width: 0; height: 640px;
-                            position: relative; z-index: 1; }
-  /* Die Platzhalterflaeche liegt ueber dem Rahmen, nicht darunter: Calendly
-     zeigt beim Laden seinen eigenen Ladepunkt, und der blitzte sonst durch
-     (gesehen 16.09.2026). Sie verschwindet, sobald Calendly die Hoehe seines
-     Inhalts meldet, spaetestens nach zwoelf Sekunden. */
+  /* Die Platzhalterflaeche liegt ueber dem Buchungsfenster, nicht darunter,
+     sonst blitzt beim Laden der leere Rahmen durch (gesehen 16.09.2026). Sie
+     verschwindet, sobald das Buchungsfenster des Portals geladen ist oder
+     seine Hoehe meldet. */
   .skelett { position: absolute; inset: 0; z-index: 2; display: grid; place-items: center;
              gap: 12px; align-content: center; background: var(--bg-soft); }
   .skelett__dreher { width: 26px; height: 26px; border: 2.5px solid rgba(0,104,201,.2);
@@ -194,6 +192,10 @@
   .skelett span { font-size: 14px; color: var(--ink-muted); }
 
   .ersatz { font-size: 13px; color: var(--ink-muted); text-align: center; margin: 14px 0 0; }
+
+  /* Bestaetigung, wenn die Online-Buchung geschlossen ist (16.09.2026) */
+  .bestaetigung { margin-bottom: 0; }
+  .bestaetigung:focus { outline: none; }
 
   /* --- Fuß ----------------------------------------------------------- */
   .fuss { max-width: 1080px; margin: 0 auto; padding: 28px 24px 56px;
@@ -240,7 +242,7 @@
   </div>
 
   <!-- Buchung in zwei Schritten: erst die Angaben ins Portal, dann der Kalender. -->
-  <section class="buchung" id="buchung" data-angebot="laboraquise" data-ersatz="https://calendly.com/hansetalent/laboraquise-erstgesprach?hide_event_type_details=1&amp;primary_color=0068c9" aria-label="Termin vereinbaren">
+  <section class="buchung" id="buchung" data-angebot="laboraquise" aria-label="Termin vereinbaren">
     <div class="buchung__kopf">
       <div class="buchung__titel">Termin vereinbaren</div>
       <div class="buchung__zeile"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7.5V12l3 2"/></svg><span>30&nbsp;Minuten &middot; Video oder Telefon &middot; kostenlos</span></div>
@@ -289,9 +291,16 @@
         </div>
         <div class="kalender" id="kalender">
           <div class="skelett" id="skelett"><span class="skelett__dreher"></span><span>Freie Zeiten werden geladen</span></div>
-          <div class="calendly-inline-widget" id="calendly-widget" data-url=""></div>
+          <div id="buchungsfenster"></div>
         </div>
-        <p class="ersatz">Der Kalender l&auml;dt nicht? <a id="ersatzlink" href="https://calendly.com/hansetalent/laboraquise-erstgesprach?hide_event_type_details=1&amp;primary_color=0068c9" target="_blank" rel="noopener">In neuem Fenster aussuchen</a> oder anrufen: <a href="tel:+4915228575639">+49&nbsp;152&nbsp;2857&nbsp;5639</a>.</p>
+        <p class="ersatz">Der Kalender l&auml;dt nicht? <a id="ersatzlink" target="_blank" rel="noopener">In neuem Fenster aussuchen</a> oder anrufen: <a href="tel:+4915228575639">+49&nbsp;152&nbsp;2857&nbsp;5639</a>.</p>
+      </div>
+
+      <div id="schritt-bestaetigung" hidden>
+        <div class="angaben bestaetigung" id="bestaetigung" role="status" tabindex="-1">
+          <span class="angaben__haken"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg></span>
+          <span class="angaben__text"><b>Ihre Anfrage ist angekommen</b>Ben Carstens meldet sich pers&ouml;nlich bei Ihnen und stimmt den Termin mit Ihnen ab. Wenn Sie vorher sprechen m&ouml;chten, erreichen Sie ihn unter <a href="tel:+4915228575639">+49&nbsp;152&nbsp;2857&nbsp;5639</a>.</span>
+        </div>
       </div>
     </div>
   </section>
@@ -309,24 +318,18 @@
 
   // Terminbuchung in zwei Schritten (16.09.2026).
   //
-  // WARUM NICHT MEHR DIREKT CALENDLY: Die Seite hat den Kalender frueher
-  // ungefiltert eingebettet. Wer darueber buchte, lief am Portal vorbei --
-  // der Lead stand nur in Calendly, im Leadeingang fehlte er, und Ben
-  // bekam keine Meldung. Jetzt gehen die Angaben zuerst an das Portal
-  // (/api/eigenvertrieb/submit), das antwortet mit einem Buchungslink,
-  // der Name, E-Mail und die Eingangskennung (salesforce_uuid) schon
-  // traegt. Der Calendly-Webhook ordnet die Buchung damit exakt dem
-  // Eingang zu, statt ueber die E-Mail raten zu muessen.
+  // Die Angaben gehen zuerst an das Portal (/api/eigenvertrieb/submit).
+  // Damit steht jede Anfrage im Leadeingang, auch wenn der Besucher danach
+  // keinen Termin waehlt.
   //
-  // Nebenwirkung, die erwuenscht ist: Bricht jemand bei der Terminwahl
-  // ab, ist er trotzdem als Anfrage im Portal. Vorher war er weg.
-  //
-  // EIGENE BUCHUNG STATT CALENDLY (16.09.2026): Ist im Portal die eigene
-  // Terminbuchung offen, antwortet es zusaetzlich mit buchung_url. Dann
-  // erscheint hier das Buchungsfenster des Portals, mit Name, Firma und
-  // Mail schon vorbelegt; der Besucher waehlt nur noch die Zeit. Ohne
-  // buchung_url bleibt alles wie bisher bei Calendly. Umgeschaltet wird im
-  // Portal, diese Seite muss dafuer nicht neu ausgeliefert werden.
+  // Ist im Portal die eigene Terminbuchung offen, antwortet es mit
+  // buchung_url. Dann erscheint hier das Buchungsfenster des Portals, mit
+  // Name, Firma und Mail schon vorbelegt; der Besucher waehlt nur noch die
+  // Zeit. Ohne buchung_url (Buchung geschlossen) ist die Anfrage trotzdem
+  // gespeichert, und die Seite bestaetigt das: Ben meldet sich persoenlich.
+  // Umgeschaltet wird im Portal, diese Seite muss dafuer nicht neu
+  // ausgeliefert werden. Einen fremden Terminplaner als Rueckfall gibt es
+  // seit 16.09.2026 nicht mehr.
 
   var EINGANG = "https://portal.lokalejobsuche.de/api/eigenvertrieb/submit";
   var PORTAL = "https://portal.lokalejobsuche.de";
@@ -334,7 +337,6 @@
   if (!wurzel) return;
 
   var angebot = wurzel.getAttribute("data-angebot");
-  var ersatzUrl = wurzel.getAttribute("data-ersatz");
   var formular = document.getElementById("buchungsformular");
   var schrittDaten = document.getElementById("schritt-daten");
   var schrittTermin = document.getElementById("schritt-termin");
@@ -346,8 +348,11 @@
   var knopfText = knopf.querySelector("[data-text]");
   var fehlerFeld = document.getElementById("formularfehler");
   var kalender = document.getElementById("kalender");
-  var widget = document.getElementById("calendly-widget");
+  var widget = document.getElementById("buchungsfenster");
   var skelett = document.getElementById("skelett");
+  var schrittBestaetigung = document.getElementById("schritt-bestaetigung");
+  var bestaetigung = document.getElementById("bestaetigung");
+  var stufen = wurzel.querySelector(".stufen");
 
   var idempotenzSchluessel = null;
   var kalenderGeladen = false;
@@ -394,10 +399,9 @@
   }
 
   // Kampagnenparameter der Adresse. Die Klick-Kennung von Google Ads
-  // (gclid, gbraid, wbraid) hat bei Calendly kein eigenes Feld und faehrt
-  // deshalb in utm_term mit -- so steht bei jeder Buchung, welcher
-  // Anzeigenklick sie ausgeloest hat. Reine Weitergabe in der Adresse,
-  // es wird nichts im Browser gespeichert.
+  // (gclid, gbraid, wbraid) faehrt als utm_term mit ans Portal. So steht bei
+  // jeder Anfrage, welcher Anzeigenklick sie ausgeloest hat. Es wird nichts
+  // im Browser gespeichert.
   function kampagne() {
     var rein = new URLSearchParams(window.location.search);
     var werte = {};
@@ -427,51 +431,7 @@
       });
   })();
 
-  // --- Kalender ----------------------------------------------------------
-
-  function kalenderOeffnen(url) {
-    widget.setAttribute("data-url", url);
-    schrittDaten.hidden = true;
-    schrittTermin.hidden = false;
-    stufeEins.className = "stufe ist-fertig";
-    stufeZwei.className = "stufe ist-aktiv";
-
-    var ersatz = document.getElementById("ersatzlink");
-    if (ersatz) ersatz.href = url;
-
-    if (window.Calendly && typeof window.Calendly.initInlineWidget === "function") {
-      window.Calendly.initInlineWidget({ url: url, parentElement: widget });
-      kalenderGeladen = true;
-    } else {
-      // Das Calendly-Skript wird erst hier geholt, nicht beim Seitenaufbau:
-      // Vorher lud jede Terminseite rund 300 KB fremdes JavaScript, auch
-      // fuer Besucher, die nie bis zum Kalender kamen.
-      var skript = document.createElement("script");
-      skript.src = "https://assets.calendly.com/assets/external/widget.js";
-      skript.async = true;
-      skript.onload = function () {
-        if (window.Calendly) {
-          window.Calendly.initInlineWidget({ url: url, parentElement: widget });
-          kalenderGeladen = true;
-        } else {
-          kalenderGescheitert();
-        }
-      };
-      skript.onerror = kalenderGescheitert;
-      document.body.appendChild(skript);
-    }
-
-    // Laedt der Kalender nach zwoelf Sekunden nicht, bekommt der Besucher
-    // einen Weg statt eines drehenden Rades.
-    window.setTimeout(function () {
-      if (!widget.querySelector("iframe")) { kalenderGescheitert(); return; }
-      // Der Kalender steht, Calendly hat nur keine Hoehe gemeldet. Die
-      // Platzhalterflaeche muss trotzdem weg, sonst deckt sie ihn zu.
-      skelett.hidden = true;
-    }, 12000);
-
-    schrittTermin.scrollIntoView({ behavior: "smooth", block: "nearest" });
-  }
+  // --- Buchung ----------------------------------------------------------
 
   // Das Buchungsfenster des Portals. Es meldet seine Hoehe und die fertige
   // Buchung per postMessage (portal: src/components/buchung/einbettung.tsx).
@@ -482,7 +442,6 @@
     fenster.setAttribute("allow", "clipboard-write");
     fenster.style.cssText = "display:block;width:100%;height:640px;border:0;background:transparent;position:relative;z-index:1";
     fenster.onload = function () { skelett.hidden = true; kalenderGeladen = true; };
-    widget.className = "";
     widget.innerHTML = "";
     widget.appendChild(fenster);
 
@@ -522,35 +481,29 @@
     if (d.ereignis === "gebucht") stufeZwei.className = "stufe ist-fertig";
   });
 
+  // Laedt das Buchungsfenster nicht, fuehrt ein Knopf auf dieselbe Buchung
+  // im neuen Fenster.
   function kalenderGescheitert() {
     if (widget.querySelector("iframe")) return;
+    var ersatz = document.getElementById("ersatzlink");
+    if (!ersatz || !ersatz.href) return;
     skelett.innerHTML =
       '<span>Der Kalender l&auml;dt hier gerade nicht.</span>' +
       '<a class="knopf" style="width:auto;text-decoration:none" href="' +
-      (widget.getAttribute("data-url") || ersatzUrl) +
+      ersatz.href +
       '" target="_blank" rel="noopener">Termin in neuem Fenster aussuchen</a>';
   }
 
-  // Calendly meldet die echte Hoehe seines Inhalts. Direkt nach dem Laden
-  // meldet es einmal "2px" -- ungeprueft uebernommen klappt der Kalender
-  // auf zwei Pixel zusammen (gemessen 25.08.2026). Alles unter 500 ist
-  // deshalb Rauschen.
-  window.addEventListener("message", function (e) {
-    if (!e.origin || e.origin.indexOf("calendly.com") === -1) return;
-    var d = e.data;
-    if (!d || !d.event) return;
-    if (d.event === "calendly.event_scheduled") {
-      stufeZwei.className = "stufe ist-fertig";
-      return;
-    }
-    if (d.event !== "calendly.page_height" || !d.payload) return;
-    var gemeldet = parseInt(d.payload.height, 10);
-    if (!gemeldet || gemeldet < 500) return;
-    var el = widget.querySelector(".calendly-inline-widget") || widget;
-    el.style.height = gemeldet + "px";
-    kalender.style.minHeight = "0";
-    skelett.hidden = true;
-  });
+  // Buchung geschlossen: Die Anfrage ist gespeichert, es gibt nur keinen
+  // Kalender. Dann eine ruhige Bestaetigung statt einer Fehlermeldung.
+  function bestaetigungZeigen() {
+    schrittDaten.hidden = true;
+    schrittTermin.hidden = true;
+    if (stufen) stufen.hidden = true;
+    schrittBestaetigung.hidden = false;
+    bestaetigung.focus({ preventScroll: true });
+    schrittBestaetigung.scrollIntoView({ behavior: "smooth", block: "nearest" });
+  }
 
   // --- Absenden ----------------------------------------------------------
 
@@ -605,30 +558,38 @@
       body: JSON.stringify(nutzlast)
     })
       .then(function (r) {
-        return r.json().catch(function () { return { ok: false }; });
+        return r.json()
+          .catch(function () { return { ok: false }; })
+          .then(function (antwort) { return { httpOk: r.ok, antwort: antwort }; });
       })
-      .then(function (antwort) {
+      .then(function (ergebnis) {
         laden(false);
-        var eigen = antwort && antwort.ok === true ? pruefeBuchungUrl(antwort.buchung_url) : "";
-        var url = eigen || (antwort && antwort.ok === true ? pruefeKalenderUrl(antwort.calendly_url) : "");
-        if (!url) {
-          var text = (antwort && antwort.error) ||
-            "Ihre Angaben konnten nicht gespeichert werden. Bitte versuchen Sie es noch einmal.";
-          var feld = null;
-          if (antwort && antwort.fieldErrors) {
-            var erstes = Object.keys(antwort.fieldErrors)[0];
-            if (erstes) { feld = erstes; text = antwort.fieldErrors[erstes][0] || text; }
-          }
-          fehlerZeigen(text, feld);
+        var antwort = ergebnis.antwort;
+        var gespeichert = Boolean(antwort && antwort.ok === true);
+        var eigen = gespeichert ? pruefeBuchungUrl(antwort.buchung_url) : "";
+        if (eigen) {
+          angabenText.innerHTML = "";
+          var name = document.createElement("b");
+          name.textContent = nutzlast.full_name + " · " + nutzlast.firma;
+          angabenText.appendChild(name);
+          angabenText.appendChild(document.createTextNode(nutzlast.email + " · " + nutzlast.phone));
+          buchungOeffnen(eigen);
           return;
         }
-        angabenText.innerHTML = "";
-        var name = document.createElement("b");
-        name.textContent = nutzlast.full_name + " · " + nutzlast.firma;
-        angabenText.appendChild(name);
-        angabenText.appendChild(document.createTextNode(nutzlast.email + " · " + nutzlast.phone));
-        if (eigen) buchungOeffnen(eigen);
-        else kalenderOeffnen(url);
+        // Gespeichert, aber kein Buchungslink: Bestaetigung. Nur bei echter
+        // Speicherung (HTTP 2xx und ok), sonst bleibt es beim Fehler.
+        if (gespeichert && ergebnis.httpOk) {
+          bestaetigungZeigen();
+          return;
+        }
+        var text = (antwort && antwort.error) ||
+          "Ihre Angaben konnten nicht gespeichert werden. Bitte versuchen Sie es noch einmal.";
+        var feld = null;
+        if (antwort && antwort.fieldErrors) {
+          var erstes = Object.keys(antwort.fieldErrors)[0];
+          if (erstes) { feld = erstes; text = antwort.fieldErrors[erstes][0] || text; }
+        }
+        fehlerZeigen(text, feld);
       })
       .catch(function () {
         laden(false);
@@ -649,30 +610,9 @@
     }
   }
 
-  // Nur https und nur calendly.com: Der Link kommt zwar vom eigenen
-  // Portal, geoeffnet wird aber trotzdem nur, was er sein soll.
-  function pruefeKalenderUrl(url) {
-    try {
-      var ziel = new URL(url);
-      var gut = ziel.protocol === "https:" &&
-        (ziel.hostname === "calendly.com" || /\.calendly\.com$/.test(ziel.hostname));
-      if (!gut) return "";
-      if (!ziel.searchParams.has("hide_event_type_details")) {
-        ziel.searchParams.set("hide_event_type_details", "1");
-      }
-      if (!ziel.searchParams.has("primary_color")) {
-        ziel.searchParams.set("primary_color", "0068c9");
-      }
-      return ziel.href;
-    } catch (e) {
-      return "";
-    }
-  }
-
   aendernKnopf.addEventListener("click", function () {
     if (widget.querySelector('iframe[src^="' + PORTAL + '"]')) {
       widget.innerHTML = "";
-      widget.className = "calendly-inline-widget";
       kalenderGeladen = false;
       skelett.hidden = false;
     }
