@@ -99,7 +99,7 @@ def bauen():
 
     html = ("<!doctype html><html lang=\"de\"><head>" + meta + KOPF + ld_html + "</head>"
             + BODYSTART + NAV + '<main class="main-wrapper" id="inhalt">' + kopfbereich + inhalt
-            + FUSS + SKRIPTE + '<script src="/assets/js/wissen-plus.js" defer></script>'
+            + FUSS + SKRIPTE + '<script src="/assets/js/wissen-plus.js" defer></script><script src="/assets/js/klick-id.js" defer></script>'
             + "</body></html>")
     ziel = WURZEL / "wissen" / "index.html"
     ziel.write_text(html, encoding="utf-8")

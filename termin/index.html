@@ -117,6 +117,20 @@
                  "utm_source", "utm_medium", "utm_campaign",
                  "utm_content", "utm_term"];
   var rein = new URLSearchParams(window.location.search);
+  // Klick-Kennung von Google Ads (gclid, gbraid, wbraid): Calendly hat
+  // dafuer kein eigenes Feld. Sie faehrt deshalb in utm_term mit, das
+  // wir sonst nicht belegen. Damit steht bei jeder Buchung, welcher
+  // Anzeigenklick sie ausgeloest hat, und die Buchung laesst sich als
+  // Conversion nach Google Ads laden. Reine Weitergabe in der Adresse,
+  // es wird nichts im Browser gespeichert.
+  if (!rein.get("utm_term")) {
+    ["gclid", "gbraid", "wbraid"].some(function (name) {
+      var wert = rein.get(name);
+      if (!wert) return false;
+      rein.set("utm_term", name + ":" + wert);
+      return true;
+    });
+  }
   var basis = el.getAttribute("data-url");
   var teile = [];
   erlaubt.forEach(function (schluessel) {

@@ -168,7 +168,7 @@ def render(seite: dict) -> str:
             + BODYSTART + NAV
             + '<main class="main-wrapper" id="inhalt">' + kopfbereich + artikel
             + FUSS + SKRIPTE
-            + '<script src="/assets/js/wissen-plus.js" defer></script>'
+            + '<script src="/assets/js/wissen-plus.js" defer></script><script src="/assets/js/klick-id.js" defer></script>'
             + "</body></html>")
 
 
