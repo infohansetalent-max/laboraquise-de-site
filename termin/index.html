@@ -320,8 +320,16 @@
   //
   // Nebenwirkung, die erwuenscht ist: Bricht jemand bei der Terminwahl
   // ab, ist er trotzdem als Anfrage im Portal. Vorher war er weg.
+  //
+  // EIGENE BUCHUNG STATT CALENDLY (16.09.2026): Ist im Portal die eigene
+  // Terminbuchung offen, antwortet es zusaetzlich mit buchung_url. Dann
+  // erscheint hier das Buchungsfenster des Portals, mit Name, Firma und
+  // Mail schon vorbelegt; der Besucher waehlt nur noch die Zeit. Ohne
+  // buchung_url bleibt alles wie bisher bei Calendly. Umgeschaltet wird im
+  // Portal, diese Seite muss dafuer nicht neu ausgeliefert werden.
 
   var EINGANG = "https://portal.lokalejobsuche.de/api/eigenvertrieb/submit";
+  var PORTAL = "https://portal.lokalejobsuche.de";
   var wurzel = document.getElementById("buchung");
   if (!wurzel) return;
 
@@ -465,6 +473,55 @@
     schrittTermin.scrollIntoView({ behavior: "smooth", block: "nearest" });
   }
 
+  // Das Buchungsfenster des Portals. Es meldet seine Hoehe und die fertige
+  // Buchung per postMessage (portal: src/components/buchung/einbettung.tsx).
+  function buchungOeffnen(url) {
+    var fenster = document.createElement("iframe");
+    fenster.src = url;
+    fenster.title = "Termin wählen";
+    fenster.setAttribute("allow", "clipboard-write");
+    fenster.style.cssText = "display:block;width:100%;height:640px;border:0;background:transparent;position:relative;z-index:1";
+    fenster.onload = function () { skelett.hidden = true; kalenderGeladen = true; };
+    widget.className = "";
+    widget.innerHTML = "";
+    widget.appendChild(fenster);
+
+    schrittDaten.hidden = true;
+    schrittTermin.hidden = false;
+    stufeEins.className = "stufe ist-fertig";
+    stufeZwei.className = "stufe ist-aktiv";
+
+    var ersatz = document.getElementById("ersatzlink");
+    if (ersatz) {
+      var offen = new URL(url);
+      offen.searchParams.delete("einbettung");
+      ersatz.href = offen.href;
+    }
+    window.setTimeout(function () { if (!kalenderGeladen) kalenderGescheitert(); }, 12000);
+    schrittTermin.scrollIntoView({ behavior: "smooth", block: "nearest" });
+  }
+
+  window.addEventListener("message", function (e) {
+    if (e.origin !== PORTAL) return;
+    var d = e.data;
+    if (!d || d.quelle !== "portal-buchung") return;
+    var fenster = widget.querySelector("iframe");
+    if (d.ereignis === "hoehe" && fenster) {
+      var hoehe = parseInt(d.hoehe, 10);
+      if (hoehe > 200) {
+        fenster.style.height = hoehe + "px";
+        kalender.style.minHeight = "0";
+        skelett.hidden = true;
+      }
+      return;
+    }
+    if (d.ereignis === "schritt" && fenster) {
+      fenster.scrollIntoView({ behavior: "smooth", block: "nearest" });
+      return;
+    }
+    if (d.ereignis === "gebucht") stufeZwei.className = "stufe ist-fertig";
+  });
+
   function kalenderGescheitert() {
     if (widget.querySelector("iframe")) return;
     skelett.innerHTML =
@@ -552,7 +609,8 @@
       })
       .then(function (antwort) {
         laden(false);
-        var url = antwort && antwort.ok === true ? pruefeKalenderUrl(antwort.calendly_url) : "";
+        var eigen = antwort && antwort.ok === true ? pruefeBuchungUrl(antwort.buchung_url) : "";
+        var url = eigen || (antwort && antwort.ok === true ? pruefeKalenderUrl(antwort.calendly_url) : "");
         if (!url) {
           var text = (antwort && antwort.error) ||
             "Ihre Angaben konnten nicht gespeichert werden. Bitte versuchen Sie es noch einmal.";
@@ -569,13 +627,27 @@
         name.textContent = nutzlast.full_name + " · " + nutzlast.firma;
         angabenText.appendChild(name);
         angabenText.appendChild(document.createTextNode(nutzlast.email + " · " + nutzlast.phone));
-        kalenderOeffnen(url);
+        if (eigen) buchungOeffnen(eigen);
+        else kalenderOeffnen(url);
       })
       .catch(function () {
         laden(false);
         fehlerZeigen("Keine Verbindung. Ihre Angaben bleiben stehen, bitte versuchen Sie es noch einmal.");
       });
   });
+
+  // Nur das eigene Portal und nur dessen Buchungsseiten.
+  function pruefeBuchungUrl(url) {
+    if (!url) return "";
+    try {
+      var ziel = new URL(url);
+      if (ziel.origin !== PORTAL || ziel.pathname.indexOf("/buchen/") !== 0) return "";
+      ziel.searchParams.set("einbettung", "1");
+      return ziel.href;
+    } catch (e) {
+      return "";
+    }
+  }
 
   // Nur https und nur calendly.com: Der Link kommt zwar vom eigenen
   // Portal, geoeffnet wird aber trotzdem nur, was er sein soll.
@@ -598,6 +670,12 @@
   }
 
   aendernKnopf.addEventListener("click", function () {
+    if (widget.querySelector('iframe[src^="' + PORTAL + '"]')) {
+      widget.innerHTML = "";
+      widget.className = "calendly-inline-widget";
+      kalenderGeladen = false;
+      skelett.hidden = false;
+    }
     schrittTermin.hidden = true;
     schrittDaten.hidden = false;
     stufeEins.className = "stufe ist-aktiv";

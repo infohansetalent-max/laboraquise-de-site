@@ -2960,6 +2960,14 @@ window.addEventListener("blur", () => {
     return anzahl ? werte : undefined;
   }
 
+  function portalBuchung(url){
+    if (!url) return '';
+    try {
+      var ziel = new URL(url);
+      return ziel.origin === 'https://portal.lokalejobsuche.de' && ziel.pathname.indexOf('/buchen/') === 0 ? ziel.href : '';
+    } catch (e) { return ''; }
+  }
+
   function kalenderUrl(url){
     try {
       var ziel = new URL(url);
@@ -2996,7 +3004,8 @@ window.addEventListener("blur", () => {
       .then(function(r){ if (!r.ok) return {ok:false}; return r.json().catch(function(){ return {ok:false}; }); })
       .then(function(antwort){
         if (knopf) { knopf.value = knopftext; knopf.disabled = false; }
-        var ziel = antwort && antwort.ok === true ? kalenderUrl(antwort.calendly_url) : '';
+        // Eigene Terminbuchung im Portal, sobald sie offen ist (16.09.2026).
+        var ziel = antwort && antwort.ok === true ? (portalBuchung(antwort.buchung_url) || kalenderUrl(antwort.calendly_url)) : '';
         if (ziel) { window.location.assign(ziel); return; }
         meldung((antwort && antwort.error) || 'Ihre Anfrage konnte nicht gespeichert werden. Bitte versuchen Sie es erneut.');
       })
