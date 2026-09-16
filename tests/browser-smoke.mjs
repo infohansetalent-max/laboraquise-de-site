@@ -12,15 +12,19 @@ const out = process.env.SEO_ARTIFACT_DIR || fs.mkdtempSync(path.join(os.tmpdir()
 fs.mkdirSync(out, { recursive: true });
 const browser = await chromium.launch({ channel: 'chrome', headless: true });
 const results = [];
-const endpoint = 'https://portal.lokalejobsuche.de/api/eigenvertrieb/submit';
-const calendar = 'https://calendly.com/hansetalent/laboraquise-erstgesprach';
+const portal = 'https://portal.lokalejobsuche.de';
+const endpoint = portal + '/api/eigenvertrieb/submit';
+const buchung = portal + '/buchen/laboraquise/erstgespraech';
+// Seit 16.09.2026 gibt es keinen fremden Terminplaner mehr. Jede Anfrage an
+// einen fremden Server wird abgebrochen und hier mitgeschrieben.
+const fremdeAnfragen = [];
 async function context(width, options = {}) {
   const c = await browser.newContext({ viewport: { width, height: 900 }, ...options });
   await c.route('**/*', async route => {
     const u = new URL(route.request().url());
     if (u.origin === new URL(base).origin) return route.continue();
-    if (u.origin === 'https://assets.calendly.com') return route.fulfill({ contentType: 'text/javascript', body: '' });
-    if (u.hostname === 'calendly.com') return route.fulfill({ contentType: 'text/html; charset=utf-8', body: '<!doctype html><title>Kalender-Test</title><h1>Termin auswählen (Testantwort)</h1>' });
+    if (u.origin === portal && u.pathname.startsWith('/buchen/')) return route.fulfill({ contentType: 'text/html; charset=utf-8', body: '<!doctype html><title>Buchung-Test</title><h1>Termin wählen (Testantwort)</h1>' });
+    fremdeAnfragen.push(u.href);
     return route.abort();
   });
   return c;
@@ -153,11 +157,13 @@ try {
       assert(!JSON.stringify(data).includes('private@example.invalid'));
       if (key) assert.equal(data.idempotenz_schluessel, key);
       key = data.idempotenz_schluessel;
-      if (requests === 1) return r.fulfill({ status: 500, contentType: 'application/json', body: JSON.stringify({ ok: true, calendly_url: calendar }) });
+      if (requests === 1) return r.fulfill({ status: 500, contentType: 'application/json', body: JSON.stringify({ ok: true, buchung_url: buchung }) });
       if (requests === 2) return r.fulfill({ status: 200, contentType: 'application/json', body: '{ungueltig' });
-      if (requests === 3) return r.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify({ ok: true, calendly_url: 'https://calendly.com.invalid/test' }) });
+      if (requests === 3) return r.fulfill({ status: 400, contentType: 'application/json', body: JSON.stringify({ ok: false, error: 'Bitte prüfe deine Angaben.' }) });
       if (requests === 4) return r.abort();
-      return r.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify({ ok: true, calendly_url: calendar }) });
+      // Gespeichert, aber fremder Buchungslink: keine Weiterleitung, sondern Bestätigung.
+      if (requests === 5) return r.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify({ ok: true, buchung_url: 'https://portal.lokalejobsuche.de.invalid/buchen/test' }) });
+      return r.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify({ ok: true, buchung_url: buchung }) });
     };
     await c.route(endpoint, handler);
     for (let i = 0; i < 4; i++) {
@@ -168,12 +174,99 @@ try {
       assert(await submit.isEnabled());
     }
     await p.screenshot({ path: path.join(out, `form-error-${width}.png`) });
+    // Buchung geschlossen: ruhige Bestätigung im Fenster, keine Umleitung.
     await submit.click();
-    await p.waitForURL(calendar);
-    assert.equal(await p.locator('h1').innerText(), 'Termin auswählen (Testantwort)');
+    const bestaetigung = p.locator('.modal_1_dialog .w-form-done');
+    await bestaetigung.waitFor({ state: 'visible' });
+    assert.equal(new URL(p.url()).pathname, '/');
+    assert(await form.isHidden());
+    assert.match(await bestaetigung.innerText(), /Ihre Anfrage ist angekommen/);
+    assert.match(await bestaetigung.innerText(), /Ben Carstens meldet sich persönlich/);
+    assert.equal(await bestaetigung.locator('a[href^="tel:"]').getAttribute('href'), 'tel:+4915228575639');
+    assert.equal(await form.locator('.anfrage-fehler').count(), 0);
+    const bestaetigungBox = await bestaetigung.boundingBox();
+    assert(bestaetigungBox.x >= -1 && bestaetigungBox.x + bestaetigungBox.width <= width + 1, 'Bestätigung passt in die Breite');
+    await p.screenshot({ path: path.join(out, `form-bestaetigung-${width}.png`) });
     assert.equal(requests, 5);
+    // Buchung offen: Weiterleitung zur Buchung des Portals.
+    await p.goto(base + '/?utm_source=seo-test');
+    await p.locator('a[data-modal_1-trigger]:visible').first().click();
+    await form.waitFor({ state: 'visible' });
+    await p.getByLabel('Vollständiger Name', { exact: true }).fill('SEO Test');
+    await p.getByLabel('E-Mail', { exact: true }).fill('seo@example.invalid');
+    await p.getByLabel('Telefonnummer', { exact: true }).fill('0000000000');
+    await p.getByLabel('Unternehmensname', { exact: true }).fill('Testlabor');
+    await p.locator('#Einwilligung').check();
+    key = undefined;
+    await submit.click();
+    await p.waitForURL(buchung);
+    assert.equal(await p.locator('h1').innerText(), 'Termin wählen (Testantwort)');
+    assert.equal(requests, 6);
     assert.deepEqual(errors, []);
-    results.push({ width, flow: 'CTA → Formular → Validierung → HTTP/JSON/URL/Netzfehler → bestätigte Testantwort → Kalender-Testseite', status: 'PASS', requests, errors });
+    results.push({ width, flow: 'CTA → Formular → Validierung → HTTP/JSON/Portalfehler/Netzfehler → Bestätigung bei geschlossener Buchung → Portal-Buchung bei offener Buchung', status: 'PASS', requests, errors });
+
+    // Terminseite: Fehler bleibt Fehler, offene Buchung zeigt das Portal,
+    // geschlossene Buchung zeigt die Bestätigung.
+    await c.unroute(endpoint, handler);
+    let terminAnfragen = 0;
+    await c.route(endpoint, async r => {
+      terminAnfragen++;
+      const data = r.request().postDataJSON();
+      assert.equal(data.angebot, 'laboraquise');
+      assert.equal(data.consent, true);
+      assert.deepEqual(data.utm, { term: 'gclid:TESTKLICK123' });
+      if (terminAnfragen === 1) return r.fulfill({ status: 500, contentType: 'application/json', body: JSON.stringify({ ok: true }) });
+      if (terminAnfragen === 2) return r.abort();
+      if (terminAnfragen === 3) return r.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify({ ok: true, buchung_url: buchung }) });
+      return r.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify({ ok: true, eingang_id: 'test' }) });
+    });
+    fremdeAnfragen.length = 0;
+    await p.goto(base + '/termin/?gclid=TESTKLICK123');
+    const termin = p.locator('#buchungsformular');
+    const terminKnopf = p.locator('#absenden');
+    const terminFehler = p.locator('#formularfehler');
+    const schrittTermin = p.locator('#schritt-termin');
+    const schrittBestaetigung = p.locator('#schritt-bestaetigung');
+    await termin.locator('[name="full_name"]').fill('SEO Test');
+    await termin.locator('[name="firma"]').fill('Testlabor');
+    await termin.locator('[name="email"]').fill('seo@example.invalid');
+    await termin.locator('[name="phone"]').fill('0000000000');
+    await termin.locator('[name="consent"]').check();
+    for (let i = 0; i < 2; i++) {
+      await terminKnopf.click();
+      await terminFehler.waitFor({ state: 'visible' });
+      assert.equal(terminAnfragen, i + 1);
+      assert(await schrittBestaetigung.isHidden());
+      assert(await schrittTermin.isHidden());
+      assert(await terminKnopf.isEnabled());
+    }
+    await terminKnopf.click();
+    await schrittTermin.waitFor({ state: 'visible' });
+    const fenster = p.locator('#buchungsfenster iframe');
+    await fenster.waitFor({ state: 'attached' });
+    const fensterUrl = new URL(await fenster.getAttribute('src'));
+    assert.equal(fensterUrl.origin + fensterUrl.pathname, buchung);
+    assert.equal(fensterUrl.searchParams.get('einbettung'), '1');
+    assert(await schrittBestaetigung.isHidden());
+    await p.locator('#angaben-aendern').click();
+    await termin.waitFor({ state: 'visible' });
+    await terminKnopf.click();
+    await schrittBestaetigung.waitFor({ state: 'visible' });
+    assert.equal(terminAnfragen, 4);
+    assert(await termin.isHidden());
+    assert(await schrittTermin.isHidden());
+    assert(await terminFehler.isHidden());
+    assert(await p.locator('.stufen').isHidden());
+    const terminText = await schrittBestaetigung.innerText();
+    assert.match(terminText, /Ihre Anfrage ist angekommen/);
+    assert.match(terminText, /Ben Carstens meldet sich persönlich/);
+    assert.equal(await schrittBestaetigung.locator('a[href^="tel:"]').getAttribute('href'), 'tel:+4915228575639');
+    assert.equal(await p.evaluate(() => document.activeElement && document.activeElement.id), 'bestaetigung');
+    assert(await p.evaluate(() => document.documentElement.scrollWidth - innerWidth) <= 1, `Überlauf Bestätigung ${width}`);
+    await p.screenshot({ path: path.join(out, `termin-bestaetigung-${width}.png`), fullPage: true });
+    assert.deepEqual(fremdeAnfragen, [], 'Terminseite fragt keinen fremden Server an');
+    assert.deepEqual(errors, []);
+    results.push({ width, flow: 'Terminseite → HTTP-/Netzfehler → Portal-Buchung → Ändern → Bestätigung bei geschlossener Buchung, keine fremden Anfragen', status: 'PASS', requests: terminAnfragen, errors });
     await c.close();
   }
   const c = await context(390, { javaScriptEnabled: false });
@@ -182,8 +275,11 @@ try {
   assert.match(await p.locator('h1').innerText(), /Dentallabor/);
   await p.locator('a[data-modal_1-trigger]:visible').first().click();
   await p.waitForURL(base + '/termin/');
-  await p.getByRole('link', { name: 'Termin in einem neuen Fenster aussuchen' }).waitFor();
-  results.push({ flow: 'Ohne JavaScript: Startseite → CTA → Terminseite mit Calendly-Ersatzlink', status: 'PASS' });
+  // Ohne JavaScript gibt es keine Online-Buchung. Die Seite muss trotzdem
+  // vollständig erscheinen.
+  assert.equal(await p.locator('h1').innerText(), 'Termin aussuchen');
+  await p.locator('#buchungsformular').waitFor({ state: 'visible' });
+  results.push({ flow: 'Ohne JavaScript: Startseite → CTA → Terminseite erreichbar', status: 'PASS' });
   await c.close();
 } finally {
   await browser.close();

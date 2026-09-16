@@ -174,11 +174,25 @@ class SEO(unittest.TestCase):
                 self.assertNotIn('document.cookie', html)
         self.assertIn('Diese Website setzt keine Cookies', read('/datenschutz/'))
         self.assertFalse(list((ROOT / 'assets').rglob('fs-cc*')))
-    def test_klick_kennung_erreicht_calendly(self):
+    def test_termin_spricht_nur_mit_eigenen_adressen(self):
+        # Seit 16.09.2026 gibt es keinen fremden Terminplaner mehr. Terminseite
+        # und Startseitenformular duerfen nur eigene Adressen ansprechen.
+        erlaubt = {'www.laboraquise.de', 'www.lokalejobsuche.de', 'portal.lokalejobsuche.de'}
+        for path in ['/termin/', '/']:
+            with self.subTest(path=path):
+                html = read(path)
+                if path == '/':
+                    start = html.index('<!-- eigenvertrieb-absenden -->')
+                    html = html[start:html.index('</script>', start)]
+                hosts = set(re.findall(r'https://([a-z0-9.-]+)', html))
+                self.assertLessEqual(hosts, erlaubt, path)
+        self.assertIn('Online-Terminbuchung', read('/datenschutz/'))
+        self.assertIn('Ihre Anfrage ist angekommen', read('/termin/'))
+    def test_klick_kennung_erreicht_portal(self):
         # Seit 16.09.2026: Die Klick-Kennung von Google Ads (gclid, gbraid,
-        # wbraid) wandert von der Zielseite ueber /termin/ bis in die
-        # Calendly-Buchung. Ohne sie laeuft die Anzeigenkampagne blind, weil
-        # keine Buchung ihrem Klick zugeordnet werden kann. Sie faehrt nur in
+        # wbraid) wandert von der Zielseite ueber /termin/ bis ins Portal
+        # (als utm_term). Ohne sie laeuft die Anzeigenkampagne blind, weil
+        # keine Anfrage ihrem Klick zugeordnet werden kann. Sie faehrt nur in
         # der Adresse mit, deshalb bleibt die Seite ohne Cookie.
         skript = (ROOT / 'assets' / 'js' / 'klick-id.js').read_text(encoding='utf-8')
         for name in ['gclid', 'gbraid', 'wbraid']:

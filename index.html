@@ -2968,11 +2968,25 @@ window.addEventListener("blur", () => {
     } catch (e) { return ''; }
   }
 
-  function kalenderUrl(url){
-    try {
-      var ziel = new URL(url);
-      return ziel.protocol === 'https:' && (ziel.hostname === 'calendly.com' || /\.calendly\.com$/.test(ziel.hostname)) ? ziel.href : '';
-    } catch (e) { return ''; }
+  // Buchung geschlossen (16.09.2026): Die Anfrage ist gespeichert, es gibt
+  // nur keinen Kalender. Dann eine ruhige Bestaetigung im Fenster.
+  function bestaetigen(){
+    var huelle = formular.closest('.w-form') || formular.parentElement;
+    var feld = huelle && huelle.querySelector('.w-form-done');
+    var inhalt = feld && feld.querySelector('.form_message-success-copy');
+    if (!inhalt) return false;
+    inhalt.innerHTML =
+      '<div>' +
+        '<div class="text-size-medium text-color-primary"><span class="text-weight-medium">Ihre Anfrage ist angekommen</span></div>' +
+        '<div class="margin-top margin-xxsmall"><div class="text-color-secondary">Ben Carstens meldet sich pers&ouml;nlich bei Ihnen und stimmt den Termin mit Ihnen ab. ' +
+        'Wenn Sie vorher sprechen m&ouml;chten, erreichen Sie ihn unter <a href="tel:+4915228575639">+49&nbsp;152&nbsp;2857&nbsp;5639</a>.</div></div>' +
+      '</div>';
+    formular.style.display = 'none';
+    feld.setAttribute('role', 'status');
+    feld.setAttribute('tabindex', '-1');
+    feld.style.display = 'block';
+    feld.focus();
+    return true;
   }
 
   formular.addEventListener('submit', function(e){
@@ -3005,8 +3019,14 @@ window.addEventListener("blur", () => {
       .then(function(antwort){
         if (knopf) { knopf.value = knopftext; knopf.disabled = false; }
         // Eigene Terminbuchung im Portal, sobald sie offen ist (16.09.2026).
-        var ziel = antwort && antwort.ok === true ? (portalBuchung(antwort.buchung_url) || kalenderUrl(antwort.calendly_url)) : '';
+        var gespeichert = Boolean(antwort && antwort.ok === true);
+        var ziel = gespeichert ? portalBuchung(antwort.buchung_url) : '';
         if (ziel) { window.location.assign(ziel); return; }
+        // Gespeichert, aber keine Buchung offen: bestaetigen statt Fehler.
+        if (gespeichert) {
+          if (!bestaetigen()) meldung('Ihre Anfrage ist angekommen. Ben Carstens meldet sich persönlich bei Ihnen.');
+          return;
+        }
         meldung((antwort && antwort.error) || 'Ihre Anfrage konnte nicht gespeichert werden. Bitte versuchen Sie es erneut.');
       })
       .catch(function(){
