@@ -839,4 +839,4 @@ const count=document.querySelector('.checkcount');
 if(count){count.hidden=false; const update=()=>count.textContent=boxes.filter(b=>b.checked).length+' von '+boxes.length+' Punkten anhand Ihrer Unterlagen geprüft'; boxes.forEach(b=>b.addEventListener('change',update));update();}
 const button=document.getElementById('copy-button');
 if(button){button.hidden=false;button.addEventListener('click',async()=>{const text=document.getElementById('copy-text');const status=document.getElementById('copy-status');try{await navigator.clipboard.writeText(text.textContent);status.textContent='Gesprächseinstieg kopiert.';}catch{const range=document.createRange();range.selectNodeContents(text);const selection=window.getSelection();selection.removeAllRanges();selection.addRange(range);status.textContent='Automatisches Kopieren ist nicht verfügbar. Der Text ist markiert und kann manuell kopiert werden.';}});}
-</script><script src="/assets/js/wissen-plus.js" defer></script></body></html>
+</script><script src="/assets/js/wissen-plus.js" defer></script><script src="/assets/js/klick-id.js" defer></script></body></html>

@@ -174,6 +174,23 @@ class SEO(unittest.TestCase):
                 self.assertNotIn('document.cookie', html)
         self.assertIn('Diese Website setzt keine Cookies', read('/datenschutz/'))
         self.assertFalse(list((ROOT / 'assets').rglob('fs-cc*')))
+    def test_klick_kennung_erreicht_calendly(self):
+        # Seit 16.09.2026: Die Klick-Kennung von Google Ads (gclid, gbraid,
+        # wbraid) wandert von der Zielseite ueber /termin/ bis in die
+        # Calendly-Buchung. Ohne sie laeuft die Anzeigenkampagne blind, weil
+        # keine Buchung ihrem Klick zugeordnet werden kann. Sie faehrt nur in
+        # der Adresse mit, deshalb bleibt die Seite ohne Cookie.
+        skript = (ROOT / 'assets' / 'js' / 'klick-id.js').read_text(encoding='utf-8')
+        for name in ['gclid', 'gbraid', 'wbraid']:
+            self.assertIn(name, skript)
+        self.assertNotIn('document.cookie', skript)
+        self.assertNotIn('localStorage', skript)
+        for path in [p for p in PAGES if p not in ('/termin/', '/impressum/', '/datenschutz/', '/agb/')]:
+            with self.subTest(path=path):
+                self.assertIn('/assets/js/klick-id.js', read(path).replace('"assets/js/', '"/assets/js/'))
+        termin = read('/termin/')
+        self.assertIn('gclid', termin)
+        self.assertIn('utm_term', termin)
     def test_http_preview_and_production_simulation(self):
         for production in [False, True]:
             handler = type('TestHandler', (Handler,), {'production': production})
