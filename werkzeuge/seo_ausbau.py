@@ -127,6 +127,7 @@ def erste_absaetze(quelle: str, anzahl: int = 2) -> str:
 KRUME = {
     "/": [("Startseite", HOST + "/")],
     "/termin/": [("Startseite", HOST + "/"), ("Erstgespräch", HOST + "/termin/")],
+    "/ueber-uns/": [("Startseite", HOST + "/"), ("Über uns", HOST + "/ueber-uns/")],
     "/impressum/": [("Startseite", HOST + "/"), ("Impressum", HOST + "/impressum/")],
     "/datenschutz/": [("Startseite", HOST + "/"), ("Datenschutz", HOST + "/datenschutz/")],
     "/agb/": [("Startseite", HOST + "/"), ("AGB", HOST + "/agb/")],
@@ -228,8 +229,9 @@ def graph_fuer(pfad: str, quelle: str) -> list:
         })
     else:
         seite_typ, haupt = "WebPage", None
-        if pfad == "/":
-            seite_typ = "WebPage"
+        if pfad == "/ueber-uns/":
+            # AboutPage sagt einer Antwortmaschine: hier steht, wer das ist.
+            seite_typ, haupt = "AboutPage", {"@id": E.ID_ORG}
 
     seite = {
         "@type": seite_typ,
