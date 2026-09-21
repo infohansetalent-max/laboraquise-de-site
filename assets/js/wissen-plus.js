@@ -58,6 +58,28 @@
     setze("s-satz", verrechenbar > 0 ? eur2.format((kosten + lohn) / verrechenbar) : "nicht berechenbar");
   });
 
+  /* Laborwert: nachhaltiger Ertrag geteilt durch einen Zinssatz, der das
+     Risiko abbildet. Dieselbe Logik wie im Ertragswertverfahren, nur stark
+     vereinfacht. Der Risikozuschlag haengt daran, auf wie vielen Praxen der
+     Umsatz steht und wie stark sie an der Person des Inhabers haengen. */
+  binde(["w-gewinn", "w-lohn", "w-anteil", "w-bindung"], function () {
+    var ertrag = Math.max(0, zahl("w-gewinn") - zahl("w-lohn"));
+    var anteil = zahl("w-anteil"), bindung = zahl("w-bindung");
+    setze("w-anteil-wert", num.format(anteil));
+    /* Basiszins 8 Prozent, ein Punkt je 5 Punkte Kundenanteil ueber einem
+       Zehntel, dazu der Zuschlag fuer die persoenliche Bindung. Gedeckelt
+       bei 25 Prozent, damit die Rechnung nicht ins Unsinnige kippt. */
+    function zinssatz(a) {
+      return Math.min(25, 8 + Math.max(0, a - 10) / 5 + bindung);
+    }
+    var jetzt = zinssatz(anteil), breit = zinssatz(10);
+    var wert = ertrag / (jetzt / 100), wert_breit = ertrag / (breit / 100);
+    setze("w-ertrag", eur.format(ertrag));
+    setze("w-zins", jetzt.toFixed(1).replace(".", ",") + " %");
+    setze("w-wert", eur.format(wert));
+    setze("w-luecke", eur.format(Math.max(0, wert_breit - wert)));
+  });
+
   /* Kopierknopf in den Textblöcken zum Mitnehmen */
   document.querySelectorAll("[data-kopieren]").forEach(function (knopf) {
     knopf.addEventListener("click", function () {
