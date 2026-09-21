@@ -22,6 +22,8 @@ KARTEN = [
   "Die Anlässe hinter einem Wechsel und was Sie daraus ableiten."),
  ("dentallabor-kaufen-oder-uebernehmen", "Labor kaufen oder übernehmen",
   "Was den Preis bestimmt und wie Sie die Praxen danach halten."),
+ ("dentallabor-verkaufen", "Labor verkaufen und bewerten",
+  "Woraus der Preis entsteht und was ihn drückt. Mit Wertrechner."),
  ("eigenlabor-und-praxislabor", "Eigenlabor und Praxislabor",
   "Wo ein Praxislabor an Grenzen stößt und wo Sie gewinnen."),
 ]

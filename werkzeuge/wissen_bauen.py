@@ -100,7 +100,10 @@ def tabelle(kopf, zeilen) -> str:
 
 def render(seite: dict) -> str:
     slug = seite["slug"]
-    url = f"{HOST}/wissen/{slug}/"
+    # Standardmaessig eine Wissensseite. Seiten mit eigenem "pfad" (etwa
+    # /ueber-uns/) erben dieselbe Schablone, nur nicht den Krumelpfad.
+    pfad = seite.get("pfad", f"/wissen/{slug}/")
+    url = f"{HOST}{pfad}"
     toc = "".join(f'<li><a href="#{a}">{t}</a></li>' for a, t in seite["toc"])
 
     ld = [{
@@ -160,7 +163,9 @@ def render(seite: dict) -> str:
         f'<meta name="twitter:image" content="{HOST}/assets/69ce12160e49568ac435ef6a/laboraquise-icon-512-v2.png">'
         f'<meta name="twitter:image:alt" content="Laboraquise.de: Markenzeichen mit zwei verbundenen Personen">')
 
-    kopfbereich = f'''<header class="section_header"><div class="padding-global"><div class="container-large"><div class="padding-section-nav"><div class="wissen-crumb"><a href="/">Startseite</a><span>/</span><a href="/wissen/">Wissen</a></div><div class="header3_component"><div class="w-layout-grid header3_content"><div class="header3_content-left"><div class="hero-pille"><span class="hero-pille__punkt" aria-hidden="true"></span><span class="hero-pille__text">{seite["pille"]}</span><span class="hero-pille__glanz" aria-hidden="true"></span></div><h1 class="header3_h1 wissen-title">{seite["h1"]}</h1><p class="text-color-secondary text-size-medium wissen-lead">{seite["lead"]}</p><a class="wissen-textlink" href="#{seite["toc"][0][0]}">Direkt zum Inhalt<svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 5v14M5 12l7 7 7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a></div></div></div></div></div></div></header>'''
+    krume_html = seite.get("krume_html",
+                           '<a href="/">Startseite</a><span>/</span><a href="/wissen/">Wissen</a>')
+    kopfbereich = f'''<header class="section_header"><div class="padding-global"><div class="container-large"><div class="padding-section-nav"><div class="wissen-crumb">{krume_html}</div><div class="header3_component"><div class="w-layout-grid header3_content"><div class="header3_content-left"><div class="hero-pille"><span class="hero-pille__punkt" aria-hidden="true"></span><span class="hero-pille__text">{seite["pille"]}</span><span class="hero-pille__glanz" aria-hidden="true"></span></div><h1 class="header3_h1 wissen-title">{seite["h1"]}</h1><p class="text-color-secondary text-size-medium wissen-lead">{seite["lead"]}</p><a class="wissen-textlink" href="#{seite["toc"][0][0]}">Direkt zum Inhalt<svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 5v14M5 12l7 7 7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a></div></div></div></div></div></div></header>'''
 
     artikel = f'''<div class="padding-global"><div class="container-large"><div class="wissen-layout"><nav class="wissen-toc" aria-label="Inhalt dieser Seite"><div class="text-size-small text-color-secondary">Auf dieser Seite</div><ol>{toc}</ol></nav><article class="wissen-article">{seite["inhalt"]}{faq_html}{seite.get("abschluss","")}{seite.get("nachspann","")}</article></div></div></div>'''
 
@@ -173,7 +178,8 @@ def render(seite: dict) -> str:
 
 
 def schreibe(seite: dict):
-    ziel = WURZEL / "wissen" / seite["slug"] / "index.html"
+    pfad = seite.get("pfad", f"/wissen/{seite['slug']}/")
+    ziel = WURZEL / pfad.strip("/") / "index.html"
     ziel.parent.mkdir(parents=True, exist_ok=True)
     ziel.write_text(render(seite), encoding="utf-8")
     return ziel

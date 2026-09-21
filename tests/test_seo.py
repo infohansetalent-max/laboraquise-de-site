@@ -18,6 +18,7 @@ ORIGIN = 'https://' + (ROOT / 'CNAME').read_text().strip().rstrip('/')
 TITLES = {
     '/': 'Neukundengewinnung für Dentallabore | Laboraquise.de',
     '/termin/': 'Erstgespräch für Dentallabore vereinbaren | Laboraquise.de',
+    '/ueber-uns/': 'Über Laboraquise.de: wer dahintersteht | Laboraquise.de',
     '/impressum/': 'Impressum | Laboraquise.de',
     '/datenschutz/': 'Datenschutzerklärung | Laboraquise.de',
     '/wissen/': 'Wissen für Dentallabore: Akquise, Kalkulation, Gründung | Laboraquise.de',
@@ -26,6 +27,7 @@ TITLES = {
     '/wissen/preise-und-stundensatz-im-dentallabor/': 'Preise und Stundensatz im Dentallabor: BEL II, BEB, Kalkulation | Laboraquise.de',
     '/wissen/dentallabor-gruenden/': 'Dentallabor gründen: Voraussetzungen, Kosten, erste Praxen | Laboraquise.de',
     '/wissen/dentallabor-kaufen-oder-uebernehmen/': 'Dentallabor kaufen oder übernehmen: worauf es beim Preis ankommt | Laboraquise.de',
+    '/wissen/dentallabor-verkaufen/': 'Dentallabor verkaufen: Wert ermitteln, Steuern, Ablauf | Laboraquise.de',
     '/wissen/eigenlabor-und-praxislabor/': 'Eigenlabor und Praxislabor: was das für Ihr Dentallabor bedeutet | Laboraquise.de',
     '/wissen/zahntechnik-in-zahlen/': 'Wie viele Dentallabore gibt es in Deutschland? Zahlen mit Quelle | Laboraquise.de',
     '/agb/': 'Allgemeine Geschäftsbedingungen | Laboraquise.de',
@@ -64,10 +66,26 @@ class SEO(unittest.TestCase):
         tree = ElementTree.parse(ROOT / 'sitemap.xml')
         urls = [e.text for e in tree.findall('.//{*}loc')]
         self.assertCountEqual(urls, [ORIGIN + p for p in PAGES if p != '/agb/'])
-        self.assertFalse(tree.findall('.//{*}lastmod'), 'Kein unbelegtes Änderungsdatum')
+        # Seit 21.09.2026 steht ein lastmod je URL. Es ist belegt: das Datum
+        # des letzten Commits, der genau diese Datei geändert hat. Google wertet
+        # lastmod aus, priority dagegen nicht.
+        from datetime import date
+        for url in tree.findall('.//{*}url'):
+            loc = url.find('{*}loc').text
+            stand = url.find('{*}lastmod')
+            self.assertIsNotNone(stand, loc + ': lastmod fehlt')
+            self.assertRegex(stand.text, r'^\d{4}-\d{2}-\d{2}$', loc)
+            self.assertLessEqual(date.fromisoformat(stand.text), date.today(),
+                                 loc + ': lastmod liegt in der Zukunft')
+        self.assertFalse(tree.findall('.//{*}priority'), 'priority wertet Google nicht aus')
         robots = (ROOT / 'robots.txt').read_text()
         self.assertIn('Sitemap: ' + ORIGIN + '/sitemap.xml', robots)
         self.assertNotRegex(robots, r'(?im)^Disallow:\s*/')
+        # Antwortmaschinen sind ausdrücklich zugelassen. Wer hier sperrt,
+        # verschwindet aus den Antworten von ChatGPT, Claude und Perplexity.
+        for bot in ['GPTBot', 'OAI-SearchBot', 'ClaudeBot', 'PerplexityBot',
+                    'Google-Extended', 'Applebot-Extended']:
+            self.assertIn('User-agent: ' + bot, robots)
     def test_internal_links_resources_and_drafts(self):
         reached = set()
         for path in PAGES:
@@ -96,9 +114,18 @@ class SEO(unittest.TestCase):
     def test_jsonld_and_social(self):
         p = Page(read('/'))
         blocks = re.findall(r'<script type="application/ld\+json">(.*?)</script>', p.html, re.S)
-        self.assertEqual(len(blocks), 2)
-        data, faq = json.loads(blocks[0]), json.loads(blocks[1])
-        self.assertEqual(data['@type'], 'Organization')
+        # Seit 21.09.2026 ein einziger Graph je Seite. Lose Blöcke nebeneinander
+        # werden zwar gelesen, zeigen aber keine Verbindung zwischen Marke,
+        # Person und Leistung.
+        self.assertEqual(len(blocks), 1)
+        graph = json.loads(blocks[0])['@graph']
+        stuecke = {s['@type']: s for s in graph}
+        data = stuecke['Organization']
+        faq = stuecke['FAQPage']
+        for art in ['Organization', 'Person', 'WebSite', 'Service', 'BreadcrumbList', 'WebPage']:
+            self.assertIn(art, stuecke, art + ' fehlt im Graph der Startseite')
+        self.assertEqual(stuecke['Person']['name'], 'Ben Carstens')
+        self.assertEqual(stuecke['Service']['provider']['@id'], data['@id'])
         # FAQ-Auszeichnung muss wortgleich zu den sichtbaren Antworten sein.
         self.assertEqual(faq['@type'], 'FAQPage')
         self.assertEqual(len(faq['mainEntity']), 8)
@@ -127,19 +154,32 @@ class SEO(unittest.TestCase):
     def test_published_knowledge(self):
         seiten = [('/wissen/', 'CollectionPage')]
         seiten += [(p, 'Article') for p in PAGES if p.startswith('/wissen/') and p != '/wissen/']
-        self.assertEqual(len(seiten), 8, 'Alle Wissensseiten werden geprüft')
+        self.assertEqual(len(seiten), 9, 'Alle Wissensseiten werden geprüft')
         for path, kind in seiten:
             p = Page(read(path))
             self.assertNotIn('Lokale Vorschau', p.html)
             blocks = re.findall(r'<script type="application/ld\+json">(.*?)</script>', p.html, re.S)
             self.assertEqual(len(blocks), 1)
             graph = json.loads(blocks[0])['@graph']
-            self.assertEqual(graph[0]['@type'], kind)
-            self.assertEqual(graph[0]['url'], ORIGIN + path)
-            crumbs = graph[1]['itemListElement']
+            stuecke = {s['@type']: s for s in graph}
+            self.assertIn(kind, stuecke)
+            self.assertEqual(stuecke[kind]['url'], ORIGIN + path)
+            crumbs = stuecke['BreadcrumbList']['itemListElement']
             self.assertEqual(crumbs[-1]['item'], ORIGIN + path)
             self.assertEqual([c['position'] for c in crumbs], list(range(1, len(crumbs) + 1)))
-            self.assertNotRegex(blocks[0], r'AggregateRating|datePublished|dateModified|"author"')
+            self.assertNotRegex(blocks[0], r'AggregateRating')
+            if kind == 'Article':
+                # Autor und Datum sind belegt: Ben Carstens steht im Impressum,
+                # die Daten erzeugt werkzeuge/seo_ausbau.py aus der
+                # Versionsgeschichte der Datei, nicht aus einer Annahme.
+                from datetime import date
+                artikel = stuecke['Article']
+                self.assertEqual(artikel['author']['@id'], ORIGIN + '/#ben-carstens')
+                self.assertEqual(artikel['publisher']['@id'], ORIGIN + '/#organisation')
+                for feld in ['datePublished', 'dateModified']:
+                    self.assertRegex(artikel.get(feld, ''), r'^\d{4}-\d{2}-\d{2}$', path + ': ' + feld)
+                    self.assertLessEqual(date.fromisoformat(artikel[feld]), date.today(), path)
+                self.assertLessEqual(artikel['datePublished'], artikel['dateModified'], path)
             for crumb in crumbs:
                 self.assertTrue(p.attrs('a', href=urlsplit(crumb['item']).path) or crumb == crumbs[-1])
             for key in ['og:title', 'og:description', 'og:url', 'og:image']:
@@ -191,6 +231,53 @@ class SEO(unittest.TestCase):
         termin = read('/termin/')
         self.assertIn('gclid', termin)
         self.assertIn('utm_term', termin)
+    def test_entitaet_ist_ueberall_gleich(self):
+        # Eine Antwortmaschine baut sich aus vielen Seiten ein Bild davon, wer
+        # hier schreibt. Steht es auf jeder Seite anders, entsteht kein Bild.
+        # Deshalb: dieselben Kennungen, dieselben Werte, auf jeder Seite.
+        from urllib.parse import urlsplit
+        referenz = None
+        for path in PAGES:
+            with self.subTest(path=path):
+                blocks = re.findall(r'<script type="application/ld\+json">(.*?)</script>',
+                                    read(path), re.S)
+                self.assertEqual(len(blocks), 1, path + ': genau ein Graph je Seite')
+                graph = json.loads(blocks[0])['@graph']
+                stuecke = {s['@type']: s for s in graph}
+                for art in ['Organization', 'Person', 'WebSite', 'Service', 'BreadcrumbList']:
+                    self.assertIn(art, stuecke, path + ': ' + art + ' fehlt')
+                kern = {a: stuecke[a] for a in ['Organization', 'Person', 'WebSite', 'Service']}
+                if referenz is None:
+                    referenz = kern
+                else:
+                    self.assertEqual(kern, referenz, path + ': Entität weicht ab')
+                # Jeder Verweis muss im Graph aufgehen. Ein @id ins Leere ist
+                # schlimmer als gar keiner: er behauptet eine Verbindung.
+                kennungen = {s.get('@id') for s in graph}
+                verweise = set(re.findall(r'"@id":"([^"]+)"', json.dumps(graph)))
+                self.assertFalse(verweise - kennungen, path + ': Verweis ins Leere')
+        self.assertEqual(referenz['Organization']['address']['streetAddress'],
+                         'Eppendorfer Weg 168')
+        self.assertIn('Eppendorfer Weg 168', read('/impressum/'))
+
+    def test_llms_txt(self):
+        kurz = (ROOT / 'llms.txt').read_text()
+        lang = (ROOT / 'llms-full.txt').read_text()
+        self.assertTrue(kurz.startswith('# Laboraquise.de'))
+        # Jede oeffentliche Seite ausser den Rechtstexten steht drin.
+        for path in PAGES:
+            if path in ('/agb/', '/impressum/', '/datenschutz/'):
+                continue
+            self.assertIn(ORIGIN + path, kurz, path + ' fehlt in llms.txt')
+            self.assertIn(ORIGIN + path, lang, path + ' fehlt in llms-full.txt')
+        # Die Grenzen des Versprechens stehen dort, wo ein Modell sie liest.
+        self.assertIn('Neue Kunden oder Umsatz sind nicht zugesagt', kurz)
+        self.assertIn('ZDH-Statistik', kurz)
+        # Keine Gedankenstriche, wie im gesamten sichtbaren Text.
+        for name, inhalt in [('llms.txt', kurz), ('llms-full.txt', lang)]:
+            self.assertNotIn('\u2014', inhalt, name)
+            self.assertNotIn(' \u2013 ', inhalt, name)
+
     def test_http_preview_and_production_simulation(self):
         for production in [False, True]:
             handler = type('TestHandler', (Handler,), {'production': production})
@@ -199,7 +286,7 @@ class SEO(unittest.TestCase):
             thread.start()
             base = 'http://127.0.0.1:' + str(server.server_port)
             try:
-                for path in [*PAGES, '/sitemap.xml', '/robots.txt', '/assets/og-image-marke.jpg', '/assets/fonts/general-sans.css', '/assets/js/lenis.min.js']:
+                for path in [*PAGES, '/sitemap.xml', '/robots.txt', '/llms.txt', '/llms-full.txt', '/assets/og-image-marke.jpg', '/assets/fonts/general-sans.css', '/assets/js/lenis.min.js']:
                     with urlopen(base + path) as response:
                         response.read()
                         self.assertEqual(response.status, 200)

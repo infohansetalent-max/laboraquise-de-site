@@ -5,12 +5,13 @@ from pathlib import Path
 from urllib.parse import unquote, urlsplit
 
 ROOT = Path(__file__).resolve().parents[1]
-PAGES = ('/', '/termin/', '/impressum/', '/datenschutz/', '/agb/', '/wissen/',
+PAGES = ('/', '/termin/', '/ueber-uns/', '/impressum/', '/datenschutz/', '/agb/', '/wissen/',
          '/wissen/warum-zahnaerzte-das-dentallabor-wechseln/',
          '/wissen/kundenakquise-im-dentallabor/',
          '/wissen/preise-und-stundensatz-im-dentallabor/',
          '/wissen/dentallabor-gruenden/',
          '/wissen/dentallabor-kaufen-oder-uebernehmen/',
+         '/wissen/dentallabor-verkaufen/',
          '/wissen/eigenlabor-und-praxislabor/',
          '/wissen/zahntechnik-in-zahlen/')
 
@@ -30,7 +31,7 @@ class Handler(SimpleHTTPRequestHandler):
         file = (ROOT / path.lstrip('/')).resolve()
         public_page = path in PAGES or path in [p + 'index.html' for p in PAGES]
         slash_redirect = path + '/' in PAGES
-        resource = path in ('/robots.txt', '/sitemap.xml') or (
+        resource = path in ('/robots.txt', '/sitemap.xml', '/llms.txt', '/llms-full.txt') or (
             path.startswith('/assets/') and file.is_relative_to(ROOT / 'assets')
         )
         if not file.is_relative_to(ROOT) or not (public_page or slash_redirect or resource):
