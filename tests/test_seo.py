@@ -18,6 +18,7 @@ ORIGIN = 'https://' + (ROOT / 'CNAME').read_text().strip().rstrip('/')
 TITLES = {
     '/': 'Neukundengewinnung für Dentallabore | Laboraquise.de',
     '/termin/': 'Erstgespräch für Dentallabore vereinbaren | Laboraquise.de',
+    '/rueckruf/': 'Rückruf für Ihr Dentallabor anfordern | Laboraquise.de',
     '/impressum/': 'Impressum | Laboraquise.de',
     '/datenschutz/': 'Datenschutzerklärung | Laboraquise.de',
     '/wissen/': 'Wissen für Dentallabore: Akquise, Kalkulation, Gründung | Laboraquise.de',

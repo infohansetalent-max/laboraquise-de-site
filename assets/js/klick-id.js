@@ -29,7 +29,7 @@
 
   function ergaenzen(link) {
     var ziel = link.getAttribute("href");
-    if (!ziel || ziel.indexOf("/termin/") !== 0) return;
+    if (!ziel || (ziel.indexOf("/termin/") !== 0 && ziel.indexOf("/rueckruf/") !== 0)) return;
     for (var i = 0; i < SCHLUESSEL.length; i++) {
       if (ziel.indexOf(SCHLUESSEL[i] + "=") !== -1) return;
     }
@@ -37,7 +37,7 @@
   }
 
   function alleLinks() {
-    var links = document.querySelectorAll('a[href^="/termin/"]');
+    var links = document.querySelectorAll('a[href^="/termin/"],a[href^="/rueckruf/"]');
     Array.prototype.forEach.call(links, ergaenzen);
   }
 
@@ -53,7 +53,7 @@
   document.addEventListener("click", function (e) {
     var ziel = e.target;
     if (!ziel || !ziel.closest) return;
-    var link = ziel.closest('a[href^="/termin/"]');
+    var link = ziel.closest('a[href^="/termin/"],a[href^="/rueckruf/"]');
     if (link) ergaenzen(link);
   }, true);
 })();

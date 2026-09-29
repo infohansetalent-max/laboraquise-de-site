@@ -182,7 +182,7 @@ try {
   assert.match(await p.locator('h1').innerText(), /Dentallabor/);
   await p.locator('a[data-modal_1-trigger]:visible').first().click();
   await p.waitForURL(base + '/termin/');
-  await p.getByRole('link', { name: 'Termin in einem neuen Fenster aussuchen' }).waitFor();
+  await p.getByRole('link', { name: 'In neuem Fenster aussuchen' }).waitFor();
   results.push({ flow: 'Ohne JavaScript: Startseite → CTA → Terminseite mit Calendly-Ersatzlink', status: 'PASS' });
   await c.close();
 } finally {
