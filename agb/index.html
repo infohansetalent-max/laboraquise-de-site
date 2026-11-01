@@ -47,6 +47,10 @@
           display: flex; gap: 22px; flex-wrap: wrap; }
   @media (max-width: 560px) { .inhalt ol { columns: 1; } }
 </style>
+<link rel="stylesheet" href="/assets/marketing/posthog-consent.css?v=20261101wahl">
+<script defer src="/assets/marketing/posthog-config.js?v=20261101lba"></script>
+<script defer src="/assets/marketing/posthog-pilot.js?v=20261101lba"></script>
+<script defer src="/assets/marketing/posthog-consent.js?v=20261101wahl"></script>
 </head>
 <body>
 <div class="kopf"><a href="/"><span class="marke-text">labor<span class="akzent">aquise</span>.de</span></a></div>
@@ -177,6 +181,29 @@
   <a href="/impressum/">Impressum</a>
   <a href="/datenschutz/">Datenschutz</a>
   <a href="/agb/">AGB</a>
+</div>
+<div class="posthog-auswahl" data-posthog-consent hidden>
+  <button type="button" class="privacy-oeffnen" data-privacy-open>Cookie-Einstellungen</button>
+  <section class="privacy-panel" data-privacy-panel role="dialog" aria-labelledby="posthog-titel" hidden>
+    <h2 id="posthog-titel">Cookies</h2>
+    <p>Mit PostHog EU werten wir Seitenaufrufe und Schritte bis zu Anfragen oder Buchungen aus. Alles bleibt auch ohne Zustimmung nutzbar.</p>
+    <div class="privacy-aktionen">
+      <button type="button" data-posthog-decline>Alle ablehnen</button>
+      <button type="button" data-posthog-allow>Alle erlauben</button>
+    </div>
+    <div class="privacy-links">
+      <details data-privacy-details>
+        <summary>Auswahl anpassen</summary>
+        <div class="privacy-details">
+          <label><input type="checkbox" data-privacy-statistik><span>Statistik mit PostHog EU</span></label>
+
+          <p>Die Statistik verwendet eine zufällige Browserkennung. Namen, Kontaktdaten und Formulareingaben gehen nicht an PostHog. Es gibt keine Bildschirmaufzeichnungen.</p>
+          <button type="button" data-privacy-save>Auswahl speichern</button>
+        </div>
+      </details>
+      <a href="/datenschutz/#posthog">Datenschutz</a>
+    </div>
+  </section>
 </div>
 </body>
 </html>

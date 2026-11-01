@@ -45,6 +45,10 @@
     @media(max-width:790px){main{grid-template-columns:1fr;gap:24px;padding-top:38px}.illustration{display:none}.karte{max-width:560px}h1{font-size:38px}}
     @media(max-width:420px){main{padding-left:16px;padding-right:16px}.karte{padding:20px}h1{font-size:34px}}
   </style>
+<link rel="stylesheet" href="/assets/marketing/posthog-consent.css?v=20261101wahl">
+<script defer src="/assets/marketing/posthog-config.js?v=20261101lba"></script>
+<script defer src="/assets/marketing/posthog-pilot.js?v=20261101lba"></script>
+<script defer src="/assets/marketing/posthog-consent.js?v=20261101wahl"></script>
 </head>
 <body>
   <header class="kopf"><a class="marke" href="/" aria-label="Laboraquise Startseite">labor<span>aquise.de</span></a></header>
@@ -81,6 +85,7 @@
       var fehler=document.getElementById('fehler');
       var knopf=document.getElementById('absenden');
       var schluessel=null;
+      var posthogHttpOk=false;
       function zeigeFehler(text,feld){fehler.textContent=text;fehler.hidden=false;if(feld)form.elements[feld].focus()}
       form.addEventListener('submit',function(e){
         e.preventDefault();fehler.hidden=true;
@@ -97,9 +102,10 @@
         var payload={angebot:'laboraquise',full_name:String(daten.get('full_name')).trim(),firma:String(daten.get('firma')).trim(),phone:String(daten.get('phone')).trim(),email:String(daten.get('email')).trim(),consent:true,idempotenz_schluessel:schluessel,utm:utm};
         knopf.disabled=true;knopf.textContent='Wird gesendet';
         fetch('https://portal.lokalejobsuche.de/api/eigenvertrieb/submit',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)})
-          .then(function(r){return r.json().catch(function(){return {ok:false}})})
+          .then(function(r){posthogHttpOk=r.ok;return r.json().catch(function(){return {ok:false}})})
           .then(function(antwort){
             knopf.disabled=false;knopf.textContent='Rückruf anfordern';
+            if(window.LjsPostHog)window.LjsPostHog.lead(antwort,posthogHttpOk);
             if(antwort.ok===true&&antwort.eingang_id){form.hidden=true;document.getElementById('erfolg').hidden=false;return}
             zeigeFehler(antwort.error||'Die Anfrage konnte nicht gesendet werden. Bitte versuchen Sie es erneut.')
           })
@@ -107,5 +113,28 @@
       })
     })();
   </script>
+<div class="posthog-auswahl" data-posthog-consent hidden>
+  <button type="button" class="privacy-oeffnen" data-privacy-open>Cookie-Einstellungen</button>
+  <section class="privacy-panel" data-privacy-panel role="dialog" aria-labelledby="posthog-titel" hidden>
+    <h2 id="posthog-titel">Cookies</h2>
+    <p>Mit PostHog EU werten wir Seitenaufrufe und Schritte bis zu Anfragen oder Buchungen aus. Alles bleibt auch ohne Zustimmung nutzbar.</p>
+    <div class="privacy-aktionen">
+      <button type="button" data-posthog-decline>Alle ablehnen</button>
+      <button type="button" data-posthog-allow>Alle erlauben</button>
+    </div>
+    <div class="privacy-links">
+      <details data-privacy-details>
+        <summary>Auswahl anpassen</summary>
+        <div class="privacy-details">
+          <label><input type="checkbox" data-privacy-statistik><span>Statistik mit PostHog EU</span></label>
+
+          <p>Die Statistik verwendet eine zufällige Browserkennung. Namen, Kontaktdaten und Formulareingaben gehen nicht an PostHog. Es gibt keine Bildschirmaufzeichnungen.</p>
+          <button type="button" data-privacy-save>Auswahl speichern</button>
+        </div>
+      </details>
+      <a href="/datenschutz/#posthog">Datenschutz</a>
+    </div>
+  </section>
+</div>
 </body>
 </html>
