@@ -30,15 +30,3 @@ Im EU-Projekt wurden 29 technische Prüfeinträge gelesen: Seitenaufrufe aller 1
 [Laboraquise-Dashboard](https://eu.posthog.com/project/329103/dashboard/1074311): Seiten `Rr0Iy6IP`, bestätigte Anfragen/Buchungen `PI42pmbk`, Anfragefunnel `m1QN6s6c`. Die PostHog-Oberfläche zählt zustimmende Browser, keine eindeutigen Menschen und keinen gesamten Websiteverkehr.
 
 Die direkten Laboraquise-Buchungsseiten wurden nach dem Portal-Deploy aufgerufen. Sie zeigen die separate kompakte Zustimmung; eine lokalejobsuche-Zustimmung aktiviert Laboraquise nicht. Ablehnung und Neuladen laden kein SDK. Eingebettete Buchungen verwenden weiterhin die Entscheidung der umgebenden Laboraquise-Seite.
-
-## Vertrauenssignale, 01.11.2026
-
-Die Startseite enthält einen kompakten Streifen unter dem Einstieg. Die Gestaltung liegt in `assets/vertrauen/vertrauen.css`; Lucide-Icons und Lizenz werden lokal ausgeliefert. Keine neuen Skripte, Cookies oder extern geladenen Siegel. Der aufklappbare Hinweis erklärt HTTPS, den unterstützenden KI-Einsatz, Kundenfreigaben und die Herkunft der Google-Bewertungen.
-
-Partnerstatus: von Ben am 01.11.2026 bestätigt. Die Bezeichnungen stehen als Text, offizielle Partnergrafiken wurden noch nicht aus den Konten abgerufen. Es werden keine offiziellen Partnerlogos nachgebildet.
-
-Bewertungen: Das von der bestehenden Website verlinkte Profil Hansetalent zeigte am 01.11.2026 4,5 Sterne aus 15 Rezensionen. Deshalb keine 4,9-Angabe und keine falsche Übertragung der Bewertungen auf Praxisakquise. Ben hat auf Rückfrage keine weitere Profilzuordnung verlangt; die Anzeige bleibt deshalb ohne Gesamtbewertungszahl.
-
-Eigenes Sicherheitszeichen: konkrete HTTPS-Aussage, keine externe Zertifizierung und keine pauschale Behauptung vollständiger DSGVO-Konformität. Herkunft: persönliche Betreuung aus Hamburg, keine pauschale Aussage über deutsche Fertigung oder deutsche Serverstandorte.
-
-Geprüft: beide Startseiten bei 390 und 1200 Pixeln, kein Überlauf im neuen Abschnitt, General Sans, Aufklappen per Maus und Tastatur und Datenschutzlink. Vorhandene Datenschutz- und Trackingprüfungen sind grün. Auslieferungsstand im zugehörigen Pull Request.
