@@ -16,7 +16,7 @@
     statistic.checked = window.LjsPostHog.consent() === 'yes';
     if (ads()) advertising.checked = ads().consent() === 'ja';
     if (!decidedHere && available) {
-      var unanswered = !window.LjsPostHog.consent() || (ads() && !ads().consent());
+      var unanswered = !window.LjsPostHog.consent();
       panel.hidden = !unanswered;
     }
   }
