@@ -2,7 +2,7 @@
 
 ## Freiwillige Statistik, 01.11.2026
 
-Ben hat PostHog für die öffentlichen Seiten von lokalejobsuche.de und laboraquise.de freigegeben. Die 14 öffentlichen Seiten sind mit PR 19 und Commit `292907f79e7c81d2e9a191b4f8e0b44dfa32cf23` auf GitHub Pages veröffentlicht und live geprüft. Die direkten Portal-Buchungen folgen mit Portal-PR 336.
+Ben hat PostHog für die öffentlichen Seiten von lokalejobsuche.de und laboraquise.de freigegeben. Die 14 öffentlichen Seiten sind mit PR 19 und Commit `292907f79e7c81d2e9a191b4f8e0b44dfa32cf23` auf GitHub Pages veröffentlicht und live geprüft. Die aktuelle Cookie-Auswahl ist mit PR 20 und Commit `fc295a8f9bd499694268009d948ef267f8983781` veröffentlicht. Direkte Portal-Buchungen sind mit Portal-PR 336, Commit `14b7833b3a81dc417629c039daf3cad9d65542d5`, aktiv.
 
 Alle 14 öffentlichen HTML-Seiten verwenden dieselbe kompakte Cookie-Auswahl. Ein Klick erlaubt oder verweigert die Statistik; die Wahl lässt sich über Cookie-Einstellungen ändern. Es werden keine Werbetags ergänzt. Die PostHog-Daten liegen im vorhandenen EU-Projekt 329103. Die Ereignisse sind durch `site=laboraquise.de` und `pilot=lba-website-v1` von lokalejobsuche.de getrennt.
 
@@ -23,8 +23,10 @@ Auslieferung: GitHub Pages, Zweig `main`, eigene Domain `www.laboraquise.de`. Ei
 
 ### Live-Nachweis, 01.11.2026
 
-GitHub Pages meldet den genannten Commit als gebaut; der ausgelieferte Messclient stimmt per SHA-256 mit dem Quellstand überein. Alle 14 Seiten laden ohne erneute Auswahl nach gültiger Zustimmung. Vor Zustimmung und nach Ablehnung beziehungsweise Widerruf wird kein Analyse-SDK geladen. Der Widerruf wurde mit erneutem Seitenaufruf geprüft.
+GitHub Pages meldet den aktuellen Seitencommit als gebaut; der ausgelieferte Messclient stimmt per SHA-256 mit dem Quellstand überein. Alle 14 Seiten laden ohne erneute Auswahl nach gültiger Zustimmung. Vor Zustimmung und nach Ablehnung beziehungsweise Widerruf wird kein Analyse-SDK geladen. Der Widerruf wurde mit erneutem Seitenaufruf geprüft.
 
-Im EU-Projekt wurden 29 technische Prüfeinträge gelesen: Seitenaufrufe aller 14 Pfade, Einstiegsereignisse und ein Formularbeginn ohne Absenden. Die Testkennung `2f546916-5e91-434d-9adb-a7e3a580f3e8` gehört nicht zum Besucherverkehr und muss bei Auswertungen ausgeschlossen werden. Keine echten Anfragen oder Buchungen wurden als Test erzeugt. Die kontrollierten Ereignisfelder enthielten ausschließlich die vorgesehenen Kategorien und technischen Kennungen.
+Im EU-Projekt wurden 29 technische Prüfeinträge gelesen: Seitenaufrufe aller 14 Pfade, Einstiegsereignisse und ein Formularbeginn ohne Absenden. Die Testkennung `2f546916-5e91-434d-9adb-a7e3a580f3e8` gehört nicht zum Besucherverkehr. Sie ist im gespeicherten Dashboard-Standardfilter und ausdrücklich in der SQL-Seitenübersicht ausgeschlossen. Keine echten Anfragen oder Buchungen wurden als Test erzeugt. Die kontrollierten Ereignisfelder enthielten ausschließlich die vorgesehenen Kategorien und technischen Kennungen.
 
 [Laboraquise-Dashboard](https://eu.posthog.com/project/329103/dashboard/1074311): Seiten `Rr0Iy6IP`, bestätigte Anfragen/Buchungen `PI42pmbk`, Anfragefunnel `m1QN6s6c`. Die PostHog-Oberfläche zählt zustimmende Browser, keine eindeutigen Menschen und keinen gesamten Websiteverkehr.
+
+Die direkten Laboraquise-Buchungsseiten wurden nach dem Portal-Deploy aufgerufen. Sie zeigen die separate kompakte Zustimmung; eine lokalejobsuche-Zustimmung aktiviert Laboraquise nicht. Ablehnung und Neuladen laden kein SDK. Eingebettete Buchungen verwenden weiterhin die Entscheidung der umgebenden Laboraquise-Seite.
