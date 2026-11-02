@@ -30,3 +30,12 @@ Im EU-Projekt wurden 29 technische Prüfeinträge gelesen: Seitenaufrufe aller 1
 [Laboraquise-Dashboard](https://eu.posthog.com/project/329103/dashboard/1074311): Seiten `Rr0Iy6IP`, bestätigte Anfragen/Buchungen `PI42pmbk`, Anfragefunnel `m1QN6s6c`. Die PostHog-Oberfläche zählt zustimmende Browser, keine eindeutigen Menschen und keinen gesamten Websiteverkehr.
 
 Die direkten Laboraquise-Buchungsseiten wurden nach dem Portal-Deploy aufgerufen. Sie zeigen die separate kompakte Zustimmung; eine lokalejobsuche-Zustimmung aktiviert Laboraquise nicht. Ablehnung und Neuladen laden kein SDK. Eingebettete Buchungen verwenden weiterhin die Entscheidung der umgebenden Laboraquise-Seite.
+
+
+## Reine Seitenaufrufe ohne Cookie-Zustimmung, 02.11.2026
+
+Zusätzlich zur freiwilligen PostHog-Analyse sendet `assets/marketing/seitenaufrufe.js` genau Website und feste Seitenkategorie an den eigenen Portal-Endpunkt `/api/funnels/seitenaufruf`. Keine Cookies, Browser-Speicher, IP- oder Besucherkennung, Herkunft, Kampagnenwerte oder Formularinhalte. Der Server erhöht eine Tageszahl in `webseiten_aufrufe`. Vorschauhosts und jedes Vorkommen von `ljs_tracking_test` sind ausgeschlossen.
+
+Die Auswertung steht in der vorhandenen Marketing-Übersicht des Portals, getrennt je Marke. Gezählt werden Aufrufe, nicht eindeutige Menschen. Wiederholungen zählen erneut. Blocker, fehlendes JavaScript und technische Ausfälle können Messungen verhindern. Der ältere Kampagnenzähler und PostHog werden nicht hinzuaddiert. Keine rückwirkende Ergänzung fehlender Aufrufe. Der neue Client liegt identisch im Portal unter `public/marketing/seitenaufrufe.js`.
+
+Vor Veröffentlichung: isolierte Tests, alle eingebundenen Seiten und dynamische Wege prüfen. Portal zuerst veröffentlichen, damit Route und Tabelle existieren; anschließend beide Websites. Live-Nachweise werden nach Veröffentlichung ergänzt.
