@@ -202,7 +202,7 @@ Ungeklärt bleiben Indexierung, organische Nachfrage, serverseitige Anfragespeic
 
 ## Phase 3: lokale Inhaltsvorschau und Google-Stimme, 14.09.2026
 
-Produktionscodeänderung in dieser Ergänzung: ein kurzer Absatz bei den Referenzen in `index.html`. Original: [Google-Bewertung von Jürgen Malkomeß bei Hansetalent](https://maps.app.goo.gl/tAnUemvQU2mBAh94A), direkt im Google-Profil gelesen. Wortlaut der Ergänzung: „Danke für die unkomplizierte Zusammenarbeit.“ Die vom Nutzer erwähnten Ergebniszahlen sind nicht Bestandteil dieser Bewertung und wurden nicht übernommen.
+Produktionscodeänderung in dieser Ergänzung: ein kurzer Absatz bei den Referenzen in `index.html`. Original: eine Google-Bewertung, direkt im Google-Profil gelesen. Wortlaut der Ergänzung: „Danke für die unkomplizierte Zusammenarbeit.“ Die vom Nutzer erwähnten Ergebniszahlen sind nicht Bestandteil dieser Bewertung und wurden nicht übernommen.
 
 Zwei zusätzliche HTML-Seiten wurden außerhalb des Repositorys für eine ausschließlich lokale Vorschau gebaut. Der private Artikel bleibt aus Produktionsnavigation und Sitemap ausgeschlossen. Öffentliche Metadaten und strukturierte Daten für die neuen URLs sind noch nicht in Produktion aktiv. Die Vorschauseiten haben eindeutige Titles, Beschreibungen, jeweils eine H1 und noindex. Keine erfundenen Autoren, Veröffentlichungsdaten oder Bewertungen im Markup.
 
