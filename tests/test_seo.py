@@ -30,6 +30,7 @@ TITLES = {
     '/wissen/eigenlabor-und-praxislabor/': 'Eigenlabor und Praxislabor: was das für Ihr Dentallabor bedeutet | Laboraquise.de',
     '/wissen/zahntechnik-in-zahlen/': 'Wie viele Dentallabore gibt es in Deutschland? Zahlen mit Quelle | Laboraquise.de',
     '/agb/': 'Allgemeine Geschäftsbedingungen | Laboraquise.de',
+    '/agb/2026-08-27/': 'AGB, Fassung vom 27. August 2026 | Laboraquise.de',
 }
 
 class Page(HTMLParser):
@@ -59,12 +60,12 @@ class SEO(unittest.TestCase):
                 self.assertEqual(len(desc), 1)
                 self.assertTrue(desc[0]['content'].strip())
                 self.assertEqual([a['content'] for a in p.attrs('meta', name='robots')],
-                                 ['noindex, follow' if path == '/agb/' else 'index, follow'])
+                                 ['noindex, follow' if path.startswith('/agb/') else 'index, follow'])
                 self.assertFalse(p.attrs('meta', name='googlebot'))
     def test_sitemap_and_robots(self):
         tree = ElementTree.parse(ROOT / 'sitemap.xml')
         urls = [e.text for e in tree.findall('.//{*}loc')]
-        self.assertCountEqual(urls, [ORIGIN + p for p in PAGES if p != '/agb/'])
+        self.assertCountEqual(urls, [ORIGIN + p for p in PAGES if not p.startswith('/agb/')])
         self.assertFalse(tree.findall('.//{*}lastmod'), 'Kein unbelegtes Änderungsdatum')
         robots = (ROOT / 'robots.txt').read_text()
         self.assertIn('Sitemap: ' + ORIGIN + '/sitemap.xml', robots)
@@ -186,7 +187,7 @@ class SEO(unittest.TestCase):
             self.assertIn(name, skript)
         self.assertNotIn('document.cookie', skript)
         self.assertNotIn('localStorage', skript)
-        for path in [p for p in PAGES if p not in ('/termin/', '/impressum/', '/datenschutz/', '/agb/')]:
+        for path in [p for p in PAGES if p not in ('/termin/', '/impressum/', '/datenschutz/', '/agb/', '/agb/2026-08-27/')]:
             with self.subTest(path=path):
                 self.assertIn('/assets/js/klick-id.js', read(path).replace('"assets/js/', '"/assets/js/'))
         termin = read('/termin/')

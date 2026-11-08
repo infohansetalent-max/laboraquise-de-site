@@ -5,7 +5,7 @@ from pathlib import Path
 from urllib.parse import unquote, urlsplit
 
 ROOT = Path(__file__).resolve().parents[1]
-PAGES = ('/', '/termin/', '/rueckruf/', '/impressum/', '/datenschutz/', '/agb/', '/wissen/',
+PAGES = ('/', '/termin/', '/rueckruf/', '/impressum/', '/datenschutz/', '/agb/', '/agb/2026-08-27/', '/wissen/',
          '/wissen/warum-zahnaerzte-das-dentallabor-wechseln/',
          '/wissen/kundenakquise-im-dentallabor/',
          '/wissen/preise-und-stundensatz-im-dentallabor/',
