@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="de">
-<head>
+<head><script defer src="/assets/marketing/besuch.js?v=20261111"></script>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Rückruf für Ihr Dentallabor anfordern | Laboraquise.de</title>
@@ -47,9 +47,9 @@
   </style>
 <link rel="stylesheet" href="/assets/marketing/posthog-consent.css?v=20261101wahl">
 <script defer src="/assets/marketing/posthog-config.js?v=20261101lba"></script>
-<script defer src="/assets/marketing/posthog-pilot.js?v=20261101lba"></script>
+<script defer src="/assets/marketing/posthog-pilot.js?v=20261111quellen"></script>
 <script defer src="/assets/marketing/posthog-consent.js?v=20261101wahl2"></script>
-<script defer src="/assets/marketing/seitenaufrufe.js?v=20261102" data-website="laboraquise.de" data-seite="/rueckruf"></script>
+<script defer src="/assets/marketing/seitenaufrufe.js?v=20261111quellen" data-website="laboraquise.de" data-seite="/rueckruf"></script>
 </head>
 <body>
   <header class="kopf"><a class="marke" href="/" aria-label="Laboraquise Startseite">labor<span>aquise.de</span></a></header>
@@ -97,7 +97,7 @@
         if(!form.elements.email.validity.valid){zeigeFehler('Bitte prüfen Sie Ihre E-Mail-Adresse.','email');return}
         if(!form.elements.consent.checked){zeigeFehler('Bitte stimmen Sie der Datenverarbeitung zu.','consent');return}
         if(!schluessel)schluessel=crypto.randomUUID();
-        var werte=new URLSearchParams(location.search),utm={anfrageart:'rueckruf'};
+        var werte=new URLSearchParams(window.LjsBesuch ? window.LjsBesuch.parameter() : location.search),utm={anfrageart:'rueckruf'};
         ['source','medium','campaign','content','term'].forEach(function(name){var wert=werte.get('utm_'+name);if(wert&&wert.trim())utm[name]=wert.trim().slice(0,160)});
         if(!utm.term){['gclid','gbraid','wbraid'].some(function(name){var wert=werte.get(name);if(!wert)return false;utm.term=(name+':'+wert).slice(0,160);return true})}
         var payload={angebot:'laboraquise',full_name:String(daten.get('full_name')).trim(),firma:String(daten.get('firma')).trim(),phone:String(daten.get('phone')).trim(),email:String(daten.get('email')).trim(),consent:true,idempotenz_schluessel:schluessel,utm:utm};
