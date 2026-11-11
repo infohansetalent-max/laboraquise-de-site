@@ -27,16 +27,19 @@
   function page() {
     var host = window.location.hostname;
     var path = window.location.pathname.replace(/\/$/, '') || '/';
-    if (new URLSearchParams(window.location.search).has('ljs_tracking_test') || !/^(www\.)?laboraquise\.de$/.test(host) || pages.indexOf(path) < 0) return null;
+    if (new URLSearchParams(window.location.search).has('ljs_tracking_test') || window.LjsBesuch?.ausgeschlossen() || !/^(www\.)?laboraquise\.de$/.test(host) || pages.indexOf(path) < 0) return null;
     return { path: path, surface: path === '/termin' ? 'booking' : 'landing', audience: /^(\/agb|\/impressum|\/datenschutz)/.test(path) ? 'general' : 'employer' };
   }
   function context() { var value = page(); return value ? value.surface : ''; }
   function enabled() { return config.enabled === true && /^phc_[a-zA-Z0-9_-]{10,}$/.test(config.projectKey) && !!context(); }
   function permitted() { return enabled() && window.navigator.doNotTrack !== '1' && cookie(CONSENT) === 'yes'; }
   function channel() {
+    var aktuelleQuelle = window.LjsBesuch?.herkunft();
+    var kanal = { google: 'organic', google_ads: 'google', meta: 'meta', linkedin: 'referral', mail: 'email', andere: 'referral' }[aktuelleQuelle];
+    if (kanal) return kanal;
     var stored = cookie(CHANNEL);
     if (channels.indexOf(stored) >= 0) return stored;
-    var params = new URLSearchParams(window.location.search);
+    var params = new URLSearchParams(window.LjsBesuch ? window.LjsBesuch.parameter() : window.location.search);
     var source = (params.get('utm_source') || '').toLowerCase();
     var medium = (params.get('utm_medium') || '').toLowerCase();
     if (/^(google|googleads|adwords)$/.test(source)) return 'google';

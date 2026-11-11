@@ -39,3 +39,15 @@ Zusätzlich zur freiwilligen PostHog-Analyse sendet `assets/marketing/seitenaufr
 Die Auswertung steht in der vorhandenen Marketing-Übersicht des Portals, getrennt je Marke. Gezählt werden Aufrufe, nicht eindeutige Menschen. Wiederholungen zählen erneut. Blocker, fehlendes JavaScript und technische Ausfälle können Messungen verhindern. Der ältere Kampagnenzähler und PostHog werden nicht hinzuaddiert. Keine rückwirkende Ergänzung fehlender Aufrufe. Der neue Client liegt identisch im Portal unter `public/marketing/seitenaufrufe.js`.
 
 Vor Veröffentlichung: isolierte Tests, alle eingebundenen Seiten und dynamische Wege prüfen. Portal zuerst veröffentlichen, damit Route und Tabelle existieren; anschließend beide Websites. Live-Nachweise werden nach Veröffentlichung ergänzt.
+
+## Quellen und eigene Aufrufe, 11.11.2026
+
+Im Arbeitszweig vorbereitet. Veröffentlichung und Live-Nachweis stehen noch aus.
+
+`assets/marketing/besuch.js` übernimmt erkennbare Quellen aus Kampagnenangaben oder dem verweisenden Host. Die Quelle wird über eigene Links bis zur Anfrage weitergegeben, auch bei nachgeladenen Links. Es wird keine zusätzliche Besucherkennung angelegt. Der vorhandene PostHog-Client erhält diese Quelle unter seiner bisherigen Einwilligung.
+
+`?ljs_tracking_intern=1` schließt den eigenen Browser für ein Jahr aus, `?ljs_tracking_intern=0` hebt dies auf. Das Cookie `ljs-eigene-aufrufe-v1` enthält nur diese Einstellung. Der angemeldete Portalbereich setzt den Ausschluss für die lokalejobsuche-Domain. Laboraquise verwendet dieselbe Einstellung auf ihrer eigenen Domain. Der bestehende Testmarker bleibt zusätzlich wirksam, erkannte automatisierte Browser zählen nicht.
+
+Der Tageszähler `webseiten_aufrufe` erhält eine feste Herkunftskategorie. Aufrufsumme, Quellen und Seitenübersicht werden aus denselben Zeilen berechnet. Altbestand bleibt unter Unbekannt. Die neue Datenbankfunktion und der bisherige Zwei-Parameter-Aufruf sind kompatibel. Der ältere Kampagnenzähler und PostHog bleiben eigenständige Messungen.
+
+Prüfung im Arbeitszweig: Quellenweitergabe, Browser-Ausschluss und Widerruf, feste Datenfelder, Datenbankrechte, Summen sowie zweimalige Migration in einer isolierten lokalen Datenbank. Der Veröffentlichungsnachweis gehört nach Freigabe hierher.
